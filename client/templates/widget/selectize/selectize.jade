@@ -1,0 +1,11 @@
+template(name="selectize")
+  select(name="key" multiple=isMultiple)
+    option(value="") {{{_i18n.placeholder}}}
+    if optgroups
+      each optgroups
+        optgroup(label=label)
+          each options
+            option(value=key selected="{{../../isSelected key}}")= value
+    else
+      each options
+        option(value=key)= value

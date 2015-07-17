@@ -1,0 +1,46 @@
+template(name="menu")
+  .hamburger-menu.dropdown.pull-right
+    i.fa.fa-fw.fa-bars.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
+    ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+      if not Pack.isApplied
+        li(role='presentation')
+          a(href="/apps", role='menuitem', tabindex='-1')
+            i.fa.fa-fw.fa-cloud
+            | Other apps
+        li(role='presentation')
+          a(href="/Trello", role='menuitem', tabindex='-1')
+            i.fa.fa-fw.fa-trello
+            | Trello actions
+        li(role='presentation')
+          a(href="/pricing", role='menuitem', tabindex='-1')
+            i.fa.fa-fw.fa-dollar
+            | Pricing
+        li.divider
+      if currentUserReady
+        if canSeeSteps
+          li(role='presentation')
+            a(href="/steps", role='menuitem', tabindex='-1')
+              i.fa.fa-fw.fa-bolt
+              | Steps
+        if currentUserField "isAdmin"
+          li(role='presentation')
+            a(href="/health", role='menuitem', tabindex='-1')
+              i.fa.fa-fw.fa-heart
+              | Health
+          li(role='presentation')
+            a(href="/stats", role='menuitem', tabindex='-1')
+              i.fa.fa-fw.fa-bar-chart
+              | Statistics
+        if not Pack.isApplied
+          li(role='presentation')
+            a(href="/disclaimer", role='menuitem', tabindex='-1')
+              i.fa.fa-fw.fa-file-o
+              | Disclaimer
+          li(role='presentation')
+            a.disconnect(href="#", role='menuitem', tabindex='-1', data-api="Trello")
+              i.fa.fa-fw.fa-plug
+              | Disconnect Trello
+        li(role='presentation')
+          a.logout(href="#", role='menuitem', tabindex='-1')
+            i.fa.fa-fw.fa-power-off
+            | Logout

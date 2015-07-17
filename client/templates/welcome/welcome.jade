@@ -1,0 +1,19 @@
+template(name="welcome")
+  .welcome
+    main#top.masthead.color1(role='main')
+      .header
+        .real-sugar
+          a(href='/') Foreach for Trello
+      .container
+        h1
+          | Bulk Operations for Trello cards
+        h3
+          | Save time
+          span.typed
+          br.visible-xs
+          | for many cards at once
+        .breath.row
+          +loginButtons
+
+  .footer.text-muted.text-center
+    | © 2014 Foreach is batch actions tool to save time on mundane tasks. <a href="mailto:denis.d.gorbachev@gmail.com">Contact me</a> if you have questions.

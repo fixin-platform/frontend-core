@@ -1,0 +1,8 @@
+template(name="RunTaskEach")
+  +ManagedStep(name=template skipIssues=true step=.)
+    .list-group-item-heading
+      .fa.fa-fw(class="fa-{{{_i18n.icon}}}")
+      span.name {{{_i18n.default}}}
+    .row
+      .col-xs-12
+        +stepBodyEach

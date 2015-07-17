@@ -1,0 +1,13 @@
+template(name="rowsPagination")
+  with pagination
+    .rows-pagination
+      ul.pagination
+        li(class="{{#if isFirstPage}}disabled{{/if}}")
+          a(href="#", aria-label="Previous", data-page="1")
+            span(aria-hidden="true") &laquo;
+        each pages
+          li(class="{{#if condition . 'is' ../active}}active{{/if}}")
+            a(href="#", data-page="{{.}}") {{.}}
+        li(class="{{#if isLastPage}}disabled{{/if}}")
+          a(href="#", aria-label="Next", data-page="{{lastPage}}")
+            span(aria-hidden="true") &raquo;

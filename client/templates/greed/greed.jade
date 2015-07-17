@@ -1,0 +1,19 @@
+template(name="greed")
+  .greed-modal-content.modal-content
+    .modal-header
+      h4.modal-title
+        button.visible-xs.close(type='button', data-dismiss='modal', aria-label='Close')
+          span(aria-hidden='true') &times;
+        if condition currentUserPlan._id 'is' 'free'
+          | Choose plan
+        else
+          | Upgrade to {{higherPlan.name}} plan
+        if action
+          | to {{_shorthand}} {{_appendixAllSelected}} at once
+        else
+          | to perform an action
+    .modal-body
+      if condition currentUserPlan._id 'isnt' 'free'
+        p.text-center
+          +currentPlan
+      +plans

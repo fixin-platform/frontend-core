@@ -1,0 +1,61 @@
+template(name="blueprintTeaser")
+  .app.app-blueprint.container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          .panel-heading
+            h4
+              +menu
+              +connection
+              +megaphone
+              a.splinterlink(href="/apps")
+                span.fa.fa-home
+                span.splinter Apps
+              | ›
+              a.splinterlink(href="/{{app.key}}")
+                if app.imageUrl
+                  img.app-logo(src="{{app.imageUrl}}")
+                span.splinter {{app.name}}
+              | ›
+              | {{blueprint.name}}
+          .panel-body
+            if blueprint.isImplemented
+              h5
+                .fa.fa-fw(class="fa-{{blueprint.icon}}")
+                | {{blueprint.name}} (<a href="/{{app.key}}">choose another recipe</a>)
+            else
+              h4 Do you need to {{lcfirst blueprint.name}} {{blueprint.appendix}} at once?
+              .row
+                form.col-xs-12.col-md-4.col-md-offset-4
+                  if condition currentUserVote "and" currentUserTokenEmail
+                    .form-group
+                      button.vote.btn.btn-success.btn-lg(type="button" disabled="true")
+                        span.fa.fa-check
+                        | Thanks for your vote!
+                  else
+                    p(class="{{#if not currentUserVote}}hidden{{/if}}") Please enter your email to confirm the vote:
+                    .form-group(class="{{#if not currentUserVote}}hidden{{/if}}")
+                      input.form-control(name="email" autocomplete="off" placeholder="Your email" value="{{#if currentUserReady}}{{currentUserEmail}}{{/if}}")
+                    .form-group(class="{{#if not currentUserVote}}hidden{{/if}}")
+                      button.btn.btn-success(type="submit")
+                        span.fa.fa-check
+                        | Confirm vote
+                    .form-group(class="{{#if currentUserVote}}hidden{{/if}}")
+                      button.vote.btn.btn-success.btn-lg(type="button")
+                        span.fa.fa-thumbs-o-up
+                        | Vote for this recipe
+                  if votesCount
+                    p.text-muted(class="{{#if condition currentUserVote 'and' currentUserTokenEmail}}visible{{else}}{{#if currentUserVote}}hidden{{/if}}{{/if}}")
+                      | {{_ "votes.already" count=votesCount}},
+                      if condition votesCountDown ">=" 0
+                        | {{_ "votes.more" count=votesCountDown}}
+                      else
+                        | {{_ "votes.keep" count=votesCountDown}}
+                  if condition currentUserVote "and" currentUserTokenEmail
+                    p
+                      +tweet(text=tweetText)
+              if condition votesCount ">=" 10
+                h5 I'll implement this recipe on July, 30th.
+              else
+                h5 I'll implement this recipe as soon as it gets 10 votes.
+              p <a href="/{{app.key}}">See more {{app.name}} recipes</a> or contact me at <a href="mailto:denis.d.gorbachev@gmail.com?subject={{app.name}}" target="_blank">Denis.D.Gorbachev@gmail.com</a>.

@@ -1,0 +1,12 @@
+template(name="ManagedStep")
+  .step.list-group-item.large-list-group-item(class="{{#if not step.isCurrent}}text-muted{{/if}}", data-name=step.name)
+    if step.isCompleted
+      +UI.dynamic(template=isCompletedTemplateName data=step)
+    else
+      if step.isActive
+        +UI.contentBlock
+      else
+        +UI.dynamic(template=isPendingTemplateName data=step)
+    if not skipIssues
+      .list-group-item-text
+        +issues(step)

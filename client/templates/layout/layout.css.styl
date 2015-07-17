@@ -1,0 +1,69 @@
+html body
+  background-color #ececec
+
+.list-group
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  border-width 0
+  .list-group-item
+    border-left-width 0
+    border-right-width 0
+    border-bottom-width 0
+    &:first-child
+      border-top-width 0
+
+.control-icons > *
+  cursor pointer
+  color #bbbbbb
+  &:hover, &:focus, &:active
+    color #333333
+
+.code
+  font-family "Courier New", monospace;
+  font-weight bold
+
+.panel-top
+  margin-top 20px
+
+.textual, a.textual, a:active.textual, a:hover.textual, a:link.textual, a:visited.textual
+  color inherit
+  text-decoration underline
+
+.underlined, a.underlined, a:active.underlined, a:hover.underlined, a:link.underlined, a:visited.underlined
+  text-decoration underline
+
+.not-underlined, a.not-underlined, a:active.not-underlined, a:hover.not-underlined, a:link.not-underlined, a:visited.not-underlined
+  text-decoration none
+  &:hover
+    text-decoration none
+
+a:hover.text-muted
+  color #555555
+
+a.splinterlink, a.splinterlink:link, a.splinterlink:hover, a.splinterlink:active, a.splinterlink:focus
+  &.text-muted
+    color #bbbbbb
+  color #444444
+  text-decoration none
+  .splinter
+    color #2196f3
+
+a.splinterlink:hover, a.splinterlink:focus
+  .splinter
+    color #0a6ebd
+    text-decoration underline
+  .underlined
+    text-decoration underline
+
+.control-icons > *
+  cursor pointer
+  color #bbbbbb
+  &:hover, &:focus, &:active
+    color #333333
+
+.btn-plain
+  border none
+  box-shadow none
+  padding 0
+  &, &:hover, &:focus, &:active
+    background-color transparent

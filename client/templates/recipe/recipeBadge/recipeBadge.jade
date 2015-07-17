@@ -1,0 +1,15 @@
+template(name="recipeBadge")
+  a(href="{{url}}").recipe-badge.list-group-item.large-list-group-item
+    .fa.fa-fw(class="fa-{{icon}}")
+    span.name {{name}}
+    .control-icons.dropdown.pull-right
+      .fa.fa-cog.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
+      ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+        li(role='presentation')
+          a.edit-name(role='menuitem', tabindex='-1', href='#', data-prompt='Name?')
+            i.fa.fa-pencil
+            | Rename
+        li(role='presentation')
+          a.remove(role='menuitem', tabindex='-1', href='#', data-confirm='Remove "{{name}}"?')
+            i.fa.fa-trash-o
+            | Delete

@@ -1,0 +1,73 @@
+template(name="stats")
+  .stats.container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          .panel-heading
+            h4
+              +menu
+              +connection
+              +megaphone
+              a.splinterlink(href="/")
+                span.fa.fa-home
+                span.splinter Home
+              | ›
+              | Statistics
+          .panel-body
+            p
+              .pull-left
+                .fa.fa-file-excel-o
+                | Download prospects
+                a.splinterlink.download-csv(href="#" data-is-real-name="true")
+                  span.splinter with real names
+                | or
+                a.splinterlink.download-csv(href="#")
+                  span.splinter without real names
+              .pull-right
+                input.processed-prospects(type="file" style="display: none;" multiple="multiple")
+                a.splinterlink.upload-csv(href="#")
+                  .fa.fa-upload
+                  span.splinter Mark prospects as processed
+            table.table.table-striped
+              thead
+                tr
+                  th Email
+                  th Name
+                  th Actions
+                  th Created At
+                  th Flags
+              tbody
+                each usersForStats
+                  tr(data-id="{{_id}}")
+                    td
+                      | {{email}}
+                      each flagset
+                        if isImportant
+                          if condition name 'in' ../flags
+                            .fa.fa-fw(class="fa-{{icon}}").text-primary
+                      if isAdmin
+                        .fa.fa-fw.fa-paw.text-muted(title="Admin")
+                      if isInternal
+                        .fa.fa-fw.fa-beer.text-muted(title="Internal")
+                      if not isAliasedByMixpanel
+                        a.sync-user-with-mixpanel.splinterlink(href="#"): img.mixpanel.text-muted(title="Is not aliased by Mixpanel" src="/packages/foundation/public/images/mixpanel.png")
+                    td
+                      a.set-name.splinterlink(href="#" title="Edit user name")
+                        span.underlined {{profile.name}}
+                        .fa.fa-fw.fa-pencil
+                      a.autofix-name.splinterlink.fa.fa-fw.fa-bolt(class="{{#if not profile.isRealName}}text-muted{{/if}}" href="#" title="Autofix name")
+                      a.toggle-is-real-name.splinterlink.fa.fa-fw.fa-check-circle-o(class="{{#if not profile.isRealName}}text-muted{{/if}}" href="#" title="Toggle isRealName")
+                    td
+                      | {{actions}}
+                      if stats.Trello
+                        | ({{stats.Trello}})
+                      if actionsPlusStatsTrello
+                        .fa.fa-fw.fa-warning.text-warning
+                    td {{moment createdAt "MMM DD, HH:mm"}}
+                    td
+                      .btn-group(role='group')
+                        each flagset
+                          button.btn.btn-sm.btn-default.toggle-flag(data-name="{{name}}" data-id="{{../_id}}" class="" type="button" title="Toggle {{name}} flag"): .fa.fa-fw(class="fa-{{icon}} {{#if condition name 'in' ../flags}}text-primary{{/if}}")
+
+
+

@@ -1,0 +1,13 @@
+template(name="loading")
+  .loading.container
+    .panel.panel-default.panel-top
+      .panel-heading
+        h4
+          +menu
+          +connection
+          if not Pack.isApplied
+            +megaphone
+          +home
+          | ›
+          span.fa.fa-fw.fa-spin.fa-spinner
+          span.splinter Loading...

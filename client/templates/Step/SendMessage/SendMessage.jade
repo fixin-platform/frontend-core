@@ -1,0 +1,11 @@
+template(name="SendMessage")
+  +ManagedStep(name="SendMessage" step=.)
+    .list-group-item-heading
+      button.btn.btn-success.btn-lg(type="button")
+        if loading
+          .fa.fa-fw.fa-spin.fa-spinner
+        else
+          .fa.fa-fw.fa-bolt
+        | {{{_i18n.execute}}}
+      if loading
+        | &nbsp;- <a href="#" class="revert">{{{_i18n.revert}}}</a>

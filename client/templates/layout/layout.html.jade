@@ -1,0 +1,18 @@
+head
+  meta(http-equiv='Content-Type', content='text/html; charset=UTF-8')
+  meta(charset='utf-8')
+  meta(name='viewport', content='width=device-width, initial-scale=1.0')
+  meta(name='description', content='Foreach does bulk actions for Trello and other apps. It is simple, secure — and gets the job done.')
+  link(rel="icon" href="/packages/foundation/public/images/favicon.ico")
+  script(src="https://apis.google.com/js/platform.js" async defer)
+  script(src="https://checkout.stripe.com/checkout.js")
+
+template(name="layout")
+  +Template.dynamic(template=header)
+  +Template.dynamic(template=content)
+  +Template.dynamic(template=footer)
+  +login
+  if currentUserReady
+    if not Pack.isApplied
+      +action
+  #fb-root

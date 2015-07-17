@@ -1,0 +1,13 @@
+template(name="ChooseOneOption")
+  +ManagedStep(name="ChooseOneOption" step=.)
+    .list-group-item-heading
+      .fa.fa-fw(class="fa-{{{_i18n.icon}}}")
+      span.name {{{_i18n.default}}}
+    .row
+      form.col-xs-12
+        .form-group
+          select.form-control(name="key")
+            option(value="") {{{_i18n.placeholder}}}
+            each options
+              option(value="{{key}}") {{value}}
+        button.btn.btn-success(type="submit") {{{_i18n.submit}}}

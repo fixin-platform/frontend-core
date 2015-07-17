@@ -1,0 +1,36 @@
+template(name="dashboard")
+  .app.container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          .panel-heading
+            h4
+              .row
+                .col-xs-9.col-sm-6.col-md-6.col-lg-7
+                  span.fa.fa-home
+                  span.splinter Home
+                .col-xs-3.col-sm-6.col-md-6.col-lg-5
+                  +menu
+                  +connection
+                  .hidden-xs
+                    +megaphone
+                .visible-xs
+                  .col-xs-12.xs-visible-megaphone
+                    +megaphone
+          .panel-body
+            p
+              a.btn.btn-success(href="/apps")
+                span.fa.fa-plus
+                | Add new recipe
+              //| &nbsp;— explore our <a href="/apps">cookbook</a>!
+            p This page shows your recipes. Each recipe is a set of steps that connect to your apps. Think of your app data as ingredients, and steps as instructions for mixing them together.
+            //p Creating a new recipe is a piece of cake
+          if subscriptionsReady
+            .list-group
+              each recipes
+                +recipeBadge
+          else
+            .panel-body
+              h5
+                .fa.fa-fw.fa-refresh.fa-spin
+                | Loading recipes...

@@ -1,0 +1,16 @@
+template(name="header")
+  .header.container
+    if shouldDisplay
+      .panel.panel-default
+        .panel-body
+          h5.text-center
+            if isRealName
+              | {{firstName}},
+            else
+              | Hey,
+            |  I can build a custom API integration for you
+            | &nbsp;&nbsp;
+            button.btn.btn-primary(type="button")
+              .fa.fa-fw.fa-star
+              | Ask me anything
+

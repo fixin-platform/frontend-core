@@ -1,0 +1,18 @@
+template(name="AddBasicAvatar")
+  form.col-xs-12
+    .form-group
+      label.control-label(for="{{_id}}-username") {{{_i18n.addTemplate.username.label}}}
+      input.form-control(id="{{_id}}-username" name="username" placeholder="{{{_i18n.addTemplate.username.placeholder}}}")
+      p.help-block {{{_i18n.addTemplate.username.help}}}
+    .form-group
+      label.control-label(for="{{_id}}-password") {{{_i18n.addTemplate.password.label}}}
+      input.form-control(id="{{_id}}-password" name="password" placeholder="{{{_i18n.addTemplate.password.placeholder}}}")
+      p.help-block {{{_i18n.addTemplate.password.help}}}
+    button.btn.btn-success(type="submit")
+      .ready.fa.fa-fw.fa-check
+      .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+      | {{{_i18n.addTemplate.submit}}}
+    if options.count
+      | &nbsp;or
+      a.btn-link.cancel-add(href="#")
+        | {{{_i18n.addTemplate.cancel}}}

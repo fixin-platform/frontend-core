@@ -1,0 +1,18 @@
+template(name="AddShipStationAvatar")
+  form.col-xs-12.self-validation
+    .form-group
+      label.control-label(for="{{_id}}-key") {{{_i18n.addShipStationTemplate.key.label}}}
+      input.form-control(id="{{_id}}-key" name="key" placeholder="{{{_i18n.addShipStationTemplate.key.placeholder}}}")
+      p.help-block {{{_i18n.addShipStationTemplate.key.help}}}
+    .form-group
+      label.control-label(for="{{_id}}-secret") {{{_i18n.addShipStationTemplate.secret.label}}}
+      input.form-control(id="{{_id}}-secret" name="secret" placeholder="{{{_i18n.addShipStationTemplate.secret.placeholder}}}")
+      p.help-block {{{_i18n.addShipStationTemplate.secret.help}}}
+    button.btn.btn-success(type="submit")
+      .ready.fa.fa-fw.fa-check
+      .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+      | {{{_i18n.addShipStationTemplate.submit}}}
+    if options.count
+      | &nbsp;or&nbsp;
+      a.btn-link.cancel-add(href="#")
+        | {{{_i18n.addShipStationTemplate.cancel}}}

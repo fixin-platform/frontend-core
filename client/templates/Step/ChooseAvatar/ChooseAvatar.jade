@@ -1,0 +1,38 @@
+template(name="ChooseAvatar")
+  +ManagedStep(name=template step=.)
+    if subscriptionsReady
+      if isAddTemplateMode
+        .list-group-item-heading
+          .fa.fa-fw(class="fa-{{{_i18n.addIcon}}}")
+          span.name {{{_i18n.add}}}
+        .row
+          +Template.dynamic(template=addTemplate)
+      else
+        if options.count
+          .list-group-item-heading
+            .fa.fa-fw(class="fa-{{{_i18n.icon}}}")
+            span.name {{{_i18n.default}}}
+          .row
+            form.col-xs-12
+              .form-group
+                select.form-control(name="avatarId")
+                  each options
+                    option(value="{{id}}" selected="{{condition id 'is' ../avatarId}}") {{name}}
+              p.help-block {{{_i18n.help}}}
+              button.btn.btn-success(type="submit")
+                .fa.fa-fw.fa-check
+                | Choose
+              | &nbsp;or
+              a.btn-link.add(href="#")
+                .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+                | {{{_i18n.add}}}
+        else
+          .list-group-item-heading
+            button.btn.btn-success.btn-lg.add
+              .ready.fa.fa-fw(class="fa-{{{_i18n.icon}}}")
+              .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+              | {{{_i18n.connect}}}
+    else
+      .list-group-item-heading
+        .fa.fa-fw.fa-refresh.fa-spin
+        span.name {{{_i18n.loading}}}

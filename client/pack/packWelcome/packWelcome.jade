@@ -1,0 +1,8 @@
+template(name="packWelcome")
+  .welcome
+    main#top.masthead.color1(role='main')
+      .container
+        h1
+          | {{Pack.get "homeTitle"}}
+        .breath.row
+          +loginButtons

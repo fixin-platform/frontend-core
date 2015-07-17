@@ -1,0 +1,5 @@
+template(name="ChooseAvatarIsCompleted")
+  .list-group-item-heading
+    .fa.fa-fw.fa-check
+    span.name {{#if avatar.imageUrl}}{{{_i18n.complete_with_image}}}{{else}}{{{_i18n.complete_without_image}}}{{/if}} (<a href="#" class="change textual">{{{_i18n.change}}}</a>)
+    +UI.contentBlock

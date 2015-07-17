@@ -1,0 +1,20 @@
+template(name="recipe")
+  .recipe.container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          .panel-heading
+            h4
+              +menu
+              +connection
+              +megaphone
+              +home
+              | ›
+              a.splinterlink(href="{{blueprint.app.url}}")
+                if blueprint.app.imageUrl
+                  img.app-logo(src="{{blueprint.app.imageUrl}}")
+                span.splinter {{blueprint.app.name}}
+              | ›
+              span.fa(class="fa-{{recipe.icon}}")
+              span.splinter {{recipe.name}}
+          +recipeBody(recipeBodyData)

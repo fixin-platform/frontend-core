@@ -1,0 +1,21 @@
+template(name="oauthPrimer")
+  .modal-content
+    .modal-header
+      button.close(type='button', data-dismiss='modal', aria-label='Close')
+        span(aria-hidden='true') ×
+      h4.modal-title Your login and password are safe
+    .modal-body
+      p Foreach works via secure OAuth protocol using official Trello API.
+      p If you need bulk actions, please <a href="#" class="connect-to-api" data-api="Trello">connect it to Trello</a>.
+      blockquote
+        p Foreach <strong>won’t</strong> be able to:
+        ul
+          li Read your email address
+          li See your Trello password
+      p Would Trello allow any random site to access your login details? Probably not. Yet Trello provides an official API. That's because the API is secured with OAuth protocol. This protocol gives permissions, not login details. You can <a href="https://trello.com/my/account" target="_blank">revoke permissions</a> on Trello account page immediately after using Foreach.
+      p Your data is safe because Trello makes it so.
+    .modal-footer
+      button.btn.btn-success.connect-to-api(type="button" data-api="Trello" data-scopes="read,write")
+        .ready.fa.fa-fw.fa-check
+        .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+        | Ok, connect to Trello

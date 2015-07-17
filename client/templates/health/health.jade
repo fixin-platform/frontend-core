@@ -1,0 +1,26 @@
+template(name="health")
+  .health.container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          .panel-heading
+            h4
+              +menu
+              +connection
+              +megaphone
+              a.splinterlink(href="/")
+                span.fa.fa-home
+                span.splinter Home
+              | ›
+              | Health
+          .panel-body
+            h5 {{Users}} users total
+            h5 {{UsersNotAliasedByMixpanel}} users not aliased by Mixpanel
+            //-h5 <span class="outstanding-polls"><span class="fa fa-question"></span></span> outstanding polls (<a href="#" class="refresh-outstanding-polls">refresh</a>)
+            p
+              button.btn.btn-warning.sync-users-with-mixpanel
+                .ready.fa.fa-fw.fa-bolt
+                .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+                | Sync users with Mixpanel
+            p
+              a(href="https://mixpanel.com/report/560233/formulas/" target="_blank") Check Total $signup / Unique $signup

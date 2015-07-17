@@ -1,0 +1,46 @@
+template(name="apps")
+  .apps.container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          .panel-heading
+            h4
+              .row
+                .col-xs-9.col-sm-6.col-md-6.col-lg-7
+                  if Pack.isApplied
+                    span
+                      a.splinterlink(href="/dashboard")
+                        span.fa.fa-home
+                        span.splinter Home
+                      | ›
+                      span.fa.fa-book
+                      span.splinter Cookbook
+                  else
+                    span
+                      span.fa.fa-home
+                      | Bulk tools for your apps
+                .col-xs-3.col-sm-6.col-md-6.col-lg-5
+                  +menu
+                  +connection
+                  .hidden-xs
+                    +megaphone
+                .visible-xs
+                  .col-xs-12.xs-visible-megaphone
+                    +megaphone
+          .panel-body
+            .panel-body-wrap
+              if not Pack.isApplied
+                form
+                  input.form-control.filter(type="text" placeholder="Search apps" value=filter)
+              ul.list-unstyled
+                each apps
+                  li.col-md-3.col-sm-3.col-xs-3.app-wrap
+                    a.app(href="/{{key}}" data-key="{{key}}" title="{{key}}")
+                      div.text-center
+                        img(src="/packages/foundation/public/images/apps/{{key}}.png")
+                      h5.name.text-center {{name}}
+              if not Pack.isApplied
+                .row
+                  .col-xs-12
+                    h5.text-center Didn't find your favorite app? Request it here:
+                    +wishpool widgetId="WhKAA3RnaNwZYDr65" style="display: block; margin: 0 auto; width: 100%; height: 40px;"

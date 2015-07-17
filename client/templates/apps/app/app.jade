@@ -1,0 +1,59 @@
+template(name="app")
+  .app.container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          .panel-heading
+            h4
+              .row
+                .col-xs-9.col-sm-6.col-md-6.col-lg-7
+                  +home
+                  | ›
+                  if app.imageUrl
+                    img.app-logo(src="{{app.imageUrl}}")
+                  span.splinter {{app.name}}
+                .col-xs-3.col-sm-6.col-md-6.col-lg-5
+                  +menu
+                  +connection
+                  .hidden-xs
+                    +megaphone
+                .visible-xs
+                  .col-xs-12.xs-visible-megaphone
+                    +megaphone
+          .list-group
+            each app.blueprints
+              +blueprintBadge
+            if not Pack.isApplied
+              if currentUserIsEditor
+                form.list-group-item.add-blueprint.form-horizontal
+                  .form-group
+                    input.form-control.blueprint-app(type="hidden" name="appId", value="{{app._id}}")
+                    .col-xs-3
+                      .input-group
+                        span.input-group-addon
+                          | I need to
+                        input.form-control.blueprint-name(type="text" name="name" placeholder="Create a panacea")
+                    .col-xs-2
+                      input.form-control.blueprint-appendix(type="text" name="appendix" placeholder="for many people")
+                    .col-xs-3
+                      .input-group.key-input-group
+                        span.input-group-addon
+                          | at /{{app.key}}/
+                        input.form-control.blueprint-key(type="text" name="key" placeholder="url")
+                    .col-xs-2
+                      .input-group.key-input-group
+                        span.input-group-addon.blueprint-icon-preview(class="fa fa-{{previewIcon}}")
+                          | &nbsp;
+                        input.form-control.blueprint-icon(type="text" name="icon" placeholder="{{previewIcon}}")
+                    .col-xs-2
+                      span.input-group-btn
+                        button.btn.btn-success.create-blueprint(type="submit")
+                          | Create
+            if not Pack.isApplied
+              .list-group-item
+                h6
+                  if app.blueprints.count
+                    | Need something else for {{app.name}}? Request it here:
+                  else
+                    | Holy-moly! There are no bulk actions for {{app.name}} yet. Which one do you need?
+                +wishpool widgetId="Ce5YMnkSehauyyewh" style="display: block; width: 100%; height: 40px; max-width: 600px;"

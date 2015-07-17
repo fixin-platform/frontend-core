@@ -1,0 +1,10 @@
+template(name="currentPlan")
+  span.current-plan
+    | You are on {{currentUserPlan.name}} plan
+    if currentUserPlan.limit
+      | with {{currentUserPlan.limit}} actions{{#if condition currentUserPlan._id 'is' 'free'}} overall{{else}}/month{{/if}} limit, with {{currentUserPlanActionsLeft}} actions left.
+      nobr  If you like Foreach, please consider upgrading.
+    else
+      | with unlimited actions/month.
+      nobr  Thank you!
+

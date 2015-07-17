@@ -1,0 +1,11 @@
+template(name="recipeBody")
+  if subscriptionsReady
+    .list-group
+      each recipe.steps
+        //| {{template}}
+        +Template.dynamic(template=template data=.)
+  else
+    .panel-body
+      h5
+        .fa.fa-fw.fa-refresh.fa-spin
+        | Loading steps...

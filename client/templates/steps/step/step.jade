@@ -1,0 +1,30 @@
+template(name="step")
+  .step.container
+    .panel.panel-default.panel-top
+      .panel-heading
+        h4
+          .row
+            .col-xs-9.col-sm-6.col-md-6.col-lg-7
+              +home
+              | ›
+              a.splinterlink(href="/steps")
+                span.fa(class="fa-gears")
+                span.splinter Steps
+              | ›
+              if subscriptionsReady
+                span.fa(class="fa-{{step.icon}}")
+                span.splinter {{step.key}}
+              else
+                span.fa.fa-fw.fa-refresh.fa-spin
+                span.splinter Loading...
+            .col-xs-3.col-sm-6.col-md-6.col-lg-5
+              +menu
+              +connection
+              .hidden-xs
+                +megaphone
+            .visible-xs
+              .col-xs-12.xs-visible-megaphone
+                +megaphone
+      .panel-body
+        with step
+          +stepBody

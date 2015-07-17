@@ -1,0 +1,78 @@
+@import "nib"
+
+html
+  height 100%
+
+body
+  height 100%
+  .welcome .scrollto, .welcome .scrollto:hover
+    width auto
+  .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control
+    cursor auto
+  .form-group .radio:first-child
+    margin-top 0
+  .table>thead>tr>th
+    vertical-align top
+  .btn.btn-Google:hover, .btn.btn-Google:focus, .btn.btn-Google.focus
+    color #ffffff
+    background-color #cb171e
+  #login-dropdown-list
+    input:last-of-type
+      border-radius 0
+    .navbar-form
+      padding-left 0
+      padding-right 0
+    .btn-lg
+      margin 0
+  .progress
+    height 16px
+    border-radius 3px
+  .progress.active .progress-bar, .progress-bar.active
+    animation-duration 1s
+  label
+    font-weight normal
+    font-size 16px
+  .list-group-item-heading
+    font-size 18px
+    margin-bottom 0
+  .list-group-item-text
+    margin-top 15px
+    &:empty
+      margin-top 0
+  .fa-li
+    line-height: 24px;
+
+a.list-group-item.large-list-group-item
+  font-size 18px
+  .name
+    color #2196f3
+  &:hover, &:focus
+    .name
+      color #0a6ebd
+      text-decoration underline
+
+.selectize-control
+  margin-top 5px
+
+.selectize-dropdown .optgroup:before
+  margin 5px 1px
+
+.ui-front
+  z-index 1000000000
+
+.ui-state-hover,
+.ui-widget-content .ui-state-hover,
+.ui-widget-header .ui-state-hover,
+.ui-state-focus,
+.ui-widget-content .ui-state-focus,
+.ui-widget-header .ui-state-focus
+  font-weight normal
+
+.modal-backdrop
+  z-index 100
+
+.panel-body p:last-child
+  margin-bottom 0
+
+.error-list:empty
+  margin 0

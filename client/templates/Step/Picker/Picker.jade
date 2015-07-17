@@ -1,0 +1,52 @@
+template(name="Picker")
+  .order.container
+    .panel.panel-default.panel-top
+      .panel-heading
+        h4
+          +menu
+          +connection
+          if not Pack.isApplied
+            +megaphone
+          if Pack.isApplied
+            a.splinterlink(href="{{Pack.get 'homeUrl'}}")
+              span.fa.fa-home
+              span.splinter {{app.name}}
+          else
+            a.splinterlink(href="{{app.url}}")
+              if app.imageUrl
+                img.app-logo(src="{{app.imageUrl}}")
+              span.splinter {{app.name}}
+          | ›
+          | {{step.name}}
+      .panel-body
+        with step
+          h5
+            span.fa.fa-fw(class="{{#if isMessageLoading}}fa-refresh fa-spin{{else}}fa-cloud-download{{/if}}")
+            | Source: {{_i18n.source}}{{#if refreshedAt}}, {{#if isSubscriptionLoading}}loading{{else}}{{count}}{{/if}} rows, <acronym title="{{refreshedAt}}">{{momentFromNow refreshedAt}}</acronym>{{/if}}
+            if condition refreshStrategy 'is' 'automatic'
+              | (refreshed automatically)
+            else
+              | ({{#if isCredentialRequired}}<a href="#" class="connect">connect to {{credentialFields.api}}</a>{{else}}{{#if isMessageLoading}}<a href="#" class="cancel-refresh">cancel refresh</a>{{else}}<a href="#" class="refresh">refresh now</a>{{/if}}{{/if}})
+          ul.error-list
+            each message.errors
+              +error
+          if count
+            table.table.table-hover
+              thead
+                tr
+                  th
+                    input(type="checkbox", checked=uberboxIsChecked, class="{{#if uberboxIsChecked}}select-none{{else}}select-all{{/if}}")
+                  each columns
+                    if not isHidden
+                      th {{name}}
+              tbody
+                each rows
+                  tr(class="{{#if rowboxIsChecked}}success{{/if}}" data-id="{{_id}}")
+                    td: input.rowbox(type="checkbox", checked=rowboxIsChecked)
+                    each columns
+                      if not isHidden
+                        +Template.dynamic(template=template data=columnData)
+                else
+                  tr
+                    td.no-matches(colspan="8")
+                      h5.text-muted.text-center No rows found

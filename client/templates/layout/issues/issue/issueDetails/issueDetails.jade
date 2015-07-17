@@ -1,0 +1,11 @@
+template(name="issueDetails")
+  .modal-content
+    .modal-header
+      button.close(type='button', data-dismiss='modal', aria-label='Close')
+        span(aria-hidden='true') ×
+      h4.modal-title
+        a.btn.btn-primary(href="mailto:denis.d.gorbachev@gmail.com?subject={{encodeURIComponent subject}}&body={{encodeURIComponent body}}" target="_blank") Report error
+    .modal-body
+      p.text-danger {{reason}}
+      if formattedDetails
+        pre {{{formattedDetails}}}

@@ -1,0 +1,69 @@
+template(name="stepBodyEach")
+  .step-body
+    form.refresh-form
+      fieldset(disabled="{{not subscriptionsReady}}")
+        .form-group
+          .radio.run-mode
+            label
+              input(type="radio", name="mode", value="auto" checked="{{#if isManual}}{{else}}checked{{/if}}")
+              | Automatically every 5 minutes
+          .radio.run-mode
+            label
+              input(type="radio", name="mode", value="manual", checked="{{#if isManual}}checked{{else}}{{/if}}")
+              | Manually
+        if isManual
+          .manual-control
+            .inner-addon.left-addon.pull-right
+              .fa.fa-search
+              +input(family="step" _id=_id property="search" placeholder="Quick search" isNew=false)
+            h5
+              button.refresh.btn.btn-success(type="submit")
+                .fa.fa-fw(class="{{#if isLoading isLoadingRefreshSelector}}fa-refresh fa-spin{{else}}fa-refresh{{/if}}")
+                | {{{_i18n.refresh}}}
+              | &nbsp;
+              if isLoading isLoadingRefreshSelector
+                a.cancel(href="#") cancel
+              else
+                span
+                  if subscriptionsReady
+                    | {{#if count}}{{count}}{{else}}No{{/if}} items found
+                  else
+                    | Loading orders...
+            h5
+              button.btn.btn-success.run-for-all-rows.not-underlined
+                .fa.fa-fw(class="{{#if isLoading isLoadingAllRowsSelector}}fa-spinner fa-spin{{else}}fa-bolt{{/if}}")
+                | generate for all
+              | &nbsp;
+              if isLoading isLoadingAllRowsSelector
+                a.cancel(href="#") cancel
+              else
+                with commandForAllRows.link
+                  a(href="{{href}}", target="_blank") {{title}}
+    +issues
+    if count
+      if isManual
+        each rows
+          .step-content
+            h4
+              | {{title}}
+            h5
+              button.run-for-single-row.btn.btn-success(type="button")
+                .fa.fa-fw(class="{{#if isLoading isLoadingSingleRowSelector}}fa-spinner fa-spin{{else}}fa-bolt{{/if}}")
+                | {{../_i18n.runForSingleRow}}
+              if isLoading isLoadingSingleRowSelector
+                  a.cancel(href="#") cancel
+              else
+                with commandForSingleRow.link
+                  a(href="{{href}}", target="_blank") {{title}}
+            table.table.table-hover
+              thead
+                tr
+                  each shownColumns
+                    th {{_i18n.name}}
+              tbody
+                each items
+                  tr
+                    each shownColumns
+                      +Template.dynamic(template=template data=data)
+        .text-center
+          +rowsPagination

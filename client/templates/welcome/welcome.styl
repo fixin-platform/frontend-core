@@ -1,0 +1,105 @@
+@import 'nib'
+
+.btn.login-with-google
+  font-weight bold
+
+.masthead
+  position relative
+  z-index 100
+  height 100vh
+  padding 0 !important
+  .header
+    position absolute
+    height 60px
+    padding 0 20px
+    .real-sugar a
+      line-height 60px
+      font-size 24px
+      color #FFFFFF
+      &:hover
+        color #FFFFFF
+  .container
+    position: relative;
+    top 50%
+    transform translateY(-50%)
+    padding-left 14px
+    padding-right 14px
+    .normal.row // .breath.row has its own styles
+      margin-left -14px
+      margin-right -14px
+  .scrollto
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    &:hover
+      text-decoration underline
+    .scrollto--arrow
+      margin 0
+  li
+    list-style none
+    display block
+  .sign-in-form, .sign-in-form:active, .sign-in-form:hover, .sign-in-form:link, .sign-in-form:hover
+    color #ffffff
+    text-decoration underline
+  .sign-in-form:hover
+    border-bottom: 1px solid #ffffff;
+  a.dropdown-toggle, a.dropdown-toggle:active, a.dropdown-toggle:hover, a.dropdown-toggle:link
+    color #ffffff
+    button
+      font-weight bold
+  .login-buttons-container
+    font-size 14px
+    max-width 300px
+    margin 0 auto
+    padding 0
+    .sign-in-link-wrapper
+      margin-top 5px
+  .or
+    color #444444
+
+.masthead, .footercta
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6
+    color #ffffff
+    line-height 1.2
+
+.foreach-container
+  max-width 500px
+  margin 0 auto
+
+.competitor-pricing
+  font-size 16px
+
+.zephyr
+  margin 15px 0
+
+@media (max-width: 480px)
+  .masthead
+    h1 a
+      font-size 52px
+  .welcome
+    .section-title
+      margin-top 30px !important
+    h1, h2, .h1, .h2
+      font-size 26px !important
+    .features
+      margin-left -14px !important
+      margin-right -14px !important
+
+/**
+ * iPad with portrait orientation.
+ */
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait) {
+  .masthead {
+    height: 1024px;
+  }
+}
+
+/**
+ * iPad with landscape orientation.
+ */
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+  .masthead {
+    height: 768px;
+  }
+}

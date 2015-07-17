@@ -1,0 +1,36 @@
+template(name="stepBodyInstantly")
+  .step-body
+    form.refresh-form
+      fieldset(disabled="{{not subscriptionsReady}}")
+        if isManual
+          .manual-control
+            h5
+              button.btn.btn-success.run-for-all-rows.not-underlined
+                .fa.fa-fw(class="{{#if isLoading isLoadingAllRowsSelector}}fa-refresh fa-spin{{else}}fa-{{{_i18n.icon}}}{{/if}}")
+                if commandForAllRows
+                  if isLoading isLoadingAllRowsSelector
+                    | {{{_i18n.running}}}
+                  else
+                    | {{{_i18n.rerun}}}
+                else
+                  | {{{_i18n.run}}}
+              if isLoading isLoadingAllRowsSelector
+                | &nbsp;
+                a.cancel(href="#") cancel
+            with commandForAllRows.progress
+              ul.fa-ul
+                each .
+                  li
+                    i.fa-li.fa(class="{{progressIconClass}}")
+                    | {{progressMessage ../..}}
+            if commandForAllRows.link
+              blockquote
+                h4
+                  a.splinterlink(href="{{commandForAllRows.link.href}}", target="_blank")
+                    .fa.fa-fw.fa-file-excel-o.splinter
+                    span.underlined.splinter {{commandForAllRows.link.title}}
+              em Love it? Hate it? Tell the world!
+              .social
+                +twitterFollow(username="MindshareJP" size="large" showCount="false")
+                +twitterShare(related="MindshareJP" size="large" text="Just downloaded all my followers into Google Spreadsheet with a tool by @MindshareJP")
+    +issues

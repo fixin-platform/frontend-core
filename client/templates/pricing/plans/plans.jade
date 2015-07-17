@@ -1,0 +1,27 @@
+template(name="plans")
+  .plans.row
+    each plans
+      if price
+        .col.col-xs-12.col-sm-6.text-center
+          .plan
+            h3.name.well {{name}}
+            h2.price
+              | ${{price}}<span class="sup">/{{periodShorthand}}</span>
+            .features
+              each features
+                .feature {{{.}}}
+            p.text-center
+              if currentUserReady
+                if condition currentUserPlan._id 'is' _id
+                  button.btn.btn-default.text-muted(type="button" disabled="true") Your current plan
+                else
+                  if condition currentUserPlan.price '>' price
+                    button.btn.btn-default.update-plan.text-muted(type="button" data-plan-id="{{_id}}")
+                      .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+                      | Downgrade to {{name}}
+                  else
+                    button.btn.btn-success.update-plan(type="button" data-plan-id="{{_id}}")
+                      .loading.fa.fa-fw.fa-spin.fa-spinner(style="display: none;")
+                      | Upgrade to {{name}}
+            p.text-center
+              a.alternative-period(href="/pricing/per/{{alternative.period}}" data-period="{{alternative.period}}") {{{alternativeProposition}}}

@@ -1,0 +1,11 @@
+template(name="ChooseManyOptions")
+  +ManagedStep(name="ChooseManyOptions" step=.)
+    .list-group-item-heading
+      .fa.fa-fw(class="fa-{{{_i18n.icon}}}")
+      span.name {{{_i18n.default}}}
+    .row
+      form.col-xs-12
+        .form-group
+          +selectize
+          p.help-block {{{_i18n.help}}}
+        button.btn.btn-success(type="submit") {{{_i18n.submit}}}
