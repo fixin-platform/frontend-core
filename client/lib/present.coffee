@@ -1,4 +1,4 @@
- (($) ->
+(($) ->
   $.fn.present = (selector, options, callback) ->
     if typeof callback is "undefined"
       callback = options
