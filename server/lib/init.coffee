@@ -1,0 +1,1 @@
+Promise = Npm.require("bluebird")

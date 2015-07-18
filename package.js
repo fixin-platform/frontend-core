@@ -24,8 +24,7 @@ Package.onUse(function(api) {
     "meteorhacks:flow-router@1.16.1",
     "meteorhacks:flow-layout@1.4.0",
     "useraccounts:bootstrap@=1.10.0",
-    "tmeasday:publish-counts@0.3.7",
-    "matb33:collection-hooks@0.7.11"
+    "tmeasday:publish-counts@0.3.7"
   ], ["client", "server"]);
   api.use([
     "dburles:spacebars-tohtml@1.0.0"
@@ -99,7 +98,8 @@ Package.onUse(function(api) {
     "connect",
     "sendPageview",
     "currentUserToken",
-    "createError"
+    "createError",
+    "Promise"
   ]);
   api.export([
     "mixpanel"
@@ -107,6 +107,9 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
+  "bluebird": "2.9.25",
+  "body-parser": "1.13.1",
+  "request": "2.55.0",
   "flat": "1.5.0",
   "stripe": "3.1.0",
   "winston": "0.9.0",
