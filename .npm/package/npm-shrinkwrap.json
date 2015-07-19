@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "aws-sdk": {
+      "version": "2.1.39",
+      "dependencies": {
+        "sax": {
+          "version": "0.5.3"
+        },
+        "xml2js": {
+          "version": "0.2.8"
+        },
+        "xmlbuilder": {
+          "version": "0.4.2"
+        }
+      }
+    },
     "bluebird": {
       "version": "2.9.25"
     },

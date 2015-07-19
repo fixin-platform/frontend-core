@@ -21,10 +21,11 @@ class Steps.Step
     @forAllNext (step) -> step.revert()
   changeAllNext: ->
     @forAllNext (step) -> step.change()
-  execute: -> throw "Implement \"execute\" method in your step"
-  revert: -> throw "Implement \"revert\" method in your step"
+  execute: -> throw "Implement me!"
+  revert: -> throw "Implement me!"
   change: -> Steps.update(@_id, {$set: {isCompleted: false}})
-#  columns: -> throw "Implement \"_columns\" method in your step"
+  input: -> @recipe().input(@key)
+#  columns: -> throw "Implement me!"
   columns: -> @tempColumns()
   tempColumns: ->
     row = Rows.findOne({stepId: @_id})
@@ -42,8 +43,9 @@ class Steps.Step
   #  columns: (options) ->
 #    Columns.find({stepId: @_id}, options)
 
-  recipe: (options) -> # for reactivity
-    options.fields.cls = 1 if options?.fields # for Transform
+  recipe: (options = {}) -> # for reactivity
+    options.fields.cls = 1 if options.fields # for Transformations
+    options.transform ?= Transformations.Recipe
     Recipes.findOne(@recipeId, options)
   recipeField: (field, defaultValue = null) ->
     fields = {}

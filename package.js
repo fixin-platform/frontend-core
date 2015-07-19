@@ -107,6 +107,7 @@ Package.onUse(function(api) {
 });
 
 Npm.depends({
+  "aws-sdk": "2.1.39",
   "bluebird": "2.9.25",
   "body-parser": "1.13.1",
   "request": "2.55.0",
