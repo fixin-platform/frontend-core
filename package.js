@@ -38,7 +38,6 @@ Package.onUse(function(api) {
   // Local packages
   api.use([
     "frontend-foundation@1.0.0",
-    "frontend-wishpool@1.0.0",
     "frontend-adapter@1.0.0",
     "frontend-checkmark@1.0.0"
   ]);
