@@ -7,7 +7,7 @@ Meteor.startup ->
     window.StripeHandler = StripeCheckout.configure(
       key: Meteor.settings.public.stripe.key
       name: "Foreach"
-      image: "/packages/foundation/public/images/logo-for-stripe.png"
+      image: "/packages/frontend-foundation/public/images/logo-for-stripe.png"
       panelLabel: "Upgrade"
       token: -> Foreach.tokenHandler.apply(@, arguments)
     )
