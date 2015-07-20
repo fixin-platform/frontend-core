@@ -22,4 +22,4 @@ class Steps.ChooseAvatar extends Steps.Step
     api: @api
     avatar: @avatar()
   avatar: ->
-    Avatars.findOne({id: @avatarId})
+    Avatars.findOne(@avatarId)
