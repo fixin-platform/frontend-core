@@ -13,12 +13,8 @@ template(name="steps")
                   span.splinter Steps
                 .col-xs-3.col-sm-6.col-md-6.col-lg-5
                   +menu
+                  +autorunCount
                   +connection
-                  .hidden-xs
-                    +megaphone
-                .visible-xs
-                  .col-xs-12.xs-visible-megaphone
-                    +megaphone
           if subscriptionsReady
             .list-group
               each steps

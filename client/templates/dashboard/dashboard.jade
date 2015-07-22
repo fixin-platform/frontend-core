@@ -11,12 +11,8 @@ template(name="dashboard")
                   span.splinter Home
                 .col-xs-3.col-sm-6.col-md-6.col-lg-5
                   +menu
+                  +autorunCount
                   +connection
-                  .hidden-xs
-                    +megaphone
-                .visible-xs
-                  .col-xs-12.xs-visible-megaphone
-                    +megaphone
           .panel-body
             p
               a.btn.btn-success(href="/apps")

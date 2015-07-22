@@ -4,9 +4,8 @@ template(name="loading")
       .panel-heading
         h4
           +menu
+          +autorunCount
           +connection
-          if not Pack.isApplied
-            +megaphone
           +home
           | ›
           span.fa.fa-fw.fa-spin.fa-spinner

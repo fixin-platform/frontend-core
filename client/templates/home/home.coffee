@@ -1,6 +1,4 @@
 Template.home.helpers
-  url: ->
-    Pack.get("homeUrl", "/apps")
   title: ->
     Pack.get("homeTitle", "Apps")
 

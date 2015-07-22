@@ -4,11 +4,10 @@ template(name="Picker")
       .panel-heading
         h4
           +menu
+          +autorunCount
           +connection
-          if not Pack.isApplied
-            +megaphone
           if Pack.isApplied
-            a.splinterlink(href="{{Pack.get 'homeUrl'}}")
+            a.splinterlink(href="/")
               span.fa.fa-home
               span.splinter {{app.name}}
           else

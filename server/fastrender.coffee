@@ -5,7 +5,7 @@ FastRender.onAllRoutes (path) ->
   @subscribe("Blueprints")
   @subscribe("Messages")
 
-FastRender.route "/dashboard", (params) ->
+FastRender.route "/autorun", (params) ->
   @subscribe("Recipes")
 
 FastRender.route "/:appKey/:blueprintKey", (params) ->
