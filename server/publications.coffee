@@ -90,7 +90,7 @@ Meteor.publish("StepsByRecipeId", (recipeId) ->
 Meteor.publish("CommandsByStepId", (stepId) ->
   check(stepId, Match.StringId)
   return [] unless @userId
-  Commands.find({stepId: stepId, userId: @userId})
+  Commands.find({stepId: stepId, userId: @userId}, {fields: {runId: 0}})
 )
 
 Meteor.publish("IssuesByStepId", (stepId) ->
