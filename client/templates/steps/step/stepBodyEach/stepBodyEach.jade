@@ -5,13 +5,13 @@ template(name="stepBodyEach")
         .form-group
           .radio.run-mode
             label
-              input(type="radio", name="mode", value="auto" checked="{{#if isManual}}{{else}}checked{{/if}}")
+              input(type="radio", name="mode", value="auto" checked="{{#if isAutorun}}checked{{/if}}")
               | Automatically every 5 minutes
           .radio.run-mode
             label
-              input(type="radio", name="mode", value="manual", checked="{{#if isManual}}checked{{else}}{{/if}}")
+              input(type="radio", name="mode", value="manual", checked="{{#unless isAutorun}}checked{{/unless}}")
               | Manually
-        if isManual
+        unless isAutorun
           .manual-control
             .inner-addon.left-addon.pull-right
               .fa.fa-search
@@ -41,7 +41,7 @@ template(name="stepBodyEach")
                   a(href="{{href}}", target="_blank") {{title}}
     +issues
     if count
-      if isManual
+      unless isAutorun
         each rows
           .step-content
             h4

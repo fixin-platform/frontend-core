@@ -3,8 +3,11 @@ Template.app.helpers
     Apps.findOne({key: Foreach.getParam("appKey")})
   previewIcon: ->
     Session.get("blueprintIcon") or "heartbeat"
+  userRecipes: ->
+    Recipes.find({appId: @_id, isAutorun: false}, {sort: {createdAt: -1}})
 
 Template.app.onCreated ->
+  @subscribe("Recipes")
 
 Template.app.onRendered ->
   @$("input").first().focus()

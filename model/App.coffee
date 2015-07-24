@@ -6,8 +6,6 @@ class Apps.App
     _.extend(@, doc)
   blueprints: ->
     Blueprints.find({appId: @_id}, {sort: {position: 1}})
-  steps: ->
-    Steps.find({appId: @_id}, {sort: {position: 1}})
   url: ->
     "/" + @key
 

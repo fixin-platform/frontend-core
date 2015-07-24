@@ -3,12 +3,15 @@ Recipes.allow
     throw new Match.Error("Authentication required") if not userId
     check(recipe, Match.ObjectIncluding
       name: String
+      appId: Match.ObjectId(Apps)
       blueprintId: Match.ObjectId(Blueprints)
       cls: String # TODO: check for class presence
       userId: userId
       updatedAt: Date
       createdAt: Date
     )
+    if Blueprints.findOne(recipe.blueprintId).appId isnt recipe.appId
+      throw new Match.Error("Wrong appId or blueprintId")
     true
   update: introspect (userId, recipe, fieldNames, modifier, options) ->
     throw new Match.Error("Authentication required") if not userId

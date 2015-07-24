@@ -1,0 +1,20 @@
+template(name="similarRecipes")
+  with similar
+    .similar-recipes
+      | You have similar recipes:
+      a.toggle-recipes(href="#scheduled-recipes", data-toggle="collapse")
+        | {{scheduled.count}} scheduled
+      | and
+      a.toggle-recipes(href="#manual-recipes", data-toggle="collapse")
+        | {{manual.count}} manual
+
+      #scheduled-recipes.collapse
+        ul
+          each scheduled
+            li
+              a(href="{{url}}") {{name}} ({{createdAtFormatted}})
+      #manual-recipes.collapse
+        ul
+          each manual
+            li
+              a(href="{{url}}") {{name}} ({{createdAtFormatted}})

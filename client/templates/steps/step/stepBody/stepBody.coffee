@@ -36,9 +36,6 @@
   data: ->
     row: Template.parentData(1)
     column: Template.currentData()
-  isManual: ->
-    stepId = Template.instance().data._id
-    !Steps.findOne(stepId, {fields: {isRecurring: 1}}).isRecurring
   progressMessage: (step) ->
     key = step._i18nKey() + ".progress.#{@key}."
     if @current
@@ -78,13 +75,8 @@ Template.stepBody.onCreated(stepBodyOnCreated)
     )
   "change .run-mode input": grab encapsulate (event, template) ->
     step = Template.instance().data
-    mode = $(event.currentTarget).val()
-    Commands.insert(
-      isDryRun: false
-      isShallow: false
-      mode: mode
-      stepId: step._id
-    )
+    isAutorun = $(event.currentTarget).val() is "auto"
+    Steps.update(step._id, {$set: {isAutorun: isAutorun}})
   "click .run-for-all-rows": grab encapsulate (event, template) ->
     step = Template.instance().data
     $(event.currentTarget).blur()

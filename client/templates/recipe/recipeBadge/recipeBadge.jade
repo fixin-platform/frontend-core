@@ -1,6 +1,6 @@
 template(name="recipeBadge")
   a(href="{{url}}").recipe-badge.list-group-item.large-list-group-item
-    .fa.fa-fw(class="fa-{{icon}}")
+    i.fa.fa-fw(class="fa-{{icon}}")
     span.name {{name}}
     .control-icons.dropdown.pull-right
       .fa.fa-cog.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
@@ -13,3 +13,6 @@ template(name="recipeBadge")
           a.remove(role='menuitem', tabindex='-1', href='#', data-confirm='Remove "{{name}}"?')
             i.fa.fa-trash-o
             | Delete
+    .details {{createdAtFormatted}}
+      with details
+        | , {{.}}

@@ -8,3 +8,6 @@ Template.recipe.helpers
     Recipes.findOne(Foreach.getParam("recipeId"))
   recipeBodyData: ->
     recipeId: Foreach.getParam("recipeId")
+
+Template.recipe.onCreated ->
+  @subscribe("Recipes")

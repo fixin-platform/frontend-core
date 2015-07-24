@@ -8,6 +8,7 @@ Steps.allow
 #      refreshedAt: Match.OneOf(Date, null)
       position: Match.Integer
       recipeId: Match.ObjectId(Recipes)
+      isAutorun: Boolean
       userId: userId
       updatedAt: Date
       createdAt: Date

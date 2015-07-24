@@ -7,10 +7,11 @@ class Steps.ChooseAvatar extends Steps.Step
       scopes: [String]
     super
   execute: (values) ->
-    values.avatarId = Foreach.intval(values.avatarId) # We're storing SQL ids now, which are numbers
+    values.avatarId = Foreach.strval(values.avatarId)
     $set = _.extend(
       isCompleted: true
     , values)
+    cl $set
     Steps.update(@_id, {$set: $set})
   revert: ->
     $set =

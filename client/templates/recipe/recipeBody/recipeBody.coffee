@@ -3,8 +3,11 @@ Template.recipeBody.helpers
     Recipes.findOne(@recipeId)
 
 Template.recipeBody.onCreated ->
-  @subscribe("Recipe", @data.recipeId)
-  @subscribe("StepsByRecipeId", @data.recipeId)
+  template = @
+  @autorun ->
+    data = Template.currentData()
+    template.subscribe("Recipe", data.recipeId)
+    template.subscribe("StepsByRecipeId", data.recipeId)
 
 Template.recipeBody.events
   "click .step .execute": (event, template) ->

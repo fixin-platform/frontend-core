@@ -9,6 +9,7 @@ class Blueprints.Blueprint
       name: @name
       cls: @cls
       icon: @icon
+      appId: @appId
       blueprintId: @_id
     , defaults
     recipe = Recipes.findOne(recipeId, {transform: Transformations.Recipe})

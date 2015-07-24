@@ -1,5 +1,5 @@
 template(name="blueprintBadge")
   a(href="{{#if blueprint.isImplemented}}#{{else}}{{url}}{{/if}}").blueprint-badge.list-group-item.large-list-group-item
-    .fa.fa-fw(class="fa-{{icon}}")
+    i.fa.fa-fw(class="fa-{{icon}}")
     span.name {{name}}
     span.text-muted {{appendix}}

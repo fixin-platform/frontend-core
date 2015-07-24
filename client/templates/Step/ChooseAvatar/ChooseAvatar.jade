@@ -17,7 +17,7 @@ template(name="ChooseAvatar")
               .form-group
                 select.form-control(name="avatarId")
                   each options
-                    option(value="{{id}}" selected="{{condition id 'is' ../avatarId}}") {{name}}
+                    option(value="{{_id}}" selected="{{condition id 'is' ../avatarId}}") {{name}}
               p.help-block {{{_i18n.help}}}
               button.btn.btn-success(type="submit")
                 .fa.fa-fw.fa-check

@@ -32,20 +32,8 @@ class Recipes.Recipe
     steps
   stepByKey: (key) ->
     Steps.findOne({recipeId: @_id, key: key})
-
-  switchAutomation: (command) ->
-    step = Steps.findOne(command.stepId)
-    auto = command.mode == "auto"
-    launch = !!(auto and (!step.refreshPlannedAt or step.refreshPlannedAt < new Date()))
-
-    $set =
-      isRecurring: auto
-
-    if launch
-      _.extend $set,
-        refreshPlannedAt: new Date()
-
-    Steps.update({_id: step._id}, {$set: $set})
+  createdAtFormatted: ->
+    moment(@createdAt).format("YYYY-MM-DD HH:mm:ss")
   generateStep: (selector, modifier, options) ->
     check selector, Match.ObjectIncluding
       key: String
@@ -63,6 +51,7 @@ class Recipes.Recipe
       hiddenColumnKeys: []
       isCompleted: false
       isDryRun: true
+      isAutorun: false
       createdAt: now
     )
     modifier.$set ?= {}
@@ -88,8 +77,10 @@ Recipes.before.insert (userId, Recipe) ->
   now = new Date()
   _.defaults(Recipe,
     cls: ""
+    appId: ""
     blueprintId: ""
     userId: userId
+    isAutorun: false
     updatedAt: now
     createdAt: now
   )

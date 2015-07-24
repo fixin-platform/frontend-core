@@ -5,13 +5,13 @@ template(name="stepBody")
         .form-group
             .radio.run-mode
               label
-                input(type="radio", name="mode", value="auto" checked="{{#if isManual}}{{else}}checked{{/if}}")
+                input(type="radio", name="mode", value="auto" checked="{{#if isAutorun}}checked{{/if}}")
                 | Automatically every 5 minutes
             .radio.run-mode
               label
-                input(type="radio", name="mode", value="manual", checked="{{#if isManual}}checked{{else}}{{/if}}")
+                input(type="radio", name="mode", value="manual", checked="{{#unless isAutorun}}checked{{/unless}}")
                 | Manually
-        if isManual
+        unless isAutorun
           .manual-control
             .inner-addon.left-addon.pull-right
               .fa.fa-search
@@ -37,8 +37,9 @@ template(name="stepBody")
     //  else
     //    | ({{#if isCredentialRequired}}<a href="#" class="connect">connect to {{credentialFields.api}}</a>{{else}}{{#if isMessageLoading}}<a href="#" class="cancel-refresh">cancel refresh</a>{{else}}<a href="#" class="refresh">refresh now</a>{{/if}}{{/if}})
     +issues
+
     if count
-      if isManual
+      unless isAutorun
         .step-content
           table.table.table-hover
             thead

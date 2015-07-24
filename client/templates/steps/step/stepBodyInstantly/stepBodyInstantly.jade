@@ -2,7 +2,7 @@ template(name="stepBodyInstantly")
   .step-body
     form.refresh-form
       fieldset(disabled="{{not subscriptionsReady}}")
-        if isManual
+        unless isAutorun
           .manual-control
             h5
               button.btn.btn-success.run-for-all-rows.not-underlined
