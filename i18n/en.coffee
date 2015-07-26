@@ -434,17 +434,17 @@ i18n.addResourceBundle("en", "translation",
           placeholder: "Your {{api}} API Secret"
         submit: "add {{api}} account"
         cancel: "choose existing account"
-      add3DCartTemplate:
+      add_3DCartTemplate:
         url:
           label: "Url"
-          placeholder: "Your {{api}} Store Url"
+          placeholder: "Your 3DCart Store Url"
         token:
           label: "Token"
-          placeholder: "Your {{api}} Token"
+          placeholder: "Your 3DCart Token"
         privateKey:
           label: "Private Key"
-          placeholder: "Your {{api}} Private Key"
-        submit: "add {{api}} account"
+          placeholder: "Your 3DCart Private Key"
+        submit: "add 3DCart account"
         cancel: "choose existing account"
       addFreshdeskTemplate:
         domain:

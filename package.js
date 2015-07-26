@@ -98,6 +98,7 @@ Package.onUse(function(api) {
     "sendPageview",
     "currentUserToken",
     "createError",
+    "Future",
     "Promise"
   ]);
   api.export([

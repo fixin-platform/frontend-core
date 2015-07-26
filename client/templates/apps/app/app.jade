@@ -17,11 +17,20 @@ template(name="app")
                     +menu
                     +autorunCount
                     +connection
+      if userRecipes.count
+        .row
+          .col-xs-12
+            .panel.panel-default
+              .panel-heading
+                | Use existing recipe
+              .list-group
+                each userRecipes
+                  +recipeBadge
       .row
         .col-xs-12
           .panel.panel-default
             .panel-heading
-              | Create New Recipe
+              | Create new recipe
             .list-group
               each blueprints
                 +blueprintBadge
@@ -59,13 +68,3 @@ template(name="app")
                     else
                       | Holy-moly! There are no bulk actions for {{name}} yet. Which one do you need?
                   +wishpool widgetId="Ce5YMnkSehauyyewh" style="display: block; width: 100%; height: 40px; max-width: 600px;"
-
-      if userRecipes.count
-        .row
-          .col-xs-12
-            .panel.panel-default
-              .panel-heading
-                | Use Old Recipe
-              .list-group
-                each userRecipes
-                  +recipeBadge
