@@ -3,6 +3,7 @@ Commands.allow
     throw new Match.Error("Authentication required") if not userId
     check command,
       _id: Match.StringId
+      cls: Match.Optional(String)
       isDryRun: Boolean
       isShallow: Boolean
       enqueuedTaskIds: Match.EmptyArray
@@ -11,13 +12,14 @@ Commands.allow
       progress: Match.EmptyArray
       params: Object
       rowId: Match.Optional(Match.ObjectId(Rows))
-      stepId: Match.ObjectId(Steps)
+      stepId: Match.Optional(Match.ObjectId(Steps))
       userId: userId
       mode: Match.Optional(String)
       updatedAt: Date
       createdAt: Date
-    step = Steps.findOne(command.stepId)
-    throw new Match.Error("Can't insert a command for another user's step") if command.userId isnt step.userId
+    if command.stepId
+      step = Steps.findOne(command.stepId)
+      throw new Match.Error("Can't insert a command for another user's step")  if command.userId isnt step.userId
     true
   update: introspect (userId, command, fieldNames, modifier, options) ->
 
