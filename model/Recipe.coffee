@@ -64,6 +64,9 @@ class Recipes.Recipe
     )
     object = _.extend({}, selector, modifier.$setOnInsert, modifier.$set)
     Steps.insert(object, options)
+  generateProgressBars: (keys) ->
+    # required for latency compensation
+    {key: key, current: 0, total: 0, isStarted: false, isFinished: false} for key in keys
   requirementDefaults: (defaults) ->
     _.pick(defaults, "commandId", "stepId", "userId")
 

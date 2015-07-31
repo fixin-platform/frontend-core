@@ -36,7 +36,8 @@
   data: ->
     row: Template.parentData(1)
     column: Template.currentData()
-  progressMessage: (step) ->
+  progressBarMessage: (step) ->
+    # isFinished has priority (so that isStarted = false & isFinished = true displays OK)
     key = step._i18nKey() + ".progress.#{@key}."
     if @current
       key += "loaded"
@@ -47,8 +48,10 @@
     else
       key += "loading"
     i18n.t(key, _.extend({count: count}, @))
-  progressIconClass: ->
-    if @isFinished then "fa-check" else "fa-ellipsis-h"
+  progressBarIconClass: ->
+    return "fa-star-half-o" if @isStarted
+    return "fa-star" if @isFinished
+    return "fa-star-o"
 
 Template.stepBody.helpers(stepBodyHelpers)
 
@@ -68,11 +71,10 @@ Template.stepBody.onCreated(stepBodyOnCreated)
   "submit .refresh-form": grab encapsulate (event, template) ->
     $form = $(event.currentTarget)
     $form.find("button").blur() # restore button appearance
-    Commands.insert(
+    step = Template.instance().data
+    step.insertCommand
       isDryRun: true
       isShallow: false
-      stepId: @_id
-    )
   "change .run-mode input": grab encapsulate (event, template) ->
     step = Template.instance().data
     isAutorun = $(event.currentTarget).val() is "auto"
@@ -80,19 +82,15 @@ Template.stepBody.onCreated(stepBodyOnCreated)
   "click .run-for-all-rows": grab encapsulate (event, template) ->
     step = Template.instance().data
     $(event.currentTarget).blur()
-    Commands.insert(
+    step.insertCommand
       isDryRun: false
       isShallow: true
-      stepId: step._id
-    )
   "click .run-for-single-row": grab encapsulate (event, template) ->
     step = Template.instance().data
-    Commands.insert(
+    step.insertCommand
       isDryRun: false
       isShallow: true
       rowId: @_id
-      stepId: step._id
-    )
   "click .cancel": grab encapsulate (event, template) ->
     Commands.find({stepId: @_id}).forEach (command) ->
       Commands.remove(command._id)

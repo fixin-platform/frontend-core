@@ -15,30 +15,35 @@ startWorkflowExecutionSync = Meteor.wrapAsync(swf.startWorkflowExecution, swf)
 requestCancelWorkflowExecutionSync = Meteor.wrapAsync(swf.requestCancelWorkflowExecution, swf)
 
 # Using "before" hook to ensure that SWF receives our request
-Commands.before.insert (userId, Command) ->
+Commands.before.insert (userId, command) ->
   params =
-    workflowId: Command._id
-  if Command.stepId
-    step = Steps.findOne(Command.stepId, {transform: Transformations.Step})
+    workflowId: command._id
+  if command.stepId
+    step = Steps.findOne(command.stepId, {transform: Transformations.Step})
+    input = step.input()
+    _.defaults input,
+      commandId: command._id
+      stepId: step._id
+      userId: step.userId
     params.domain = step.domain
     params.workflowType = step.workflowType
     params.taskList = step.taskList
-    params.input = JSON.stringify(step.input())
+    params.input = JSON.stringify(input)
   else
     params.domain = Meteor.settings.swfDomain
     params.workflowType =
-      name: Command.cls
+      name: command.cls
       version: "1.0.0"
     params.taskList =
-      name: Command.cls
-    params.input = JSON.stringify(Command.params)
+      name: command.cls
+    params.input = JSON.stringify(command.params)
   data = startWorkflowExecutionSync(params)
-  Command.runId = data.runId
+  command.runId = data.runId
   true
 
-Commands.before.remove (userId, Command) ->
+Commands.before.remove (userId, command) ->
   requestCancelWorkflowExecutionSync(
-    domain: Command.domain
-    workflowId: Command._id
+    domain: command.domain
+    workflowId: command._id
   )
   true
