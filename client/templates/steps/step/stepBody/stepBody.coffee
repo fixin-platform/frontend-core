@@ -37,6 +37,7 @@
     row: Template.parentData(1)
     column: Template.currentData()
   progressBarMessage: (step) ->
+    # isFinished has priority (so that isStarted = false & isFinished = true displays OK)
     key = step._i18nKey() + ".progress.#{@key}."
     if @current
       key += "loaded"
