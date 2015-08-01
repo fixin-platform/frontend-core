@@ -16,7 +16,7 @@ Commands.before.insert (userId, Command) ->
     enqueuedTaskIds: []
     succeededTaskIds: []
     failedTaskIds: []
-    progress: []
+    progressBars: []
     params: {}
     isDryRun: true # POST/PUT/DELETE and also "GET/HEAD with side-effects" are disallowed
     isShallow: false # with task hierarchy

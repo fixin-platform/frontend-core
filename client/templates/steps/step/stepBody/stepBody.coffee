@@ -38,20 +38,26 @@
     column: Template.currentData()
   progressBarMessage: (step) ->
     # isFinished has priority (so that isStarted = false & isFinished = true displays OK)
-    key = step._i18nKey() + ".progress.#{@key}."
-    if @current
-      key += "loaded"
-      count = @current
-      if @total and not @isFinished
-        key += "_total"
-        count = @total # "Downloaded 1 of 4 Twitter followers" <- "followers", because 4 total
+    key = step._i18nKey() + ".progressBars.#{@activityId}"
+    if @total
+      suffix = "total"
+      count = @total # "Downloaded 1 of 4 Twitter followers" <- "followers", because 4 total
     else
-      key += "loading"
+      suffix = "current"
+      count = @current
+    if @isFinished
+      key += ".loaded_#{suffix}"
+    else
+      if @isStarted
+        if count
+          key += ".loading_#{suffix}"
+        else
+          key += ".connecting"
+      else
+        key += ".waiting"
     i18n.t(key, _.extend({count: count}, @))
   progressBarIconClass: ->
-    return "fa-star-half-o" if @isStarted
-    return "fa-star" if @isFinished
-    return "fa-star-o"
+    if @isFinished then "fa-check" else "fa-ellipsis-h"
 
 Template.stepBody.helpers(stepBodyHelpers)
 

@@ -8,7 +8,11 @@ Commands.allow
       enqueuedTaskIds: Match.EmptyArray
       succeededTaskIds: Match.EmptyArray
       failedTaskIds: Match.EmptyArray
-      progress: Match.EmptyArray
+      progressBars: [
+        activityId: String
+        isStarted: Boolean
+        isFinished: Boolean
+      ]
       params: Object
       rowId: Match.Optional(Match.ObjectId(Rows))
       stepId: Match.ObjectId(Steps)
