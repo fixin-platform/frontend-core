@@ -20,12 +20,12 @@ Commands.before.insert (userId, Command) ->
     params: {}
     isDryRun: true # POST/PUT/DELETE and also "GET/HEAD with side-effects" are disallowed
     isShallow: false # with task hierarchy
-    stepId: ""
+#    stepId: ""
     userId: userId
     updatedAt: now
     createdAt: now
   )
-  throw new Meteor.Error("Command:stepId:empty", "Command::stepId is empty", Command) if not Command.stepId
+#  throw new Meteor.Error("Command:stepId:empty", "Command::stepId is empty", Command) if not Command.stepId
   throw new Meteor.Error("Command:userId:empty", "Command::userId is empty", Command) if not Command.userId
   CommandPreSave.call(@, userId, Command)
   true
