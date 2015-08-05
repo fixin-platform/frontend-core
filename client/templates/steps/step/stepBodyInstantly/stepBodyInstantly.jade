@@ -21,8 +21,8 @@ template(name="stepBodyInstantly")
               ul.fa-ul
                 each .
                   li
-                    i.fa-li.fa(class="{{progressBarIconClass}}")
-                    | {{progressBarMessage ../..}}
+                    i.fa-li.fa(class="{{progressBarIconClass commandForAllRows}}")
+                    | {{progressBarMessage commandForAllRows}}
             if commandForAllRows.link
               blockquote
                 h4

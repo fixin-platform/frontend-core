@@ -13,11 +13,10 @@ Issues.before.insert (userId, Issue) ->
   Issue._id ||= Random.id()
   now = new Date()
   _.defaults(Issue,
-    error: "" # same field name for compatibility with Meteor.Error
     reason: ""
-    details: {} # TODO: ensure that details are equal for equal error&reason combination
-#    recipeId: ""
-    taskId: ""
+    details: {}
+    taskToken: "" # optional
+    commandId: ""
     stepId: ""
     userId: userId
     updatedAt: now

@@ -16,8 +16,6 @@ requestCancelWorkflowExecutionSync = Meteor.wrapAsync(swf.requestCancelWorkflowE
 
 # Using "before" hook to ensure that SWF receives our request
 Commands.before.insert (userId, command) ->
-  params =
-    workflowId: command._id
   if command.stepId
     step = Steps.findOne(command.stepId, {transform: Transformations.Step})
     input = step.input()
@@ -25,25 +23,48 @@ Commands.before.insert (userId, command) ->
       commandId: command._id
       stepId: step._id
       userId: step.userId
-    params.domain = step.domain
-    params.workflowType = step.workflowType
-    params.taskList = step.taskList
-    params.input = JSON.stringify(input)
+    params =
+      domain: step.domain
+      workflowId: command._id
+      workflowType: step.workflowType
+      taskList: step.taskList
+      tagList: [ # unused for now, but helpful in debug
+        command._id
+        step._id
+        step.userId
+      ]
+      input: JSON.stringify(input)
   else
-    params.domain = Meteor.settings.swfDomain
-    params.workflowType =
-      name: command.cls
-      version: "1.0.0"
-    params.taskList =
-      name: command.cls
-    params.input = JSON.stringify(command.params)
+    params =
+      domain: Meteor.settings.swfDomain
+      workflowId: command._id
+      workflowType:
+        name: command.cls
+        version: "1.0.0"
+      taskList:
+        name: command.cls
+      tagList: [
+        command._id
+        "unknown"
+        command.userId
+      ]
+      input: JSON.stringify(command.params)
   data = startWorkflowExecutionSync(params)
   command.runId = data.runId
   true
 
 Commands.before.remove (userId, command) ->
-  requestCancelWorkflowExecutionSync(
-    domain: command.domain
-    workflowId: command._id
-  )
+  if command.stepId
+    step = Steps.findOne(command.stepId, {transform: Transformations.Step})
+    params =
+      domain: step.domain
+      workflowId: command._id
+  else
+    params =
+      domain: Meteor.settings.swfDomain
+      workflowId: command._id
+  try
+    requestCancelWorkflowExecutionSync(params)
+  catch error
+    throw error if error.code isnt "UnknownResourceFault" # Workflow execution may have already been terminated
   true

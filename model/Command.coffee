@@ -4,6 +4,8 @@ Commands = Collections["Command"] = new Mongo.Collection("Commands", {transform:
 class Commands.Command
   constructor: (doc) ->
     _.extend(@, doc)
+  step: ->
+    Steps.findOne(@stepId)
 
 CommandPreSave = (userId, changes) ->
   now = new Date()
@@ -13,11 +15,11 @@ Commands.before.insert (userId, Command) ->
   Command._id ||= Random.id()
   now = new Date()
   _.defaults(Command,
-    enqueuedTaskIds: []
-    succeededTaskIds: []
-    failedTaskIds: []
-    progressBars: []
     params: {}
+    progressBars: []
+    isStarted: false
+    isCompleted: false
+    isFailed: false
     isDryRun: true # POST/PUT/DELETE and also "GET/HEAD with side-effects" are disallowed
     isShallow: false # with task hierarchy
 #    stepId: ""

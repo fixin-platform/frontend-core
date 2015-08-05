@@ -66,7 +66,7 @@ class Recipes.Recipe
     Steps.insert(object, options)
   generateProgressBars: (activityIds, startedActivityIds) ->
     # required for latency compensation
-    {activityId: activityId, isStarted: activityId in startedActivityIds, isFinished: false} for activityId in activityIds
+    {activityId: activityId, isStarted: activityId in startedActivityIds, isCompleted: false, isFailed: false} for activityId in activityIds
   requirementDefaults: (defaults) ->
     _.pick(defaults, "commandId", "stepId", "userId")
 

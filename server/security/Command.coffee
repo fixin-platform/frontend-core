@@ -4,17 +4,18 @@ Commands.allow
     check command,
       _id: Match.StringId
       cls: Match.Optional(String)
-      isDryRun: Boolean
-      isShallow: Boolean
-      enqueuedTaskIds: Match.EmptyArray
-      succeededTaskIds: Match.EmptyArray
-      failedTaskIds: Match.EmptyArray
-      progressBars: [
+      params: Object
+      progressBars: [ # at least one progress bar must be present
         activityId: String
         isStarted: Boolean
-        isFinished: Boolean
+        isCompleted: Boolean
+        isFailed: Boolean
       ]
-      params: Object
+      isStarted: Boolean
+      isCompleted: Boolean
+      isFailed: Boolean
+      isDryRun: Boolean
+      isShallow: Boolean
       rowId: Match.Optional(Match.ObjectId(Rows))
       stepId: Match.Optional(Match.ObjectId(Steps))
       userId: userId
