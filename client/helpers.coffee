@@ -116,5 +116,9 @@ UI.registerHelper "nl2br", (text) ->
   nl2br = (text + "").replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, "$1" + "<br>" + "$2")
   new Spacebars.SafeString(nl2br)
 
+UI.registerHelper "nlnl2hr", (text) ->
+  nlnl2hr = (text + "").replace(/([^>\r\n]?)(\r\n\r\n)/g, "$1" + "<hr>").replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, "$1" + "<br>")
+  new Spacebars.SafeString(nlnl2hr)
+
 UI.registerHelper "cl", ->
   cl.apply(window, arguments)
