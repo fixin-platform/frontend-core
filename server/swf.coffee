@@ -16,53 +16,33 @@ requestCancelWorkflowExecutionSync = Meteor.wrapAsync(swf.requestCancelWorkflowE
 
 # Using "before" hook to ensure that SWF receives our request
 Commands.before.insert (userId, command) ->
-  if command.stepId
-    step = Steps.findOne(command.stepId, {transform: Transformations.Step})
-    input = step.input()
-    _.defaults input,
-      commandId: command._id
-      stepId: step._id
-      userId: step.userId
-    params =
-      domain: step.domain
-      workflowId: command._id
-      workflowType: step.workflowType
-      taskList: step.taskList
-      tagList: [ # unused for now, but helpful in debug
-        command._id
-        step._id
-        step.userId
-      ]
-      input: JSON.stringify(input)
-  else
-    params =
-      domain: Meteor.settings.swfDomain
-      workflowId: command._id
-      workflowType:
-        name: command.cls
-        version: "1.0.0"
-      taskList:
-        name: command.cls
-      tagList: [
-        command._id
-        "unknown"
-        command.userId
-      ]
-      input: JSON.stringify(command.params)
+  step = Steps.findOne(command.stepId, {transform: Transformations.Step})
+  input = step.input(command)
+  _.defaults input,
+    commandId: command._id
+    stepId: step._id
+    userId: step.userId
+  params =
+    domain: step.domain
+    workflowId: command._id
+    workflowType: step.workflowType
+    taskList: step.taskList
+    tagList: [ # unused for now, but helpful in debug
+      command._id
+      step._id
+      step.userId
+    ]
+    input: JSON.stringify(input)
+  console.log params
   data = startWorkflowExecutionSync(params)
   command.runId = data.runId
   true
 
 Commands.before.remove (userId, command) ->
-  if command.stepId
-    step = Steps.findOne(command.stepId, {transform: Transformations.Step})
-    params =
-      domain: step.domain
-      workflowId: command._id
-  else
-    params =
-      domain: Meteor.settings.swfDomain
-      workflowId: command._id
+  step = Steps.findOne(command.stepId, {transform: Transformations.Step})
+  params =
+    domain: step.domain
+    workflowId: command._id
   try
     requestCancelWorkflowExecutionSync(params)
   catch error

@@ -31,7 +31,7 @@ class Steps.Step
   execute: -> throw "Implement me!"
   revert: -> throw "Implement me!"
   change: -> Steps.update(@_id, {$set: {isCompleted: false}})
-  input: -> @recipe().input(@)
+  input: (command) -> @recipe().input(@, command)
   progressBars: -> @recipe().progressBars(@)
 #  columns: -> throw "Implement me!"
   insertCommand: (data) ->

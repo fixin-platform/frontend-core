@@ -1,10 +1,14 @@
+Commands.beforeAllowHooks = []
+
 Commands.allow
   insert: introspect (userId, command) ->
+    for hook in Commands.beforeAllowHooks
+      hook.apply(@, arguments)
+
     throw new Match.Error("Authentication required") if not userId
     check command,
       _id: Match.StringId
-      cls: Match.Optional(String)
-      params: Object
+      input: Object
       progressBars: [ # at least one progress bar must be present
         activityId: String
         isStarted: Boolean
@@ -17,14 +21,13 @@ Commands.allow
       isDryRun: Boolean
       isShallow: Boolean
       rowId: Match.Optional(Match.ObjectId(Rows))
-      stepId: Match.Optional(Match.ObjectId(Steps))
+      stepId: Match.ObjectId(Steps)
       userId: userId
       mode: Match.Optional(String)
       updatedAt: Date
       createdAt: Date
-    if command.stepId
-      step = Steps.findOne(command.stepId)
-      throw new Match.Error("Can't insert a command for another user's step")  if command.userId isnt step.userId
+    step = Steps.findOne(command.stepId)
+    throw new Match.Error("Can't insert a command for another user's step")  if command.userId isnt step.userId
     true
   update: introspect (userId, command, fieldNames, modifier, options) ->
 

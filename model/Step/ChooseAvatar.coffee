@@ -11,7 +11,6 @@ class Steps.ChooseAvatar extends Steps.Step
     $set = _.extend(
       isCompleted: true
     , values)
-    cl $set
     Steps.update(@_id, {$set: $set})
   revert: ->
     $set =
