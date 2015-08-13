@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   api.use(["reactive-dict"]);
   api.use(["oauth", "google", "twitter"]); // TODO: move them to appropriate packages
   api.use(["email", "http"]);
-  api.use(["force-ssl"]);
+  //api.use(["force-ssl"]);
   api.use([
     "meteorhacks:kadira@2.20.0",
     //"meteorhacks:zones@1.4.0", // Leads to 100% CPU hanging in extension
