@@ -9,7 +9,7 @@ class Steps.Step
     @template or= @cls
     @i18nKey or= @cls
     _.defaults @,
-      domain: Meteor.settings.swfDomain
+      domain: Meteor.settings.swf.domain
       workflowType:
         name: @cls
         version: @version or "1.0.0"

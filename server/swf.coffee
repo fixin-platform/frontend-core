@@ -2,8 +2,8 @@ AWS = Npm.require "aws-sdk"
 
 # [dev] Meteor.settings.swf.options -> ./settings-local/dev.json (developers have their own AWS SWF credentials)
 # [prod] Meteor.settings.swf.options -> ./settings/prod.json (client supplies general-purpose credentials)
-check Meteor.settings.swfDomain, String
 check Meteor.settings.swf,
+  domain: String
   accessKeyId: String
   secretAccessKey: String
   region: String
@@ -33,7 +33,6 @@ Commands.before.insert (userId, command) ->
       step.userId
     ]
     input: JSON.stringify(input)
-  console.log params
   data = startWorkflowExecutionSync(params)
   command.runId = data.runId
   true

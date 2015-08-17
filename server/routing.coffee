@@ -36,4 +36,15 @@ Picker.route "/webhook/:_id", (params, req, res, next) ->
     userId: step.userId
     params: params.query
   )
+  res.writeHead(200)
   res.end()
+
+Picker.route "/step/input/:_id/:token", (params, req, res, next) ->
+  check params,
+    _id: Match.ObjectId(Steps)
+    token: Meteor.settings.cron.token
+    query: Object
+
+  step = Steps.findOne(params._id, {transform: Transformations.Step})
+  res.writeHead(200)
+  res.end(JSON.stringify(step.input()))
