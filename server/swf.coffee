@@ -23,11 +23,11 @@ Commands.before.insert (userId, command) ->
     stepId: step._id
     userId: step.userId
   params =
-    domain: step.domain
+    domain: step.domain()
     workflowId: command._id
-    workflowType: step.workflowType
-    taskList: step.taskList
-    tagList: [ # unused for now, but helpful in debug
+    workflowType: step.workflowType()
+    taskList: step.taskList()
+    tagList: [ # not used in code, but helpful in debug
       command._id
       step._id
       step.userId
@@ -40,7 +40,7 @@ Commands.before.insert (userId, command) ->
 Commands.before.remove (userId, command) ->
   step = Steps.findOne(command.stepId, {transform: Transformations.Step})
   params =
-    domain: step.domain
+    domain: step.domain()
     workflowId: command._id
   try
     requestCancelWorkflowExecutionSync(params)

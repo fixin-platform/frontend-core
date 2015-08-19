@@ -8,13 +8,6 @@ class Steps.Step
     _.extend(@, doc)
     @template or= @cls
     @i18nKey or= @cls
-    _.defaults @,
-      domain: Meteor.settings.swf?.domain
-      workflowType:
-        name: @cls
-        version: @version or "1.0.0"
-      taskList:
-        name: @cls
   isCurrent: -> not @isCompleted and @isActive()
   isActive: -> not Steps.findOne({isCompleted: false, position: {$lt: @position}, recipeId: @recipeId})
   forAllNext: (callback) ->
@@ -33,6 +26,13 @@ class Steps.Step
   change: -> Steps.update(@_id, {$set: {isCompleted: false}})
   input: (command) -> @recipe().input(@, command)
   progressBars: -> @recipe().progressBars(@)
+  domain: ->
+    Meteor.settings.swf.domain
+  workflowType: ->
+    name: @cls
+    version: @version or "1.0.0"
+  taskList: ->
+    name: @cls
 #  columns: -> throw "Implement me!"
   insertCommand: (data) ->
     Commands.insert _.defaults
