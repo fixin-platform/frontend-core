@@ -34,7 +34,7 @@ Picker.route "/webhook/:_id", (params, req, res, next) ->
     isShallow: false
     stepId: step._id
     userId: step.userId
-    params: params.query
+    input: params.query
   )
   res.writeHead(200)
   res.end()
