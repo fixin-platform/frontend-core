@@ -1,7 +1,4 @@
 Template.menu.helpers
-  canSeeSteps: ->
-    user = Foreach.currentUser({isAdmin: 1})
-    user and (user.isAdmin or Pack.isApplied)
 
 Template.menu.onRendered ->
 

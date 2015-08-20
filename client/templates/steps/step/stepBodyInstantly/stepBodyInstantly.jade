@@ -18,10 +18,10 @@ template(name="stepBodyInstantly")
                 | &nbsp;
                 a.cancel(href="#") cancel
             with commandForAllRows.progress
-              ul.fa-ul
+              ul.command-progress-bars.fa-ul
                 each .
-                  li
-                    i.fa-li.fa(class="{{progressBarIconClass commandForAllRows}}")
+                  li.command-progress-bar
+                    i.fa-li.fa(class="{{progressBarIconClass commandForAllRows}}" data-activity-id="{{activityId}}")
                     | {{progressBarMessage commandForAllRows}}
             if commandForAllRows.link
               blockquote

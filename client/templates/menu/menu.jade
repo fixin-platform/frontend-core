@@ -17,11 +17,6 @@ template(name="menu")
             | Pricing
         li.divider
       if currentUserReady
-        if canSeeSteps
-          li(role='presentation')
-            a(href="/steps", role='menuitem', tabindex='-1')
-              i.fa.fa-fw.fa-bolt
-              | Steps
         if currentUserField "isAdmin"
           li(role='presentation')
             a(href="/health", role='menuitem', tabindex='-1')
@@ -42,5 +37,10 @@ template(name="menu")
               | Disconnect Trello
         li(role='presentation')
           a.logout(href="#", role='menuitem', tabindex='-1')
-            i.fa.fa-fw.fa-power-off
+            i.fa.fa-fw.fa-sign-out
             | Logout
+      else
+        li(role='presentation')
+          a.login(href="#", role='menuitem', tabindex='-1')
+            i.fa.fa-fw.fa-sign-in
+            | Login / Sign up

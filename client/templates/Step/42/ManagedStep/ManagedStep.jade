@@ -1,5 +1,5 @@
 template(name="ManagedStep")
-  .step.list-group-item.large-list-group-item(class="{{#if not step.isCurrent}}text-muted{{/if}}", data-name=step.name)
+  .step.list-group-item.large-list-group-item(class="{{step.cls}} {{#if not step.isCurrent}}text-muted{{/if}}", data-name=step.name, data-key=step.key)
     if step.isCompleted
       +UI.dynamic(template=isCompletedTemplateName data=step)
     else

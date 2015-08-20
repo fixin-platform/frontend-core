@@ -5,6 +5,10 @@ $document.on "click", ".logout", encapsulate (event) ->
     mixpanel.cookie.clear()
     location.href = location.protocol + "//" + location.hostname + (if location.port then ':' + location.port else '') + "/"
 
+$document.on "click", ".login", encapsulate (event) ->
+  AccountsTemplates.setState("signUp");
+  $('#loginPopup').modal('show')
+
 $document.on "click", ".reconnect", grab encapsulate (event) ->
   Meteor.reconnect()
 
