@@ -17,6 +17,7 @@ requestCancelWorkflowExecutionSync = Meteor.wrapAsync(swf.requestCancelWorkflowE
 # Using "before" hook to ensure that SWF receives our request
 Commands.before.insert (userId, command) ->
   step = Steps.findOne(command.stepId, {transform: Transformations.Step})
+  _.extend command, step.insertCommandData() # an old version of client-side code might insert a Command in old format, so we need to override the Command data in server-side code
   input = step.input(command)
   _.defaults input,
     commandId: command._id

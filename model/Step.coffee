@@ -35,10 +35,10 @@ class Steps.Step
     name: @cls
 #  columns: -> throw "Implement me!"
   insertCommand: (data) ->
-    Commands.insert _.defaults
-      stepId: @_id
-      progressBars: @progressBars()
-    , data
+    Commands.insert _.extend {}, data, @insertCommandData()
+  insertCommandData: ->
+    stepId: @_id
+    progressBars: @progressBars()
   columns: -> @tempColumns()
   tempColumns: ->
     row = Rows.findOne({stepId: @_id})
