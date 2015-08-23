@@ -39,11 +39,11 @@
   progressBarMessage: (command) ->
     # isFinished has priority (so that isStarted = false & isFinished = true displays OK)
     key = command.step()._i18nKey() + ".progressBars.#{@activityId}"
-    if @total and @current
-      suffix = "complex"
-      count = @total # "Downloaded 1 of 4 Twitter followers" <- "followers", because 4 total
+    if @total? and @current? # not undefined, not null, may be equal to 0
+      suffix = "complex" # e.g. "Downloaded 1 of 4 Twitter followers"
+      count = @total # <- "followers", because 4 total
     else
-      suffix = "simple"
+      suffix = "simple" # e.g. "Downloaded 4 Twitter followers"
       count = @total or @current
     if @isFailed
       key += ".failed"
