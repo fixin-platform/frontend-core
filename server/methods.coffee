@@ -11,7 +11,7 @@ Foreach.saveCredential = (avatarValues, credentialValues) ->
   $set.updatedAt = now
   $setOnInsert = {createdAt: $set.updatedAt}
   upsertRes = Avatars.upsert(avatarSelector, {$setOnInsert: $setOnInsert, $set: $set})
-  avatarId = upsertRes.insertedId or Avatars.find(avatarSelector)._id
+  avatarId = upsertRes.insertedId or Avatars.findOne(avatarSelector)._id
 
   credentialSelector =
     scopes: {$all: credentialValues.scopes}
