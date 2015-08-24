@@ -130,10 +130,10 @@ Foreach.currentUserOption = (app, option) ->
 createError = (e) ->
   error = {}
   if e instanceof Meteor.Error
-    error = _.pick(e, "error", "reason", "details")
+    error = _.pick(e, "reason", "details")
   else
-    error = {error: "[500] Internal Server Error", reason: e.message}
-  _.defaults(error, error: "", reason: "", details: {})
+    error = {reason: e.message}
+  _.defaults(error, reason: "", details: {})
   error.details = sanitize(error.details)
   error.details.stack ?= e.stack
   error.details.createdAt ?= new Date()
