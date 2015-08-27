@@ -18,12 +18,13 @@ Package.onUse(function(api) {
   //api.use(["force-ssl"]);
   api.use([
     "meteorhacks:kadira@2.20.0",
-    //"meteorhacks:zones@1.4.0", // Leads to 100% CPU hanging in extension
-    "meteorhacks:fast-render@2.3.2",
+    //"kadira:zones@1.4.0", // Leads to 100% CPU hanging in extension
+    "meteorhacks:fast-render@2.9.0",
     "meteorhacks:picker@1.0.2",
-    "meteorhacks:flow-router@1.16.1",
-    "meteorhacks:flow-layout@1.4.0",
-    "useraccounts:bootstrap@=1.10.0",
+    "kadira:flow-router@2.1.1",
+    "kadira:blaze-layout@2.0.1",
+    "useraccounts:bootstrap@1.12.3",
+    "useraccounts:flow-routing@1.12.3",
     "tmeasday:publish-counts@0.3.7"
   ], ["client", "server"]);
   api.use([
@@ -31,8 +32,8 @@ Package.onUse(function(api) {
   ], ["server"]);
   api.imply([
     "service-configuration", "accounts-base", "accounts-google", "accounts-twitter", "accounts-password", "google", "twitter", "reactive-var",
-    "meteorhacks:fast-render", "meteorhacks:picker", "meteorhacks:flow-router", "meteorhacks:flow-layout",
-    "useraccounts:bootstrap", "matb33:collection-hooks", "tmeasday:publish-counts"
+    "meteorhacks:fast-render", "meteorhacks:picker", "kadira:flow-router",
+    "useraccounts:bootstrap", "useraccounts:flow-routing", "matb33:collection-hooks", "tmeasday:publish-counts"
   ]);
 
   // Local packages
