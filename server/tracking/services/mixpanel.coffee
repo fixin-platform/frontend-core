@@ -3,7 +3,7 @@ crypto = Npm.require("crypto")
 flatten = Npm.require("flat")
 
 mixpanel = Mixpanel.init(Meteor.settings.public.mixpanel.token, {key: Meteor.settings.mixpanel.key})
-if Meteor.settings.public.mixpanel.disabled
+if not Meteor.settings.public.mixpanel.isEnabled
   mixpanel.send_request = (endpoint, data, callback) -> callback?() # don't really send any requests
 else
   mixpanel.set_config({debug: Meteor.settings.public.isDebug})

@@ -3,7 +3,7 @@ Meteor.startup ->
     api_host: "https://api.mixpanel.com"
     loaded: mixpanelLoaded
   )
-  if Meteor.settings.public.mixpanel.disabled
+  if not Meteor.settings.public.mixpanel.isEnabled
     mixpanel.disable()
   else
     mixpanel.set_config({debug: Meteor.settings.public.isDebug})

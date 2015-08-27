@@ -1,5 +1,5 @@
 Meteor.startup ->
-  if Meteor.settings.public.ga.disabled
+  if not Meteor.settings.public.ga.isEnabled
     window["ga-disable-" + Meteor.settings.public.ga.property] = true
   ga("create", Meteor.settings.public.ga.property, if Meteor.settings.public.isDebug then "none" else "auto");
 
