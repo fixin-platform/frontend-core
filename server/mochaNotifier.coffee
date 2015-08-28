@@ -21,4 +21,3 @@ notifyMocha = (cb) ->
   cwd = process.cwd()
   pwd = cwd.substr(0, cwd.lastIndexOf("/.meteor"))
   touch "#{pwd}/tests/meteor.touch", {}, cb
-  console.log "mocha notified"
