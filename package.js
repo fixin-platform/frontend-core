@@ -15,7 +15,7 @@ Package.onUse(function(api) {
   api.use(["reactive-dict"]);
   api.use(["oauth", "google", "twitter"]); // TODO: move them to appropriate packages
   api.use(["email", "http"]);
-  //api.use(["force-ssl"]);
+  api.use(["force-ssl"]);
   api.use([
     "meteorhacks:kadira@2.20.0",
     //"kadira:zones@1.4.0", // Leads to 100% CPU hanging in extension
@@ -39,11 +39,13 @@ Package.onUse(function(api) {
   // Local packages
   api.use([
     "frontend-foundation@1.0.0",
+    "frontend-wishpool@1.0.0",
     "frontend-adapter@1.0.0",
     "frontend-checkmark@1.0.0"
   ]);
   api.imply([
     "frontend-foundation",
+    "frontend-wishpool",
     "frontend-adapter",
     "frontend-checkmark"
   ]);
