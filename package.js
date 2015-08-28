@@ -12,6 +12,7 @@ Package.onUse(function(api) {
   addFiles(api, description.name, getDefaultProfiles());
   api.use(["meteor-platform", "coffeescript", "stylus", "mquandalle:jade@0.4.1", "underscore", "jquery", "reactive-var"]);
   api.use(["service-configuration", "accounts-base", "accounts-google", "accounts-twitter", "accounts-password"]);
+  api.use(["webapp"]);
   api.use(["reactive-dict"]);
   api.use(["oauth", "google", "twitter"]); // TODO: move them to appropriate packages
   api.use(["email", "http"]);
@@ -118,5 +119,6 @@ Npm.depends({
   "stripe": "3.1.0",
   "winston": "0.9.0",
   "winston-loggly": "1.0.4",
-  "mixpanel": "0.0.20"
+  "mixpanel": "0.0.20",
+  "touch": "1.0.0"
 });

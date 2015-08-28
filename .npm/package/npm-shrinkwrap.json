@@ -294,6 +294,19 @@
         }
       }
     },
+    "touch": {
+      "version": "1.0.0",
+      "dependencies": {
+        "nopt": {
+          "version": "1.0.10",
+          "dependencies": {
+            "abbrev": {
+              "version": "1.0.7"
+            }
+          }
+        }
+      }
+    },
     "winston": {
       "version": "0.9.0",
       "dependencies": {
