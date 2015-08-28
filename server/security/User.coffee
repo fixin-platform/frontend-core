@@ -6,7 +6,7 @@ Users.allow
       return true
     if user._id isnt userId
       return false
-    if "actions" in fieldNames and user._id not in Foreach.fixtureIds
+    if "actions" in fieldNames and user._id not in Fixtures.objectIds
       return false
     return true
   remove: introspect (userId, user) ->
