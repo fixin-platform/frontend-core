@@ -394,7 +394,7 @@ i18n.addResourceBundle("en", "translation",
         name: 'Send to board from archive'
         shorthand: 'unarchive'
         appendix: '{{selectionLength}} $t(objects.Trello.card, {"count": {{selectionLength}}})'
-  steps:
+  Steps:
     ChooseAvatar:
       icon: "plug"
       default: "Choose {{api}} account"
@@ -464,13 +464,6 @@ i18n.addResourceBundle("en", "translation",
       complete: "Connected to {{api}}"
       revert: "disconnect"
       change: "disconnect"
-    LoadData:
-      icon: "cloud-download"
-      default: "Load data"
-      active: "Loading data"
-      complete: "Loaded data"
-      revert: "refresh"
-      refresh: "refresh"
     GoogleDriveLoadSpreadsheets:
       icon: "google"
       default: "Load files from Google Drive"
@@ -523,23 +516,11 @@ i18n.addResourceBundle("en", "translation",
       placeholderFrom: "Start date"
       placeholderTo: "End date"
       submit: "Choose"
-  recipes:
+  Recipes:
     TrelloSyncWithSpreadsheet:
       name: "Sync Trello {{_model}} with {{title}}"
     ShipStationUpdateOrder:
       name: "Update ShipStation Order"
-  columns:
-    Card:
-      id: "ID"
-      name: "Name"
-      desc: "Description"
-      due: "Due date"
-    Checklist:
-      id: "ID"
-      name: "Name"
-    CheckItem:
-      id: "ID"
-      name: "Name"
   billing:
     action: 'action'
     action_plural: 'actions'

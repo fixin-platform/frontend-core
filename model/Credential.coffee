@@ -14,7 +14,7 @@ CredentialPreSave = (userId, changes) ->
 Credentials.before.insert (userId, Credential) ->
   Credential._id ||= Random.id()
   now = new Date()
-  _.defaults(Credential,
+  _.autovalues(Credential,
     scopes: []
     details: {}
     updatedAt: now

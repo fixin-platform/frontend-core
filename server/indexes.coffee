@@ -19,7 +19,6 @@ Rows._ensureIndex({stepId: 1, userId: 1, jobId: 1}, {background: true})
 Columns._ensureIndex({stepId: 1, userId: 1}, {background: true})
 Filters._ensureIndex({stepId: 1, userId: 1}, {background: true})
 
-Messages._ensureIndex({userId: 1}, {background: true})
 Recipes._ensureIndex({userId: 1}, {background: true})
 
 Votes._ensureIndex({app: 1, action: 1, userToken: 1}, {unique: true, dropDups: true, background: true})

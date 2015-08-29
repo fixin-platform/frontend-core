@@ -24,7 +24,7 @@ Columns.before.insert (userId, Column) ->
   Column._id ||= Random.id()
   now = new Date()
   LastColumn = Columns.findOne({stepId: Column.stepId}, {sort: {position: -1}})
-  _.defaults(Column,
+  _.autovalues(Column,
     name: ""
     cls: "Column"
     isHidden: false

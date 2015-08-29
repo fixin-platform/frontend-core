@@ -20,7 +20,7 @@ UserPreSave = (userId, changes) ->
   changes.updatedAt = changes.updatedAt or now
 
 Users.before.insert (userId, user) ->
-  _.defaults(user,
+  _.autovalues(user,
     isNew: true
     planId: "free" # basic5, business20, basic5_yearly, business20_yearly
     actions: 0

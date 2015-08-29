@@ -5,7 +5,7 @@ class Recipes.Recipe
   constructor: (doc) ->
     _.extend(@, doc)
   _i18n: -> i18n.t(@_i18nKey(), _.extend({returnObjectTrees: true}, @_i18nParameters()))
-  _i18nKey: -> "recipes.#{@name}"
+  _i18nKey: -> "Recipes.#{@name}"
   _i18nParameters: -> {}
   generateSteps: -> throw "Implement #{@cls}::generateSteps method"
   refreshTasks: -> throw "Implement #{@cls}::refreshTasks method"
@@ -78,7 +78,7 @@ RecipePreSave = (userId, changes) ->
 Recipes.before.insert (userId, Recipe) ->
   Recipe._id ||= Random.id()
   now = new Date()
-  _.defaults(Recipe,
+  _.autovalues(Recipe,
     cls: ""
     appId: ""
     blueprintId: ""

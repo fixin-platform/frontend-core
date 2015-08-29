@@ -1,6 +1,6 @@
 Template.layout.helpers
-  header: -> @header or "header"
-  footer: -> @footer or "footer"
+  headerTemplate: -> @headerTemplate or "header"
+  footerTemplate: -> @footerTemplate or "footer"
 
 Template.layout.onRendered ->
 

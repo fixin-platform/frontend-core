@@ -1,7 +1,4 @@
 Template.Picker.helpers
-  isMessageLoading: ->
-    message = Messages.findOne({type: "load", recipe: @cls}, {fields: {status: 1}})
-    message and message.status is "loading"
   isSubscriptionLoading: ->
     not StepSubscriptions[@_id].ready()
   isCredentialRequired: ->
@@ -22,8 +19,6 @@ Template.Picker.helpers
       row: Template.parentData(1)
       step: Template.parentData(2)
     }
-  message: ->
-    Messages.findOne({type: "load", recipe: @cls}, {fields: {errors: 1}})
 
 Template.Picker.onCreated ->
   stepId = @data.stepId
@@ -36,9 +31,4 @@ Template.Picker.onCreated ->
   )
 
 Template.Picker.events
-  "click .refresh": grab encapsulate (event, template) ->
-    Spire.sendMessageWithoutDuplicates({type: "load", recipe: @cls}, {type: "load", recipe: @cls, stepId: @_id, filter: {storeId: Meteor.settings.public.Pillomatic.storeId, orderDateStart: "2015-04-01"}})
-  "click .cancel-refresh": grab encapsulate (event, template) ->
-    message = Messages.findOne({type: "load", recipe: @cls})
-    Messages.remove(message._id) if message
 

@@ -14,7 +14,7 @@ CommandPreSave = (userId, changes) ->
 Commands.before.insert (userId, Command) ->
   Command._id ||= Random.id()
   now = new Date()
-  _.defaults(Command,
+  _.autovalues(Command,
     input: {}
     progressBars: []
     isStarted: false

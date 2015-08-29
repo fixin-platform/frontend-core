@@ -12,7 +12,7 @@ TokenEmailPreSave = (userId, changes) ->
 TokenEmails.before.insert (userId, TokenEmail) ->
   TokenEmail._id ||= Random.id()
   now = new Date()
-  _.defaults(TokenEmail,
+  _.autovalues(TokenEmail,
     email: ""
     userToken: currentUserToken or null
     updatedAt: now

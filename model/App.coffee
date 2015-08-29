@@ -17,7 +17,7 @@ Apps.before.insert (userId, App) ->
   App._id ||= Random.id()
   now = new Date()
   LastApp = Apps.findOne({}, {sort: {position: -1}})
-  _.defaults(App,
+  _.autovalues(App,
     position: if LastApp then LastApp.position + 1 else 1
     userId: userId
     updatedAt: now

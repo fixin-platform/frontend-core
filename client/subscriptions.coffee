@@ -10,7 +10,5 @@ if currentUserToken
 else
   throw new Meteor.Error("foreach-owner-token-not-found")
 
-MessagesHandle = Meteor.subscribe("Messages")
-
 AvatarSubscriptionIsInitialized = new ReactiveDict("AvatarSubscriptionIsInitialized")
 StepDataSubscriptionHandles = {}

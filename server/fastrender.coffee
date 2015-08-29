@@ -1,9 +1,6 @@
 FastRender.onAllRoutes (path) ->
   @subscribe("meteor.loginServiceConfiguration")
   @subscribe("currentUser")
-  @subscribe("Apps")
-  @subscribe("Blueprints")
-  @subscribe("Messages")
 
 FastRender.route "/autorun", (params) ->
   @subscribe("Recipes")

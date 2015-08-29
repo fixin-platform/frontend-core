@@ -128,8 +128,3 @@ Meteor.methods
       subject: subject,
       text: text
     )
-  readErrors: secure (messageId) ->
-    check(messageId, Match.StringId)
-    message = Messages.findOne(messageId)
-    if (message && message.jobsCount <= 0)
-      Messages.remove(messageId)

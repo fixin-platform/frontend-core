@@ -71,9 +71,9 @@ class Steps.Step
     parameters = @_i18nParameters()
     result = i18n.t(key, _.extend({returnObjectTrees: true}, parameters))
     result = {} if result is key # i18n not found
-    throw new Meteor.Error("Steps.Step:_i18n:not-object", "", {result: result}) if not _.isObject(result)
+    throw new Meteor.Error("_i18n:not-an-object", "", {result: result}) if not _.isObject(result)
     _.defaults(result, @_i18nDefaults())
-  _i18nKey: -> "steps.#{@i18nKey}"
+  _i18nKey: -> "Steps.#{@i18nKey}"
   _i18nParameters: -> {}
   _i18nDefaults: ->
     run: "Run"

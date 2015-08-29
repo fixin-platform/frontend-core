@@ -12,7 +12,7 @@ VotePreSave = (userId, changes) ->
 Votes.before.insert (userId, Vote) ->
   Vote._id ||= Random.id()
   now = new Date()
-  _.defaults(Vote,
+  _.autovalues(Vote,
     app: ""
     action: ""
     userId: userId

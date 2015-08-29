@@ -14,7 +14,7 @@ FilterPreSave = (userId, changes) ->
 Filters.before.insert (userId, Filter) ->
   Filter._id ||= Random.id()
   now = new Date()
-  _.defaults(Filter,
+  _.autovalues(Filter,
     cls: ""
     position: 0
     columnId: ""

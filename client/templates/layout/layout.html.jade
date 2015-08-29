@@ -8,9 +8,13 @@ head
   script(src="https://apis.google.com/js/api.js")
   script(src="https://checkout.stripe.com/checkout.js")
 
-template(name="layout")
-  +Template.dynamic(template=header)
-  +Template.dynamic(template=content)
-  +Template.dynamic(template=footer)
+body
   +login
   #fb-root
+
+template(name="layout")
+  //+Template.dynamic(template=headerTemplate data=headerData)
+  +Template.dynamic(template=contentTemplate data=contentData)
+  //+Template.dynamic(template=footerTemplate data=footerData)
+
+

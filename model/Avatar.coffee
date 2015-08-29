@@ -14,7 +14,7 @@ AvatarPreSave = (userId, changes) ->
 Avatars.before.insert (userId, Avatar) ->
   Avatar._id ||= Random.id()
   now = new Date()
-  _.defaults(Avatar,
+  _.autovalues(Avatar,
     imageUrl: ""
     details: {}
     userId: userId

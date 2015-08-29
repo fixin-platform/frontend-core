@@ -12,7 +12,7 @@ IssuePreSave = (userId, changes) ->
 Issues.before.insert (userId, Issue) ->
   Issue._id ||= Random.id()
   now = new Date()
-  _.defaults(Issue,
+  _.autovalues(Issue,
     reason: "" # this will become a code string passed to i18n, currently it's passed displayed on the page in plain text
     details: {}
     taskToken: "" # optional
