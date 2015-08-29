@@ -5,16 +5,16 @@ appKey2Url =
 
 Template.iframe.helpers
   url: ->
-    appKey2Url[Foreach.getParam("appKey")]
+    appKey2Url[Spire.getParam("appKey")]
 
 Template.iframe.onCreated ->
-  uri = new URI(appKey2Url[Foreach.getParam("appKey")]);
+  uri = new URI(appKey2Url[Spire.getParam("appKey")]);
   domain = uri.hostname()
   AdapterFactory.initIframe(domain)
 
 Template.iframe.events
   "load iframe": (event, template) ->
-    Foreach.iframe = event.currentTarget
-    Foreach.window = Foreach.iframe.contentWindow
-    Foreach.document = Foreach.iframe.contentDocument
+    Spire.iframe = event.currentTarget
+    Spire.window = Spire.iframe.contentWindow
+    Spire.document = Spire.iframe.contentDocument
     AdapterFactory.handleLoadIframe()

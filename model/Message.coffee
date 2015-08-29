@@ -29,7 +29,7 @@ Messages.before.update (userId, Message, fieldNames, modifier, options) ->
   MessagePreSave.call(@, userId, modifier.$set)
   true
 
-Foreach.sendMessageWithoutDuplicates = (selector, message) ->
+Spire.sendMessageWithoutDuplicates = (selector, message) ->
   message = message or _.deepClone(selector)
   Messages.find(selector, {reactive: false}).forEach (duplicate) ->
     Messages.remove(duplicate._id)

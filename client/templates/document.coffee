@@ -12,7 +12,7 @@ $document.on "click", ".login", encapsulate (event) ->
 $document.on "click", ".reconnect", grab encapsulate (event) ->
   Meteor.reconnect()
 
-$document.on "click", ".update-plan", Foreach.updatePlanEventHandler
+$document.on "click", ".update-plan", Spire.updatePlanEventHandler
 
 $document.on "click", ".connect-to-api", grab encapsulate (event) ->
   $target = $(event.currentTarget)
@@ -29,9 +29,9 @@ $document.on "click", ".connect-to-api", grab encapsulate (event) ->
 connect = (api, scopes, callback) ->
   if api is "Trello"
     sourceUrl = location.protocol + "//" + location.hostname + (if location.port then ':' + location.port else '') + Iron.Location.get().path
-    Meteor.call("getToken", sourceUrl, Foreach.handleError (error, token) ->
+    Meteor.call("getToken", sourceUrl, Spire.handleError (error, token) ->
       callback?(error, token)
-      location.href = "https://trello.com/1/OAuthAuthorizeToken?name=Foreach:+bulk+actions+for+Trello&scope=#{scopes.join(",")}&oauth_token=" + token
+      location.href = "https://trello.com/1/OAuthAuthorizeToken?name=Spire:+bulk+actions+for+Trello&scope=#{scopes.join(",")}&oauth_token=" + token
     )
   else
     @[api].requestCredential(

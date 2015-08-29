@@ -1,13 +1,13 @@
 Template.recipe.helpers
   app: ->
-    Apps.findOne({key: Foreach.getParam("appKey")})
+    Apps.findOne({key: Spire.getParam("appKey")})
   blueprint: ->
-    app = Apps.findOne({key: Foreach.getParam("appKey")})
-    Blueprints.findOne({key: Foreach.getParam("blueprintKey"), appId: app._id})
+    app = Apps.findOne({key: Spire.getParam("appKey")})
+    Blueprints.findOne({key: Spire.getParam("blueprintKey"), appId: app._id})
   recipe: ->
-    Recipes.findOne(Foreach.getParam("recipeId"))
+    Recipes.findOne(Spire.getParam("recipeId"))
   recipeBodyData: ->
-    recipeId: Foreach.getParam("recipeId")
+    recipeId: Spire.getParam("recipeId")
 
 Template.recipe.onCreated ->
   @subscribe("Recipes")

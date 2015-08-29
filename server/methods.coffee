@@ -1,6 +1,6 @@
 stripe = Npm.require("stripe")(Meteor.settings.stripe.secret) if Meteor.settings.stripe
 
-Foreach.saveCredential = (avatarValues, credentialValues) ->
+Spire.saveCredential = (avatarValues, credentialValues) ->
   avatarSelector = # same as postgresqlSelector for now, but that's just a coincidence; see the possible difference below in Credential-related code
     api: avatarValues.api
     uid: avatarValues.uid
@@ -57,7 +57,7 @@ Meteor.methods
         avatarValues.name = "@" + serviceData.screenName
       when "Google"
         avatarValues.imageUrl = serviceData.picture
-    Foreach.saveCredential(avatarValues, credentialValues)
+    Spire.saveCredential(avatarValues, credentialValues)
   getOutstandingPolls: secure admin ->
     Queue.worker.outstandingPolls
   syncWithMixpanel: secure admin (userId) ->
@@ -80,7 +80,7 @@ Meteor.methods
         emails.push(user.emails[0].address)
     emails
   updatePlan: secure (planId) ->
-    check(planId, Match.InArray(_.pluck(Foreach.plans, "_id")))
+    check(planId, Match.InArray(_.pluck(Spire.plans, "_id")))
     user = Users.findOne(@userId)
     if user.planId is planId
       # this is likely bug in our code, so let's throw the error to learn about it in Kadira

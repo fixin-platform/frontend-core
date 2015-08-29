@@ -15,13 +15,13 @@ Template.health.events
     $button = $(event.currentTarget)
     $button.find(".ready").hide()
     $button.find(".loading").show()
-    Meteor.call("syncWithMixpanel", Foreach.handleError (error, emails) ->
+    Meteor.call("syncWithMixpanel", Spire.handleError (error, emails) ->
       $button.find(".ready").show()
       $button.find(".loading").hide()
       alert("Added #{emails.join(", ")}")
     )
   "click .refresh-outstanding-polls": grab encapsulate (event, template) ->
-    Meteor.call("getOutstandingPolls", Foreach.handleError (error, outstandingPolls) ->
+    Meteor.call("getOutstandingPolls", Spire.handleError (error, outstandingPolls) ->
         $(".outstanding-polls").text(outstandingPolls)
     )
 

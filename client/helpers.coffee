@@ -1,8 +1,8 @@
 UI.registerHelper "subscriptionsReady", ->
   Template.instance().subscriptionsReady()
 
-UI.registerHelper "Foreach", ->
-  Foreach
+UI.registerHelper "Spire", ->
+  Spire
 
 UI.registerHelper "Settings", ->
   Meteor.settings
@@ -23,7 +23,7 @@ UI.registerHelper "currentAdapter", ->
   AdapterFactory.current
 
 UI.registerHelper "currentUserReady", ->
-  Foreach.currentUserReady()
+  Spire.currentUserReady()
 
 UI.registerHelper "currentUserIsEditor", ->
   Meteor.user() and (UI._globalHelpers.currentUserField.call(@, "isEditor") or UI._globalHelpers.currentUserField.call(@, "isAdmin"))
@@ -31,17 +31,17 @@ UI.registerHelper "currentUserIsEditor", ->
 UI.registerHelper "currentUserField", (field) ->
   fields = {}
   fields[field] = 1
-  Foreach.currentUser(fields)[field]
+  Spire.currentUser(fields)[field]
 
 UI.registerHelper "currentUserFlags", ->
   UI._globalHelpers.currentUserField.call(@, "flags")
 
 UI.registerHelper "currentUserPlan", ->
-  _.findWhere(Foreach.plans, {_id: UI._globalHelpers.currentUserField.call(@, "planId")})
+  _.findWhere(Spire.plans, {_id: UI._globalHelpers.currentUserField.call(@, "planId")})
 
 UI.registerHelper "currentUserPlanActionsLeft", ->
   currentUserPlan = UI._globalHelpers.currentUserPlan.call(@)
-  Math.max(0, Foreach.currentUser({"actions": 1}).actions + currentUserPlan.limit)
+  Math.max(0, Spire.currentUser({"actions": 1}).actions + currentUserPlan.limit)
 
 UI.registerHelper "condition", (v1, operator, v2, options) ->
   switch operator

@@ -1,5 +1,5 @@
-Foreach.price = 0.01
-Foreach.plans = [
+Spire.price = 0.01
+Spire.plans = [
   _id: "free"
   name: "free"
   limit: 100
@@ -71,7 +71,7 @@ Foreach.plans = [
   alternativeId: "business20"
 ]
 
-Foreach.stub = -> throw "Implement #{arguments.callee.caller.name}"
+Spire.stub = -> throw "Implement #{arguments.callee.caller.name}"
 
 #Foreach.combine = (funcs...) ->
 #  (args...) =>
@@ -108,23 +108,23 @@ partializedAccessor = (field, object) -> # argument order simplifies its usage w
   else
     value
 
-Foreach.minute = 60 * 1000
-Foreach.hour = 60 * Foreach.minute
+Spire.minute = 60 * 1000
+Spire.hour = 60 * Spire.minute
 
-Foreach.updateInterval = 5 * Foreach.minute
-Foreach.pageLimit = 20
+Spire.updateInterval = 5 * Spire.minute
+Spire.pageLimit = 20
 
-Foreach.currentUser = (fields, userId = Meteor.userId()) ->
+Spire.currentUser = (fields, userId = Meteor.userId()) ->
   Users.findOne(userId, {fields: fields})
 
-Foreach.currentUserReady = ->
-  user = Foreach.currentUser({createdAt: 1})
+Spire.currentUserReady = ->
+  user = Spire.currentUser({createdAt: 1})
   !!(user and user.createdAt) # Built-in Meteor subscription sends only "username", "emails", "profile" fields; wait until our custom publication sends other fields
 
-Foreach.currentUserOption = (app, option) ->
+Spire.currentUserOption = (app, option) ->
   fields = {}
   fields["options.#{app}.#{option}"] = 1
-  user = Foreach.currentUser(fields)
+  user = Spire.currentUser(fields)
   user.options[app]?[option]
 
 createError = (e) ->
@@ -139,5 +139,5 @@ createError = (e) ->
   error.details.createdAt ?= new Date()
   error
 
-Foreach.MeteorPromisifier = (originalMethod) ->
+Spire.MeteorPromisifier = (originalMethod) ->
   Promise.promisify(Meteor.bindEnvironment(originalMethod, null, @))

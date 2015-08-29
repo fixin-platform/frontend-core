@@ -15,4 +15,4 @@ Template.modal.onRendered ->
 
 Template.modal.events
 # layout doesn't have access to modals in body
-  "click .add-payment-method": Foreach.updatePlanEventHandler
+  "click .add-payment-method": Spire.updatePlanEventHandler

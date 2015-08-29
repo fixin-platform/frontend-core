@@ -6,7 +6,7 @@ Meteor.startup ->
     $("body").removeClass("modal-open")
     $(".modal-backdrop").remove()
 
-    user = Foreach.currentUser({isNew: 1})
+    user = Spire.currentUser({isNew: 1})
     if not user or not user.isNew
       return
     modifier = {}

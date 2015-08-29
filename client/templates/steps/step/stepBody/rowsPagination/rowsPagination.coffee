@@ -1,12 +1,12 @@
 Template.rowsPagination.helpers
   pagination: ->
     rowsCount = Counts.get("RowsCountByStepId")
-    lastPage = Math.ceil(rowsCount / Foreach.pageLimit)
+    lastPage = Math.ceil(rowsCount / Spire.pageLimit)
     if @page < 1
       Steps.update(@_id, {$set: {page: 1}})
     else if @page > lastPage
       Steps.update(@_id, {$set: {page: lastPage}})
-    else if rowsCount > Foreach.pageLimit
+    else if rowsCount > Spire.pageLimit
       from = @page - 2
       from = 1  if from < 1
       to = from + 4

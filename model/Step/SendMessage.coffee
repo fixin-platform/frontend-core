@@ -15,7 +15,7 @@ class Steps.SendMessage extends Steps.Step
     return defaultValue if not message
     message[field]
   execute: ->
-    Foreach.sendMessageWithoutDuplicates(@selector(), @selector())
+    Spire.sendMessageWithoutDuplicates(@selector(), @selector())
   revert: ->
     message = @message()
     Messages.remove(message._id) if message

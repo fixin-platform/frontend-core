@@ -1,6 +1,6 @@
 Template.header.helpers
   shouldDisplay: ->
-    user = Foreach.currentUser({"isInternal": 1, "isAdmin": 1, "flags": 1})
+    user = Spire.currentUser({"isInternal": 1, "isAdmin": 1, "flags": 1})
     return false if not user
     return false if user.isAdmin
     return false if user.isInternal
@@ -9,9 +9,9 @@ Template.header.helpers
     return false if Pack.isApplied
     return true # at last
   isRealName: ->
-    Foreach.currentUser({"profile": 1}).profile.isRealName
+    Spire.currentUser({"profile": 1}).profile.isRealName
   firstName: ->
-    Transformations.User(Foreach.currentUser({"profile": 1})).firstName
+    Transformations.User(Spire.currentUser({"profile": 1})).firstName
 
 Template.header.onRendered ->
 

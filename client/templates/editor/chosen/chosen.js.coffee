@@ -4,7 +4,7 @@ Template.chosen.helpers
   disabled: ->
     not (if _.isBoolean(@enabled) then @enabled else true)
   optionSelected: (context) ->
-    Foreach.debouncedChosenUpdated()
+    Spire.debouncedChosenUpdated()
     if context.multiple
       @value in context.value
     else
@@ -39,6 +39,6 @@ Template.chosen.events
     editor = EditorCache.editors[template.data.family]
     editor.collection.update(template.data._id, {$set: $set})
 
-Foreach.debouncedChosenUpdated = _.debounce(->
+Spire.debouncedChosenUpdated = _.debounce(->
   $("select").trigger("chosen:updated")
 , 200)

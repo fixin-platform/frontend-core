@@ -37,7 +37,7 @@ Template.Picker.onCreated ->
 
 Template.Picker.events
   "click .refresh": grab encapsulate (event, template) ->
-    Foreach.sendMessageWithoutDuplicates({type: "load", recipe: @cls}, {type: "load", recipe: @cls, stepId: @_id, filter: {storeId: Meteor.settings.public.Pillomatic.storeId, orderDateStart: "2015-04-01"}})
+    Spire.sendMessageWithoutDuplicates({type: "load", recipe: @cls}, {type: "load", recipe: @cls, stepId: @_id, filter: {storeId: Meteor.settings.public.Pillomatic.storeId, orderDateStart: "2015-04-01"}})
   "click .cancel-refresh": grab encapsulate (event, template) ->
     message = Messages.findOne({type: "load", recipe: @cls})
     Messages.remove(message._id) if message

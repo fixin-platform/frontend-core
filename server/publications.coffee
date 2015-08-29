@@ -105,8 +105,8 @@ Meteor.publish("RowsByStepId", (stepId, page, limit, search) ->
   check(limit, Match.Integer)
   check(search, String)
   return [] unless @userId
-  page = Math.max(Foreach.intval(page), 1)
-  limit = Math.max(Foreach.intval(limit), Foreach.pageLimit)
+  page = Math.max(Spire.intval(page), 1)
+  limit = Math.max(Spire.intval(limit), Spire.pageLimit)
   selector = {isReady: true, stepId: stepId, userId: @userId}
   if search
     search = if search.charAt(0) is "!" then "^(?!.*" + RegExp.escape(search.substr(1)) + ")" else RegExp.escape(search)

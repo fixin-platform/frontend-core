@@ -32,9 +32,9 @@ if Meteor.settings.public.facebook
 $(window).on "popstate", ->
   window.StripeHandler?.close()
 
-Foreach.autologinDetected = false
-Foreach.isAutologin = ->
-  Foreach.autologinDetected or location.href.indexOf("/autologin") isnt -1
+Spire.autologinDetected = false
+Spire.isAutologin = ->
+  Spire.autologinDetected or location.href.indexOf("/autologin") isnt -1
 
 AccountsTemplates.configure
   enablePasswordChange: true
@@ -58,7 +58,7 @@ AccountsTemplates.configure
       loginForbidden: "Please enter email and password"
   onSubmitHook: (error, state) ->
     return if error
-    $(Foreach.document.body).find("#loginPopup").modal("hide") if state in ["signIn", "signUp"]
+    $(Spire.document.body).find("#loginPopup").modal("hide") if state in ["signIn", "signUp"]
 
 
 

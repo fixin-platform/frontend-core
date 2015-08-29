@@ -1,9 +1,9 @@
 t = (level = 0) -> Template.parentData(level) # level 0 is current template
 
-Foreach.getParam = (key, context = Template.currentData()) ->
+Spire.getParam = (key, context = Template.currentData()) ->
   context[key] or FlowRouter.getParam(key)
 
-Foreach.showError = (error) ->
+Spire.showError = (error) ->
   message = "Oh snap!\n\n"
   if error instanceof Meteor.Error
     message += error.message
@@ -15,10 +15,10 @@ Foreach.showError = (error) ->
   else
     throw new Error(error)
 
-Foreach.handleError = (callback = null, callbackfinal = null) ->
+Spire.handleError = (callback = null, callbackfinal = null) ->
   (error) ->
     if error
-      Foreach.showError(error)
+      Spire.showError(error)
     else
       callback?.apply(@, arguments)
     callbackfinal?.apply(@, arguments)

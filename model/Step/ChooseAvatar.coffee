@@ -7,7 +7,7 @@ class Steps.ChooseAvatar extends Steps.Step
       scopes: [String]
     super
   execute: (values) ->
-    values.avatarId = Foreach.strval(values.avatarId)
+    values.avatarId = Spire.strval(values.avatarId)
     $set = _.extend(
       isCompleted: true
     , values)

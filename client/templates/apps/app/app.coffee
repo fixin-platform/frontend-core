@@ -1,6 +1,6 @@
 Template.app.helpers
   app: ->
-    Apps.findOne({key: Foreach.getParam("appKey")})
+    Apps.findOne({key: Spire.getParam("appKey")})
   previewIcon: ->
     Session.get("blueprintIcon") or "heartbeat"
   userRecipes: ->
@@ -35,7 +35,7 @@ Template.app.onRendered ->
     blueprint = {}
     for field in $form.serializeArray()
       blueprint[field.name] = field.value
-    Blueprints.insert(blueprint, Foreach.handleError ->
+    Blueprints.insert(blueprint, Spire.handleError ->
       $form.data("formValidation").resetForm()
       $form[0].reset() # formValidation only resets the fields which have validators
       $form.find(":input:visible").first().focus()
