@@ -1,39 +1,14 @@
 template(name="dashboard")
-  .app.container
-    .row
-      .col-xs-12
-        .panel.panel-default.panel-top
-          .panel-heading
-            h4
-              .row
-                .col-xs-9.col-sm-6.col-md-6.col-lg-7
-                  span
-                    a.splinterlink(href="/")
-                      span.fa.fa-home
-                      span.splinter Home
-                .col-xs-3.col-sm-6.col-md-6.col-lg-5
-                  +menu
-                  +autorunCount
-                  +connection
-          //.panel-body
-            //p
-            //  a.btn.btn-success(href="/")
-            //    span.fa.fa-plus
-            //    | Add new recipe
-              //| &nbsp;— explore our <a href="/apps">cookbook</a>!
-            //p This page shows your recipes. Each recipe is a set of steps that connect to your apps. Think of your app data as ingredients, and steps as instructions for mixing them together.
-            //p Creating a new recipe is a piece of cake
-    .row
-      .col-xs-12
-        .panel.panel-default
-          .panel-heading
-            | Recipes on autorun
-          if subscriptionsReady
-            .list-group
-              each recipes
-                +recipeBadge
-          else
-            .panel-body
-              h5
-                .fa.fa-fw.fa-refresh.fa-spin
-                | Loading recipes...
+  if subscriptionsReady
+    .dashboard.panel-body
+      h5 Active recipes
+      if not recipes.count
+        p No active recipes found.
+    .dashboard.list-group
+      each recipes
+        +recipeBadge
+  else
+    .dashboard.panel-body
+      h5
+        .fa.fa-fw.fa-refresh.fa-spin
+        | Loading active recipes...

@@ -1,0 +1,4 @@
+template(name="Recipe")
+  .Recipe.list-group
+    each steps
+      +Template.dynamic(template=template data=.)

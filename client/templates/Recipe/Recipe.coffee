@@ -1,15 +1,6 @@
-Template.recipeBody.helpers
-  recipe: ->
-    Recipes.findOne(@recipeId)
+Template.Recipe.helpers
 
-Template.recipeBody.onCreated ->
-  template = @
-  @autorun ->
-    data = Template.currentData()
-    template.subscribe("Recipe", data.recipeId)
-    template.subscribe("StepsByRecipeId", data.recipeId)
-
-Template.recipeBody.events
+Template.Recipe.events
   "click .step .execute": (event, template) ->
     event.preventDefault()
     event.stopPropagation() # but not event.stopImmediatePropagation() --- allow for multi-handlers

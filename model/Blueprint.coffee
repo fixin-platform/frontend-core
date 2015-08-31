@@ -4,17 +4,6 @@ Blueprints = Collections["Blueprint"] = new Mongo.Collection("Blueprints", {tran
 class Blueprints.Blueprint
   constructor: (doc) ->
     _.extend(@, doc)
-  generateRecipe: (defaults, callback) ->
-    recipeId = Recipes.insert _.defaults
-      name: @name
-      cls: @cls
-      icon: @icon
-      appId: @appId
-      blueprintId: @_id
-    , defaults
-    recipe = Recipes.findOne(recipeId, {transform: Transformations.Recipe})
-    recipe.generateSteps()
-    recipe
   app: ->
     Apps.findOne(@appId)
   recipes: ->

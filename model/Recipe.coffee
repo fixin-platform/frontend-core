@@ -4,6 +4,7 @@ Recipes = Collections["Recipe"] = new Mongo.Collection("Recipes", {transform: if
 class Recipes.Recipe
   constructor: (doc) ->
     _.extend(@, doc)
+    @template ?= "Recipe"
   _i18n: -> i18n.t(@_i18nKey(), _.extend({returnObjectTrees: true}, @_i18nParameters()))
   _i18nKey: -> "Recipes.#{@name}"
   _i18nParameters: -> {}
@@ -19,10 +20,10 @@ class Recipes.Recipe
     true
   afterUpdate: (userId, Recipe, fieldNames, modifier, options) ->
     true
-  blueprint: ->
-    Blueprints.findOne(@blueprintId)
+  page: ->
+    Pages.findOne({cls: "Landing", "options.recipe.cls": @cls})
   url: ->
-    @blueprint().url() + "/" + @_id
+    "#{@page().url}/recipe/#{@_id}"
   steps: ->
     Steps.find({recipeId: @_id}, {sort: {position: 1}})
   stepsByKey: ->
@@ -80,8 +81,6 @@ Recipes.before.insert (userId, Recipe) ->
   now = new Date()
   _.autovalues(Recipe,
     cls: ""
-    appId: ""
-    blueprintId: ""
     userId: userId
     isAutorun: false
     updatedAt: now

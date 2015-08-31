@@ -1,0 +1,10 @@
+template(name="RecipeRoute")
+  if subscriptionsReady
+    +Template.dynamic(template=recipe.template data=recipe)
+  else
+    .Recipe.panel-body
+      h5
+        .fa.fa-fw.fa-refresh.fa-spin
+        | Loading steps...
+
+

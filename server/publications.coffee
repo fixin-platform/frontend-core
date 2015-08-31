@@ -45,9 +45,9 @@ Meteor.publish "PagesByParentUrl", (parentUrl) ->
 Meteor.publish "Blueprints", ->
   Blueprints.find({})
 
-Meteor.publish "Recipes", ->
+Meteor.publish "RecipesOnAutorun", ->
   return [] unless @userId
-  Recipes.find({userId: @userId})
+  Recipes.find({userId: @userId, isAutorun: true})
 
 Meteor.publish "RecipesByBlueprintId", (blueprintId) ->
   check(blueprintId, Match.StringId)

@@ -3,7 +3,7 @@ template(name="menu")
     i.fa.fa-fw.fa-bars.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
     ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
       li(role='presentation')
-        a.visible-xs-block(href="/autorun", role='menuitem', tabindex='-1')
+        a.visible-xs-block(href="/dashboard", role='menuitem', tabindex='-1')
           i.fa.fa-fw.fa-bolt
           | Active recipes
       if not Pack.isApplied
