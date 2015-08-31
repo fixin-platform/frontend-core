@@ -1,4 +1,5 @@
 template(name="autorunCount")
-  a.autorun-link.splinterlink.pull-right(href="/autorun")
+  // This link is hidden on "xs" mobile devices. An alternative link is provided via menu
+  a.autorun-link.splinterlink.pull-right(href="/autorun").hidden-xs
     span.splinter Active recipes
     span.badge {{autorunCount}}

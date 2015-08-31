@@ -13,8 +13,10 @@ body
   #fb-root
 
 template(name="layout")
-  //+Template.dynamic(template=headerTemplate data=headerData)
-  +Template.dynamic(template=contentTemplate data=contentData)
-  //+Template.dynamic(template=footerTemplate data=footerData)
-
-
+  .container
+    .row
+      .col-xs-12
+        .panel.panel-default.panel-top
+          +Template.dynamic(template=headerTemplate data=headerData)
+          +Template.dynamic(template=contentTemplate data=contentData)
+          //+Template.dynamic(template=footerTemplate data=footerData)

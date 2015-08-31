@@ -1,16 +1,12 @@
 template(name="header")
-  .header.container
-    if shouldDisplay
-      .panel.panel-default
-        .panel-body
-          h5.text-center
-            if isRealName
-              | {{firstName}},
-            else
-              | Hey,
-            |  I can build a custom API integration for you
-            | &nbsp;&nbsp;
-            button.btn.btn-primary(type="button")
-              .fa.fa-fw.fa-star
-              | Ask me anything
-
+  .panel-heading
+    .h4
+      .row
+        .col-xs-9.col-sm-6.col-md-6.col-lg-7
+          a(href="/").textual.not-underlined
+            span.fa.fa-home
+            | {{Settings.public.name}}
+        .col-xs-3.col-sm-6.col-md-6.col-lg-5
+          +menu
+          +autorunCount
+          +connection

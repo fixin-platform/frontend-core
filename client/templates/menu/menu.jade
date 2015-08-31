@@ -2,6 +2,10 @@ template(name="menu")
   .hamburger-menu.dropdown.pull-right
     i.fa.fa-fw.fa-bars.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
     ul.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+      li(role='presentation')
+        a.visible-xs-block(href="/autorun", role='menuitem', tabindex='-1')
+          i.fa.fa-fw.fa-bolt
+          | Active recipes
       if not Pack.isApplied
         li(role='presentation')
           a(href="/pricing", role='menuitem', tabindex='-1')

@@ -46,7 +46,7 @@ AccountsTemplates.configure
   overrideLoginErrors: false
   defaultLayout: "layout",
   defaultLayoutRegions: {}
-  defaultContentRegion: "content"
+  defaultContentRegion: "contentTemplate"
   texts:
     signInLink_pre: "Already have an account?"
     signUpLink_link: "Sign up"
@@ -59,6 +59,3 @@ AccountsTemplates.configure
   onSubmitHook: (error, state) ->
     return if error
     $(Spire.document.body).find("#loginPopup").modal("hide") if state in ["signIn", "signUp"]
-
-
-
