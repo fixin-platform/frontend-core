@@ -23,7 +23,7 @@ class Recipes.Recipe
   page: ->
     Pages.findOne({cls: "Landing", "options.recipe.cls": @cls})
   url: ->
-    "#{@page().url}/recipe/#{@_id}"
+    "#{@page().url}/recipes/#{@_id}"
   steps: ->
     Steps.find({recipeId: @_id}, {sort: {position: 1}})
   stepsByKey: ->

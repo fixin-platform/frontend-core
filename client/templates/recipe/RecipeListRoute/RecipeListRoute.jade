@@ -1,0 +1,18 @@
+template(name="RecipeListRoute")
+  if subscriptionsReady
+    .RecipeList.panel-body
+      h5
+        .fa.fa-fw.fa-bolt
+        | {{page._i18n.titleRecipes}}
+      p
+        | Do you want to edit an existing recipe or create a new one?
+      .list-group
+        each page.recipes
+          +recipeBadge
+      p
+        a(href="#").btn.btn-success.insert-recipe Create a new recipe
+  else
+    .RecipeList.panel-body
+      h5
+        .fa.fa-fw.fa-refresh.fa-spin
+        | Loading recipes...
