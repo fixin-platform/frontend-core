@@ -397,12 +397,12 @@ i18n.addResourceBundle("en", "translation",
   Steps:
     ChooseAvatar:
       icon: "plug"
-      default: "Choose {{api}} account"
+      default: "Connect {{api}} account"
       complete_with_image: "<img src='{{avatar.imageUrl}}' class='avatar-image'> {{avatar.name}}"
       complete_without_image: "{{avatar.name}}"
-      revert: "disconnect"
-      change: "disconnect"
-      connect: "Connect to {{api}}"
+      revert: "change"
+      change: "change"
+      connect: "Connect {{api}} account"
       add: "add another account"
       loading: "Loading {{api}} accounts..."
     ChooseBasicAvatar:

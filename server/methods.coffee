@@ -45,18 +45,21 @@ Meteor.methods
     credentialValues =
       api: api
       scopes: serviceData.scopes or scopes # Facebook allows the user to modify the scopes
-      details: _.extend serviceData,
-        accessToken: serviceData.accessToken
-        refreshToken: serviceData.refreshToken
-        expiresAt: new Date(serviceData.expiresAt)
+      details: serviceData
       updatedAt: now
       userId: @userId
+    if serviceData.expiresAt
+      serviceData.expiresAt = new Date(serviceData.expiresAt)
     switch api
       when "Twitter"
-        avatarValues.imageUrl = serviceData.profile_image_url_https
-        avatarValues.name = "@" + serviceData.screenName
+        avatarValues.imageUrl ?= serviceData.profile_image_url_https
+        avatarValues.name ?= "@" + serviceData.screenName
       when "Google"
-        avatarValues.imageUrl = serviceData.picture
+        avatarValues.imageUrl ?= serviceData.picture
+      when "Bitly"
+        avatarValues.imageUrl ?= serviceData.profile_image
+        avatarValues.name ?= serviceData.display_name or serviceData.login
+    console.log serviceData
     Spire.saveCredential(avatarValues, credentialValues)
   getOutstandingPolls: secure admin ->
     Queue.worker.outstandingPolls

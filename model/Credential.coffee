@@ -7,6 +7,19 @@ class Credentials.Credential
   Avatar: ->
     Avatars.findOne(@avatarId)
 
+CredentialMatch = (Page) ->
+  _id: Match.StringId
+  api: String
+  scopes: [String]
+  details: Match.ObjectIncluding
+    # mandatory for OAuth credentials, optional for Basic credentials
+    accessToken: Match.Optional(String)
+    refreshToken: Match.Optional(String)
+    expiresAt: Match.Optional(Date)
+  userId: Match.ObjectId(Users)
+  updatedAt: Date
+  createdAt: Date
+
 CredentialPreSave = (userId, changes) ->
   now = new Date()
   changes.updatedAt = changes.updatedAt or now
@@ -20,6 +33,7 @@ Credentials.before.insert (userId, Credential) ->
     updatedAt: now
     createdAt: now
   )
+  check Credential, CredentialMatch(Credential)
   CredentialPreSave.call(@, userId, Credential)
   true
 

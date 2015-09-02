@@ -39,11 +39,11 @@ Package.onUse(function(api) {
 
   // Local packages
   api.use([
-    "foundation@1.0.0",
-    "fixtures@1.0.0",
-    "wishpool@1.0.0",
-    "adapter@1.0.0",
-    "checkmark@1.0.0"
+    "foundation",
+    "fixtures",
+    "wishpool",
+    "adapter",
+    "checkmark"
   ]);
   api.imply([
     "foundation",
@@ -53,9 +53,9 @@ Package.onUse(function(api) {
     "checkmark"
   ]);
 
-  api.use([
-    "pages@1.0.0"
-  ], {unordered: true});
+  //api.use([
+  //  "pages@1.0.0"
+  //], {unordered: true});
 
   api.export([
     "Pack",
