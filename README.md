@@ -1,1 +1,1 @@
-# frontend-core
+# core

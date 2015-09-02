@@ -1,7 +1,7 @@
 var description = {
   summary: "Frontend Core",
   version: "1.0.0",
-  name: "frontend-core"
+  name: "core"
 };
 Package.describe(description);
 
@@ -39,17 +39,23 @@ Package.onUse(function(api) {
 
   // Local packages
   api.use([
-    "frontend-foundation@1.0.0",
-    "frontend-wishpool@1.0.0",
-    "frontend-adapter@1.0.0",
-    "frontend-checkmark@1.0.0"
+    "foundation@1.0.0",
+    "fixtures@1.0.0",
+    "wishpool@1.0.0",
+    "adapter@1.0.0",
+    "checkmark@1.0.0"
   ]);
   api.imply([
-    "frontend-foundation",
-    "frontend-wishpool",
-    "frontend-adapter",
-    "frontend-checkmark"
+    "foundation",
+    "fixtures",
+    "wishpool",
+    "adapter",
+    "checkmark"
   ]);
+
+  api.use([
+    "pages@1.0.0"
+  ], {unordered: true});
 
   api.export([
     "Pack",
