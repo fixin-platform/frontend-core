@@ -8,5 +8,6 @@ template(name="ManagedStep")
       else
         +UI.dynamic(template=isPendingTemplateName data=step)
     if not skipIssues
-      .list-group-item-text
-        +issues(step)
+      if step.issues.count
+        .list-group-item-text
+          +issues(step)

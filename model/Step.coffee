@@ -66,6 +66,8 @@ class Steps.Step
     recipe = @recipe({fields: fields})
     return defaultValue if not recipe
     recipe[field] or defaultValue
+  issues: (selector, options) ->
+    Issues.find(_.extend({stepId: @_id}, selector), options)
   _i18n: ->
     key = @_i18nKey()
     parameters = @_i18nParameters()

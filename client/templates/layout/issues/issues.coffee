@@ -1,9 +1,11 @@
 Template.issues.helpers
   issues: ->
-    Issues.find({stepId: @_id}, {sort: {createdAt: -1}})
+    @issues({}, {sort: {createdAt: -1}})
 
 Template.issues.onCreated ->
-  @subscribe("IssuesByStepId", @data._id)
+  @autorun =>
+    currentData = Template.currentData()
+    @subscribe("IssuesByStepId", currentData._id)
 
 Template.issues.events
 #  "click .selector": (event, template) ->
