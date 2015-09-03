@@ -1,13 +1,13 @@
 $document = $(document)
 
-$document.on "click", ".logout", encapsulate (event) ->
+$document.on "click", ".logout", grab encapsulate (event) ->
   Meteor.logout ->
     # redirect might be necessary to prevent Mixpanel distinct_id overwrite
     # not sure if mixpanel.cookie.clear() fixes this
     mixpanel.cookie.clear()
     location.href = location.protocol + "//" + location.hostname + (if location.port then ':' + location.port else '') + "/"
 
-$document.on "click", ".login", encapsulate (event) ->
+$document.on "click", ".login", grab encapsulate (event) ->
   Spire.requireLogin()
 
 $document.on "click", ".reconnect", grab encapsulate (event) ->
