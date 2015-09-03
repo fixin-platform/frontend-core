@@ -7,7 +7,7 @@ class Credentials.Credential
   Avatar: ->
     Avatars.findOne(@avatarId)
 
-CredentialMatch = (Page) ->
+Credentials.match = ->
   _id: Match.StringId
   api: String
   scopes: [String]
@@ -33,7 +33,7 @@ Credentials.before.insert (userId, Credential) ->
     updatedAt: now
     createdAt: now
   )
-  check Credential, CredentialMatch(Credential)
+  check Credential, Credentials.match()
   CredentialPreSave.call(@, userId, Credential)
   true
 

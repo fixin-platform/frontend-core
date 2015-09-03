@@ -8,6 +8,7 @@ class Steps.Step
     _.extend(@, doc)
     @template or= @cls
     @i18nKey or= @cls
+    @isSafe or= false # Step is considered "safe" if its Command execution doesn't overwrite or delete user data
   isCurrent: -> not @isCompleted and @isActive()
   isActive: -> not Steps.findOne({isCompleted: false, position: {$lt: @position}, recipeId: @recipeId})
   forAllNext: (callback) ->
@@ -78,8 +79,10 @@ class Steps.Step
   _i18nKey: -> "Steps.#{@i18nKey}"
   _i18nParameters: -> {}
   _i18nDefaults: ->
-    run: "Run"
-    test: "Test"
+    run: "run now"
+    running: "running"
+    cancel: "cancel"
+    test: "test"
   credentialFields: -> null
   filters: (options) ->
     Filters.find({stepId: @_id}, options)

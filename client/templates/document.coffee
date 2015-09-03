@@ -28,6 +28,9 @@ $document.on "click", ".connect-to-api", grab encapsulate (event) ->
   )
 
 connect = (api, scopes, callback) ->
+  check(api, String)
+  check(scopes, [String])
+  check(callback, Match.Optional(Function))
   if api is "Trello"
     sourceUrl = location.protocol + "//" + location.hostname + (if location.port then ':' + location.port else '') + Iron.Location.get().path
     Meteor.call("getToken", sourceUrl, Spire.handleError (error, token) ->
@@ -35,6 +38,9 @@ connect = (api, scopes, callback) ->
       location.href = "https://trello.com/1/OAuthAuthorizeToken?name=Spire:+bulk+actions+for+Trello&scope=#{scopes.join(",")}&oauth_token=" + token
     )
   else
+    switch api
+      when "Google"
+        scopes.push "email" # need this scope to get email for display in "Choose account" dropdown
     @[api].requestCredential(
       requestPermissions: scopes
       requestOfflineToken: true

@@ -1,0 +1,69 @@
+template(name="StartWorkflowExecution")
+  +ManagedStep(name=template skipIssues=true step=.)
+    .list-group-item-heading
+      .fa.fa-fw(class="fa-{{{_i18n.icon}}}")
+      span.name {{{_i18n.default}}}
+    .row
+      .col-xs-12
+        form.refresh-form
+          fieldset
+            .form-group
+              .checkbox.bootstrap-switch-checkbox
+                // StartWorkflowExecutionSwitchbox must be outside the label for Bootstrap Switch to work
+                +StartWorkflowExecutionSwitchbox
+                label(for="{{_id}}-is-autorun-toggle")
+                  | Automatic export
+                  | -
+                  span.grab.encapsulate
+                    if isLoading isLoadingLiveRunSelector
+                      span
+                        | {{{_i18n.running}}} -
+                        a.cancel-run(href="#") {{{_i18n.cancel}}}
+                    else
+                      span
+                        a.run(href="#") {{{_i18n.run}}}
+              //.inner-addon.left-addon.pull-right
+              //  .fa.fa-search
+              //  +input(family="step" _id=_id property="search" placeholder="Quick search" isNew=false)
+            if commandLiveRun
+              ul.command-progress-bars.fa-ul
+                each commandLiveRun.progressBars
+                  li.command-progress-bar
+                    i.fa-li.fa(class="{{progressBarIconClass commandLiveRun}}" data-activity-id="{{activityId}}")
+                    | {{progressBarMessage commandLiveRun}}
+        +issues
+        if count
+          .step-content
+            table.table.table-hover
+              thead
+                tr
+                  each shownColumns
+                    th {{_i18n.name}}
+                  th
+                    | Action
+                    br
+                    a(href="#").run-for-all-samples.not-underlined
+                      .fa.fa-fw(class="{{#if isLoading isLoadingAllSamplesSelector}}fa-spinner fa-spin{{else}}fa-bolt{{/if}}")
+                      span.underlined Run for each order
+                    if isLoading isLoadingAllSamplesSelector
+                      br
+                      a.cancel.not-underlined(href="#")
+                        .fa.fa-fw.fa-ban
+                        span.underlined {{{_i18n.cancel}}}
+              tbody
+                each samples
+                  tr
+                    each shownColumns
+                      +Template.dynamic(template=template data=data)
+                    td
+                      if actions.length
+                        button.run-for-single-sample.btn.btn-success(type="button")
+                          .fa.fa-fw(class="{{#if isLoading isLoadingSingleSampleSelector}}fa-spinner fa-spin{{else}}fa-bolt{{/if}}")
+                          | {{../_i18n.runForSingleSample}}
+                      else
+                        button.btn.btn-default.btn-plain(type="button")
+                          .fa.fa-fw.fa-check
+                          | All good!
+            .text-center
+              +StartWorkflowExecutionSamplePagination
+

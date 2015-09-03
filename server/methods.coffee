@@ -56,10 +56,11 @@ Meteor.methods
         avatarValues.name ?= "@" + serviceData.screenName
       when "Google"
         avatarValues.imageUrl ?= serviceData.picture
+        avatarValues.name ?= serviceData.name
+        avatarValues.name = "#{avatarValues.name} (#{serviceData.email})"
       when "Bitly"
         avatarValues.imageUrl ?= serviceData.profile_image
         avatarValues.name ?= serviceData.display_name or serviceData.login
-    console.log serviceData
     Spire.saveCredential(avatarValues, credentialValues)
   getOutstandingPolls: secure admin ->
     Queue.worker.outstandingPolls

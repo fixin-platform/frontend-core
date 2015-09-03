@@ -8,6 +8,7 @@ class Recipes.Recipe
   _i18n: -> i18n.t(@_i18nKey(), _.extend({returnObjectTrees: true}, @_i18nParameters()))
   _i18nKey: -> "Recipes.#{@name}"
   _i18nParameters: -> {}
+  displayName: -> @name or @_i18n().name
   generateSteps: -> throw "Implement #{@cls}::generateSteps method"
   refreshTasks: -> throw "Implement #{@cls}::refreshTasks method"
   params: (steps) -> throw "Implement #{@cls}::params method"
@@ -65,9 +66,9 @@ class Recipes.Recipe
     )
     object = _.extend({}, selector, modifier.$setOnInsert, modifier.$set)
     Steps.insert(object, options)
-  generateProgressBars: (activityIds, startedActivityIds) ->
+  generateProgressBars: (activityIds, startedActivityIds, skippedActivityIds = []) ->
     # required for latency compensation
-    {activityId: activityId, isStarted: activityId in startedActivityIds, isCompleted: false, isFailed: false} for activityId in activityIds
+    {activityId: activityId, isSkipped: activityId in skippedActivityIds, isStarted: activityId in startedActivityIds, isCompleted: false, isFailed: false} for activityId in activityIds
   requirementDefaults: (defaults) ->
     _.pick(defaults, "commandId", "stepId", "userId")
 

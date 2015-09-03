@@ -1,12 +1,12 @@
-Template.rowsPagination.helpers
+Template.StartWorkflowExecutionSamplePagination.helpers
   pagination: ->
-    rowsCount = Counts.get("RowsCountByStepId")
-    lastPage = Math.ceil(rowsCount / Spire.pageLimit)
+    samplesCount = Counts.get("SamplesCountByStepId")
+    lastPage = Math.ceil(samplesCount / Spire.pageLimit)
     if @page < 1
       Steps.update(@_id, {$set: {page: 1}})
     else if @page > lastPage
       Steps.update(@_id, {$set: {page: lastPage}})
-    else if rowsCount > Spire.pageLimit
+    else if samplesCount > Spire.pageLimit
       from = @page - 2
       from = 1  if from < 1
       to = from + 4
@@ -20,8 +20,8 @@ Template.rowsPagination.helpers
       active: @page
       pages: [from..to]
 
-Template.rowsPagination.events
-  "click .rows-pagination a": (event, template) ->
+Template.StartWorkflowExecutionSamplePagination.events
+  "click .samples-pagination a": (event, template) ->
     $link = $(event.currentTarget)
     unless $link.hasClass("disabled") or $link.hasClass("active")
       page = parseInt($link.attr("data-page"))

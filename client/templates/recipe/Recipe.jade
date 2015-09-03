@@ -1,4 +1,6 @@
 template(name="Recipe")
+  .Recipe.panel-body
+    h1.h5 {{displayName}}
   .Recipe.list-group
     each steps
       +Template.dynamic(template=template data=.)

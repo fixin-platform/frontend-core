@@ -1,7 +1,8 @@
 _.defaults(Match,
   StringId: Match.Where (value) ->
     check(value, String)
-    if value in Fixtures.objectIds or Spire.isDebug
+    objectIds = if Fixtures? then Fixtures.objectIds else []
+    if value in objectIds or Spire.isDebug
       return true # verbose IDs
     if value.length isnt 17 or _.difference(value.split(""), ["2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]).length
       throw new Match.Error("Value \"" + value + "\" is not a valid _id")
@@ -12,10 +13,6 @@ _.defaults(Match,
       selector[field] = value
       throw new Match.Error("Object #{JSON.stringify(selector)} doesn't exist in \"#{collection._name}\"") unless collection.findOne(selector)
       true
-  UserId: Match.Where (value) ->
-    check(value, Match.StringId)
-    throw new Match.Error("User with ID \"" + value + "\" doesn't exist") unless Users.findOne(value)
-    true
   InArray: (values) ->
     Match.Where (value) ->
       throw new Match.Error("Expected one of \""+values.join("\", \"")+"\"; got \"" + value + "\"") if value not in values
