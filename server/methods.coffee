@@ -63,7 +63,7 @@ Meteor.methods
         avatarValues.name ?= serviceData.display_name or serviceData.login
     serviceConfiguration = ServiceConfiguration.configurations.findOne({service: api.toLowerCase()})
     throw new Error("Service configuration not found for #{api}") unless serviceConfiguration
-    _.extend credentialValues, _.omit(serviceConfiguration, "_id", "service") # required for backend
+    _.extend credentialValues.details, _.omit(serviceConfiguration, "_id", "service") # required for backend
     Spire.saveCredential(avatarValues, credentialValues)
   getOutstandingPolls: secure admin ->
     Queue.worker.outstandingPolls
