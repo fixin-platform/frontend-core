@@ -12,6 +12,12 @@ template(name="menu")
             i.fa.fa-fw.fa-dollar
             | Pricing
         li.divider
+      if Settings.public.isDebug
+        li(role='presentation')
+          a(href="/listen-to-your-heart", role='menuitem', tabindex='-1')
+            i.fa.fa-fw.fa-headphones
+            | Listen to your heart
+        li.divider
       if currentUserReady
         if currentUserField "isAdmin"
           li(role='presentation')
@@ -33,6 +39,6 @@ template(name="menu")
             | Sign out
       else
         li(role='presentation')
-          a.login(href="#", role='menuitem', tabindex='-1')
+          a.login(href="/sign-in", role='menuitem', tabindex='-1')
             i.fa.fa-fw.fa-sign-in
             | Sign in

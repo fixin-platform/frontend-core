@@ -516,11 +516,6 @@ i18n.addResourceBundle("en", "translation",
       placeholderFrom: "Start date"
       placeholderTo: "End date"
       submit: "Choose"
-  Recipes:
-    TrelloSyncWithSpreadsheet:
-      name: "Sync Trello {{_model}} with {{title}}"
-    ShipStationUpdateOrder:
-      name: "Update ShipStation Order"
   billing:
     action: 'action'
     action_plural: 'actions'

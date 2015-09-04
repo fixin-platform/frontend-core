@@ -1,10 +1,11 @@
 t = (level = 0) -> Template.parentData(level) # level 0 is current template
 
-Spire.requireLogin = ->
-  return false if Meteor.userId()
-  AccountsTemplates.setState("signUp");
-  $('#loginPopup').modal('show')
-  true
+# Issues with login popup, use routing instead
+#Spire.requireLogin = ->
+#  return false if Meteor.userId()
+#  AccountsTemplates.setState("signIn");
+#  $('#loginPopup').modal('show')
+#  true
 
 Spire.getParam = (key, context = Template.currentData()) ->
   context[key] or FlowRouter.getParam(key)

@@ -1,12 +1,8 @@
 Recipes.allow
   insert: introspect (userId, recipe) ->
     throw new Match.Error("Authentication required") if not userId
-    check(recipe, Match.ObjectIncluding
-      cls: String # TODO: check for class presence
-      userId: userId
-      updatedAt: Date
-      createdAt: Date
-    )
+    throw new Match.Error("Only owner can do this") if recipe.userId isnt userId
+    check recipe, Recipes.match()
     true
   update: introspect (userId, recipe, fieldNames, modifier, options) ->
     throw new Match.Error("Authentication required") if not userId

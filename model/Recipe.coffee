@@ -6,9 +6,9 @@ class Recipes.Recipe
     _.extend(@, doc)
     @template ?= "Recipe"
   _i18n: -> i18n.t(@_i18nKey(), _.extend({returnObjectTrees: true}, @_i18nParameters()))
-  _i18nKey: -> "Recipes.#{@name}"
+  _i18nKey: -> "Recipes.#{@cls}"
   _i18nParameters: -> {}
-  displayName: -> @name or @_i18n().name
+  displayName: -> @name
   generateSteps: -> throw "Implement #{@cls}::generateSteps method"
   refreshTasks: -> throw "Implement #{@cls}::refreshTasks method"
   params: (steps) -> throw "Implement #{@cls}::params method"
@@ -72,6 +72,14 @@ class Recipes.Recipe
   requirementDefaults: (defaults) ->
     _.pick(defaults, "commandId", "stepId", "userId")
 
+Recipes.match = ->
+  _id: Match.StringId
+  name: String
+  cls: String
+  isAutorun: Boolean
+  userId: Match.ObjectId(Users)
+  updatedAt: Date
+  createdAt: Date
 
 RecipePreSave = (userId, changes) ->
   now = new Date()
@@ -81,13 +89,15 @@ Recipes.before.insert (userId, Recipe) ->
   Recipe._id ||= Random.id()
   now = new Date()
   _.autovalues(Recipe,
+    name: ""
     cls: ""
-    userId: userId
     isAutorun: false
+    userId: userId
     updatedAt: now
     createdAt: now
   )
-  throw new Meteor.Error("Recipe:userId:empty", "Recipe::userId is empty", Recipe) if not Recipe.userId
+  Recipe.name = autoname(Recipe)
+  check Recipe, Recipes.match()
   RecipePreSave.call(@, userId, Recipe)
   true
 
@@ -106,6 +116,9 @@ Recipes.after.update (userId, Recipe, fieldNames, modifier, options) -> Recipes[
 
 Recipes.after.remove (userId, Recipe) -> Steps.remove({recipeId: Recipe._id})
 
-if Meteor.isServer
-  Recipes.after.remove (userId, Recipe) ->
-    throw new Error("remove all Recipe tasks here")
+autoname = (Recipe) ->
+  name = Transformations.Recipe(Recipe)._i18n().name
+  if Meteor.isServer
+    count = Recipes.find({ name: { $regex: "^" + name, $options: "i" } }).count()
+    return "#{name} (#{count + 1})" if count
+  return name

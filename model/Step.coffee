@@ -129,13 +129,6 @@ Steps.before.update (userId, Step, fieldNames, modifier, options) -> Transformat
 
 Steps.after.update (userId, Step, fieldNames, modifier, options) -> Transformations.cls(Steps, Steps.Step, Step)::afterUpdate.apply(@, arguments)
 
-# "before" to imitate transaction: if something goes wrong with refreshing tasks, the step won't be updated
-Steps.before.update (userId, Step) ->
-  #throw "Zapili eto"
-  #Transformations.Step(Step).recipe().refreshTasks()
-  true
-
-# TODO: move closer to PickStep
 Steps.after.remove (userId, Step) ->
   # removing one by one is better, because 1) It works on client 2) It runs hooks
   Step = Transformations.Step(Step)
