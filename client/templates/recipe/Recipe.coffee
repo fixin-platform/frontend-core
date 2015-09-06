@@ -1,4 +1,6 @@
 Template.Recipe.helpers
+  steps: ->
+    @steps({}, {sort: {position: 1}})
 
 Template.Recipe.events
   "click .step .execute": (event, template) ->

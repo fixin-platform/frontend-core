@@ -32,6 +32,10 @@ template(name="StartWorkflowExecution")
                     i.fa-li.fa(class="{{progressBarIconClass commandLiveRun}}" data-activity-id="{{activityId}}")
                     | {{progressBarMessage commandLiveRun}}
         +issues
+        h2.h6: strong What's next:
+        ul
+          li <a href="#" class="run">Manually run the export</a> to make sure it works as expected.
+          li <a href="/pricing">Subscribe to a plan</a> to run this recipe automatically in the background.
         if count
           .step-content
             table.table.table-hover

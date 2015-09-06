@@ -1,8 +1,8 @@
 template(name="Recipe")
   .Recipe.panel-body
     div
-      | ‹
-      a(href="{{listUrl}}") back to recipe list
+      a.back(href="{{listUrl}}") {{_i18n.name}} (your recipes)
+      | ›
     h1.h5 {{displayName}}
     ul.text-muted
       li Recipe created {{moment createdAt "[on] LL [at] LTS"}}

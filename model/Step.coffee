@@ -75,7 +75,7 @@ class Steps.Step
   _i18nKey: -> "Steps.#{@i18nKey}"
   _i18nParameters: -> {}
   _i18nDefaults: ->
-    run: "run now"
+    run: "manually run now"
     running: "running"
     cancel: "cancel"
     test: "test"
@@ -113,6 +113,11 @@ Steps.after.insert (userId, Step) -> Transformations.cls(Steps, Steps.Step, Step
 Steps.before.update (userId, Step, fieldNames, modifier, options) -> Transformations.cls(Steps, Steps.Step, Step)::beforeUpdate.apply(@, arguments)
 
 Steps.after.update (userId, Step, fieldNames, modifier, options) -> Transformations.cls(Steps, Steps.Step, Step)::afterUpdate.apply(@, arguments)
+
+Steps.after.update (userId, Step, fieldNames, modifier, options) ->
+  Step = Transformations.Step(Step)
+  Recipe = Step.recipe()
+  Recipe.stepAfterUpdate.apply(Recipe, arguments)
 
 Steps.after.remove (userId, Step) ->
   # removing one by one is better, because 1) It works on client 2) It runs hooks

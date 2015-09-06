@@ -25,8 +25,8 @@ class Recipes.Recipe
     "#{@page().url}/recipes"
   url: ->
     "#{@page().url}/recipes/#{@_id}"
-  steps: ->
-    Steps.find({recipeId: @_id}, {sort: {position: 1}})
+  steps: (selector = {}, options = {}) ->
+    Steps.find(_.extend({recipeId: @_id}, selector), options)
   stepsByKey: ->
     steps = {}
     for step in Steps.find({recipeId: @_id}).fetch()
@@ -65,6 +65,11 @@ class Recipes.Recipe
     )
     object = _.extend({}, selector, modifier.$setOnInsert, modifier.$set)
     Steps.insert(object, callback)
+  stepAfterUpdate: (userId, Step, fieldNames, modifier, options) ->
+    # Need to add `hasBeenExecuted` to Step model
+#    @steps({isAutorun: true}, {transform: Transformations.Step}).forEach (step) ->
+#      step.tryToRun()
+    true
   generateProgressBars: (activityIds, startedActivityIds, skippedActivityIds = []) ->
     # required for latency compensation
     {activityId: activityId, isSkipped: activityId in skippedActivityIds, isStarted: activityId in startedActivityIds, isCompleted: false, isFailed: false} for activityId in activityIds

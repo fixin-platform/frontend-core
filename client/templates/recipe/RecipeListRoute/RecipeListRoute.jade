@@ -2,13 +2,12 @@ template(name="RecipeListRoute")
   if subscriptionsReady
     .RecipeList.panel-body
       div
-        | ‹
-        a(href="{{page.url}}") back to recipe description
+        a.back(href="{{page.url}}") {{page._i18n.name}}
+        | ›
       h1.h5
-        i.fa.fa-fw(class="fa-{{page._i18n.icon}}")
-        | {{page._i18n.name}}
-      p
-        | Do you want to edit an existing recipe or create a new one?
+        i.fa.fa-fw(class="fa-trophy")
+        | Your recipes
+      p To edit an existing recipe, click the recipe name in the list below. To create a new recipe, <a href="#" class="insert-recipe">click here</a>.
       .list-group
         each page.recipes
           +recipeBadge
