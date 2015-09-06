@@ -5,5 +5,6 @@ Template.RecipeRoute.helpers
 Template.RecipeRoute.onCreated ->
   @autorun => # @autorun is necessary, because template data may change without re-render => without calling onCreated next time
     currentData = Template.currentData()
+    @subscribe("Page", currentData.url)
     @subscribe("Recipe", currentData.recipeId)
     @subscribe("StepsByRecipeId", currentData.recipeId)

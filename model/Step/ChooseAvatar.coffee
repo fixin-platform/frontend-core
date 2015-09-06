@@ -1,5 +1,4 @@
 class Steps.ChooseAvatar extends Steps.Step
-  # TODO: implement class-specific checks in hooks (security isn't called on server)
   template: "ChooseAvatar"
   constructor: (config) ->
     check config, Match.ObjectIncluding

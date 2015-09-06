@@ -1,9 +1,12 @@
 template(name="RecipeListRoute")
   if subscriptionsReady
     .RecipeList.panel-body
+      div
+        | ‹
+        a(href="{{page.url}}") back to recipe description
       h1.h5
-        .fa.fa-fw.fa-bolt
-        | {{page._i18n.titleRecipes}}
+        i.fa.fa-fw(class="fa-{{page._i18n.icon}}")
+        | {{page._i18n.name}}
       p
         | Do you want to edit an existing recipe or create a new one?
       .list-group

@@ -53,10 +53,6 @@ class Steps.Step
   cachedColumns: ->
     return @_cachedColumns if @_cachedColumns
     @_cachedColumns = @columns()
-
-  #  columns: (options) ->
-#    Columns.find({stepId: @_id}, options)
-
   recipe: (options = {}) -> # for reactivity
     options.fields.cls = 1 if options.fields # for Transformations
     options.transform ?= Transformations.Recipe
@@ -83,17 +79,6 @@ class Steps.Step
     running: "running"
     cancel: "cancel"
     test: "test"
-  credentialFields: -> null
-  filters: (options) ->
-    Filters.find({stepId: @_id}, options)
-  app: ->
-    Apps.findOne(@appId)
-  url: ->
-    "/steps/" + @_id
-  incomingPipes: ->
-    Pipes.find({destinationStepId: @_id})
-  outgoingPipes: ->
-    Pipes.find({sourceStepId: @_id})
 
 # Don't forget to return true, otherwise the insert/update will be stopped!
 Steps.Step::beforeInsert = (userId, Step) ->

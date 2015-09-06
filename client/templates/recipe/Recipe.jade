@@ -1,8 +1,11 @@
 template(name="Recipe")
   .Recipe.panel-body
+    div
+      | ‹
+      a(href="{{listUrl}}") back to recipe list
     h1.h5 {{displayName}}
     ul.text-muted
-      li Created {{moment createdAt "[on] LL [at] LTS"}}
+      li Recipe created {{moment createdAt "[on] LL [at] LTS"}}
   .Recipe.list-group
     each steps
       +Template.dynamic(template=template data=.)

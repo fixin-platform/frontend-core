@@ -10,8 +10,6 @@ class Recipes.Recipe
   _i18nParameters: -> {}
   displayName: -> @name
   generateSteps: -> throw "Implement #{@cls}::generateSteps method"
-  refreshTasks: -> throw "Implement #{@cls}::refreshTasks method"
-  params: (steps) -> throw "Implement #{@cls}::params method"
   # Don't forget to return true, otherwise the insert/update will be stopped!
   beforeInsert: (userId, Recipe) ->
     true
@@ -23,6 +21,8 @@ class Recipes.Recipe
     true
   page: ->
     Pages.findOne({cls: "Landing", "options.recipe.cls": @cls})
+  listUrl: ->
+    "#{@page().url}/recipes"
   url: ->
     "#{@page().url}/recipes/#{@_id}"
   steps: ->
@@ -36,7 +36,7 @@ class Recipes.Recipe
     Steps.findOne({recipeId: @_id, key: key})
   createdAtFormatted: ->
     moment(@createdAt).format("YYYY-MM-DD HH:mm:ss")
-  generateStep: (selector, modifier, options) ->
+  generateStep: (selector, modifier, callback) ->
     check selector, Match.ObjectIncluding
       key: String
     selector.recipeId = @_id
@@ -52,7 +52,6 @@ class Recipes.Recipe
       page: 1
       hiddenColumnKeys: []
       isCompleted: false
-      isDryRun: true
       isAutorun: false
       createdAt: now
     )
@@ -65,12 +64,10 @@ class Recipes.Recipe
       $setOnInsert: Match.Optional(Object)
     )
     object = _.extend({}, selector, modifier.$setOnInsert, modifier.$set)
-    Steps.insert(object, options)
+    Steps.insert(object, callback)
   generateProgressBars: (activityIds, startedActivityIds, skippedActivityIds = []) ->
     # required for latency compensation
     {activityId: activityId, isSkipped: activityId in skippedActivityIds, isStarted: activityId in startedActivityIds, isCompleted: false, isFailed: false} for activityId in activityIds
-  requirementDefaults: (defaults) ->
-    _.pick(defaults, "commandId", "stepId", "userId")
 
 Recipes.match = ->
   _id: Match.StringId
@@ -87,16 +84,14 @@ RecipePreSave = (userId, changes) ->
 
 Recipes.before.insert (userId, Recipe) ->
   Recipe._id ||= Random.id()
+  Recipe.name = autoname(Recipe)
   now = new Date()
   _.autovalues(Recipe,
-    name: ""
-    cls: ""
     isAutorun: false
     userId: userId
     updatedAt: now
     createdAt: now
   )
-  Recipe.name = autoname(Recipe)
   check Recipe, Recipes.match()
   RecipePreSave.call(@, userId, Recipe)
   true

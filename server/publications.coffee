@@ -44,14 +44,14 @@ Meteor.publish "RecipesOnAutorun", ->
 Meteor.publish "RecipesByCls", (cls) ->
   check(cls, String)
   return [] unless @userId
-  Recipes.find({userId: @userId, cls: cls, isConfigured: true})
+  Recipes.find({userId: @userId, cls: cls})
 
 Meteor.publish "RecipesByPageUrl", (url) ->
   check(url, String)
   return [] unless @userId
   page = Pages.findOne({url: url}, {fields: {options: 1}})
   return [] unless page
-  Recipes.find({userId: @userId, cls: page.options.recipe.cls, isConfigured: true})
+  Recipes.find({userId: @userId, cls: page.options.recipe.cls})
 
 Meteor.publish "Recipe", (_id) ->
   check(_id, Match.StringId)
