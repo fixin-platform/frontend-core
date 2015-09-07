@@ -7,7 +7,7 @@ t = (level = 0) -> Template.parentData(level) # level 0 is current template
 #  $('#loginPopup').modal('show')
 #  true
 
-Spire.getParam = (key, context = Template.currentData()) ->
+Spire.getParam = (key, context = Template.currentData() or {}) ->
   context[key] or FlowRouter.getParam(key)
 
 Spire.showError = (error) ->

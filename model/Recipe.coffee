@@ -89,7 +89,6 @@ RecipePreSave = (userId, changes) ->
 
 Recipes.before.insert (userId, Recipe) ->
   Recipe._id ||= Random.id()
-  Recipe.name = autoname(Recipe)
   now = new Date()
   _.autovalues(Recipe,
     isAutorun: false
@@ -97,6 +96,7 @@ Recipes.before.insert (userId, Recipe) ->
     updatedAt: now
     createdAt: now
   )
+  Recipe.name = autoname(Recipe)
   check Recipe, Recipes.match()
   RecipePreSave.call(@, userId, Recipe)
   true
@@ -119,6 +119,9 @@ Recipes.after.remove (userId, Recipe) -> Steps.remove({recipeId: Recipe._id})
 autoname = (Recipe) ->
   name = Transformations.Recipe(Recipe)._i18n().name
   if Meteor.isServer
-    count = Recipes.find({ name: { $regex: "^" + name, $options: "i" } }).count()
+    userId = Recipe.userId
+    check(name, String)
+    check(userId, Match.StringId)
+    count = Recipes.find({ name: { $regex: "^" + name, $options: "i" }, userId: userId }).count()
     return "#{name} (#{count + 1})" if count
   return name

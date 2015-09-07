@@ -1,39 +1,20 @@
 template(name="pricing")
-  .pricing.container
+  .pricing.panel-body
     .row
-      .col-xs-12
-        .panel.panel-default.panel-top
-          .panel-heading
-            h4
-              +menu
-              +autorunCount
-              +connection
-              a(href="/") Home
-              | ›
-              | Pricing
-          .panel-body
-            .row
-              .col-xs-12.col-md-8.col-md-offset-2
-                +plans
-            if currentUserReady
-              .row
-                .col-xs-12.text-muted.text-center
-                  +currentPlan
-              if currentUserPlan
-                if currentUserPlan.showPhone
-                  .row
-                    .col-xs-12.text-muted.text-center
-                      | <span class='fa fa-fw fa-phone'></span> <strong>Phone support:</strong>
-                      | <strong>+66 96 380-63-40</strong>,
-                      | <strong>+7 919 968-00-40</strong>
-            .row.text-center
-              .col-xs-12.col-md-8.col-md-offset-2
-                .row
-                  .col-xs-12.col-md-6
-                    h5 Can I cancel anytime?
-                    p Sure.
-                  .col-xs-12.col-md-6
-                    h5 Can I upgrade anytime?
-                    p You bet.
-            h5.text-center Any questions? <a class="textual underlined" href="mailto:denis.d.gorbachev@gmail.com?subject=Foreach+app+pricing" target="_blank">Ask Denis</a>.
-            h6.text-center.text-muted Go on, upgrade and make my day ;)
+      .col-xs-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+        +plans
+    if currentUserReady
+      .row
+        .col-xs-12.text-muted.text-center
+          +currentPlan
+    .row.text-center
+      .col-xs-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
+        .row
+          .col-xs-12.col-md-6
+            h5 Can I cancel anytime?
+            p Sure.
+          .col-xs-12.col-md-6
+            h5 Can I upgrade anytime?
+            p You bet.
+    h5.text-center Any questions? <a class="textual underlined" href="mailto:denis.d.gorbachev@gmail.com?subject={{Settings.public.name}}+app+pricing" target="_blank">Ask Denis</a>.
+    h6.text-center.text-muted Go on, upgrade and make my day ;)

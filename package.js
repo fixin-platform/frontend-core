@@ -26,7 +26,8 @@ Package.onUse(function(api) {
     "kadira:blaze-layout@2.0.1",
     "useraccounts:bootstrap@1.12.3",
     "useraccounts:flow-routing@1.12.3",
-    "tmeasday:publish-counts@0.3.7"
+    "tmeasday:publish-counts@0.3.7",
+    "kadira:stripe-konnect@3.0.0"
   ], ["client", "server"]);
   api.use([
     "dburles:spacebars-tohtml@1.0.0"
@@ -126,4 +127,3 @@ Npm.depends({
   "mixpanel": "0.0.20",
   "touch": "1.0.0"
 });
-

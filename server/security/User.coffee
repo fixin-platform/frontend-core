@@ -6,8 +6,8 @@ Users.allow
       return true
     if user._id isnt userId
       return false
-    if "actions" in fieldNames and user._id not in Fixtures.objectIds
-      return false
+    updatedImmutableFields = _.intersection(fieldNames, ["stripeCustomerId", "createdAt"])
+    throw new Match.Error("Can't update immutable fields: #{JSON.stringify(updatedImmutableFields)}") if updatedImmutableFields.length
     return true
   remove: introspect (userId, user) ->
     false

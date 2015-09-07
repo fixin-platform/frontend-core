@@ -13,7 +13,7 @@ template(name="plans")
             p.text-center
               if currentUserReady
                 if condition currentUserPlan._id 'is' _id
-                  button.btn.btn-default.text-muted(type="button" disabled="true") Your current plan
+                  button.btn.btn-default.text-muted(type="button" data-plan-id="{{_id}}" disabled="true") Your current plan
                 else
                   if condition currentUserPlan.price '>' price
                     button.btn.btn-default.update-plan.text-muted(type="button" data-plan-id="{{_id}}")

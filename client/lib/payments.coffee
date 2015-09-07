@@ -1,62 +1,53 @@
-$target = null
-targetPlanId = null
-targetPlan = null
+stripe = new StripeKonnect("Spire")
 
-Meteor.startup ->
-  if Meteor.settings.public.stripe and (not Meteor.settings.public.isDebug or Meteor.settings.public.isPaymentDebug) # prevent "Mixed Content" warnings in console
-    window.StripeHandler = StripeCheckout.configure(
-      key: Meteor.settings.public.stripe.key
-      name: "Spire"
-      image: "/packages/foundation/public/images/logo-for-stripe.png"
-      panelLabel: "Upgrade"
-      token: -> Spire.tokenHandler.apply(@, arguments)
-    )
-  else
-    window.StripeHandler =
-      open: ->
-        alert("Stripe payments are disabled in dev environment. To test payments, please set \"isPaymentDebug\": true in current settings file. Just don't forget to set it back!")
-      close: ->
+window.stripe = stripe if Meteor.settings.public.isDebug
 
-Spire.tokenHandler = (token) ->
+Spire.addCard = ($target, targetPlanId, token) ->
   mixpanel.track("UpgradeTokenReceived", {userId: Meteor.userId()})
   $target.find(".ready").hide()
   $target.find(".loading").show()
   Meteor.call("addCard", token, (error) ->
     $target.find(".ready").show()
     $target.find(".loading").hide()
-    if error then return Spire.showError(error)
-    if targetPlanId
-      Spire.updatePlan()
+    return Spire.showError(error) if error
+    return Spire.updatePlan($target, targetPlanId)
   )
 
 Spire.updatePlanEventHandler = grab encapsulate (event) ->
   $target = $(event.currentTarget)
   targetPlanId = $target.attr("data-plan-id")
-  targetPlan = _.findWhere(Spire.plans, {_id: targetPlanId})
-  Spire.updatePlan()
+  Spire.updatePlan($target, targetPlanId)
 
-Spire.updatePlan = ->
+Spire.updatePlan = ($target, targetPlanId) ->
+  targetPlan = _.findWhere(Spire.plans, {_id: targetPlanId})
+  throw new Error("Couldn't find plan \"#{targetPlanId}\"") unless targetPlan
   user = Transformations.User(Meteor.user())
   mixpanel.track("UpgradeInitiated", {userId: user._id, fromPlanId: user.planId, toPlanId: targetPlanId})
   $target.find(".ready").hide()
   $target.find(".loading").show()
   Meteor.call("updatePlan", targetPlanId, (error) ->
-    $target.find(".ready").show()
-    $target.find(".loading").hide()
     if error
       if error.error in ["User:noStripeCustomer", "User:noStripeSources"]
-        StripeHandler.open
-          description: "#{targetPlan.name} plan"
-          email: user.emails[0].address
+        stripe.ready ->
+          handler = stripe.getCheckoutHandler(
+            panelLabel: "Upgrade"
+            description: "#{targetPlan.name} plan"
+            email: user.emails[0].address
+            token: _.partial(Spire.addCard, $target, targetPlanId)
+            opened: ->
+              $target.find(".ready").show()
+              $target.find(".loading").hide()
+          )
+          handler.open()
       else
+        $target.find(".ready").show()
+        $target.find(".loading").hide()
         Spire.showError(error)
       return
+    $target.find(".ready").show()
+    $target.find(".loading").hide()
     mixpanel.track("UpgradeComplete", {userId: Meteor.userId()})
     parameters = Session.get("ongoingActionParameters")
-    if parameters
-      Spire.executeAction(parameters)
+    Spire.executeAction(parameters) if parameters
     $(".modal").modal("hide")
-    $target = null
-    targetPlanId = null
-    targetPlan = null
   )
