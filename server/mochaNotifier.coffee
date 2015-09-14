@@ -19,5 +19,7 @@ WebApp.onListening ->
 
 notifyMocha = (cb) ->
   cwd = process.cwd()
-  pwd = cwd.substr(0, cwd.lastIndexOf("/.meteor"))
+  meteorDirIndex = cwd.lastIndexOf("/.meteor")
+  return if not ~meteorDirIndex # we're in production, baby!
+  pwd = cwd.substr(0, meteorDirIndex)
   touch "#{pwd}/tests/meteor.touch", {}, cb
