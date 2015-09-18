@@ -1,9 +1,6 @@
 currentUserHandle = Meteor.subscribe("currentUser")
 allUsers = Meteor.subscribe("allUsers")
 
-AppsHandle = Meteor.subscribe("Apps")
-BlueprintsHandle = Meteor.subscribe("Blueprints")
-
 if currentUserToken
   @VotesHandle = Meteor.subscribe("Votes", currentUserToken)
   @TokenEmailsHandle = Meteor.subscribe("TokenEmails", currentUserToken)

@@ -8,16 +8,9 @@ Users._ensureIndex({"emails.address": 1}, {unique: true, dropDups: true, sparse:
 Users._ensureIndex({username: 1}, {unique: true, dropDups: true, background: true})
 Users._ensureIndex({friendUserIds: 1}, {background: true})
 
-Apps._ensureIndex({key: 1}, {unique: true, dropDups: true, background: true})
-Blueprints._ensureIndex({appId: 1, key: 1}, {unique: true, dropDups: true, background: true})
-
 Steps._ensureIndex({recipeId: 1, key: 1}, {unique: true, dropDups: true, background: true})
 Steps._ensureIndex({recipeId: 1}, {background: true})
 Steps._ensureIndex({userId: 1}, {background: true})
-Rows._ensureIndex({isReady: 1, stepId: 1, userId: 1}, {background: true})
-Rows._ensureIndex({stepId: 1, userId: 1, jobId: 1}, {background: true})
-Columns._ensureIndex({stepId: 1, userId: 1}, {background: true})
-Filters._ensureIndex({stepId: 1, userId: 1}, {background: true})
 
 Recipes._ensureIndex({userId: 1}, {background: true})
 
