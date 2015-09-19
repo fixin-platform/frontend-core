@@ -30,7 +30,7 @@ template(name="StartWorkflowExecution")
                 each commandLiveRun.progressBars
                   li.command-progress-bar
                     i.fa-li.fa(class="{{progressBarIconClass commandLiveRun}}" data-activity-id="{{activityId}}")
-                    | {{progressBarMessage commandLiveRun}}
+                    | {{{progressBarMessage commandLiveRun}}}
         +issues
         h2.h6: strong What's next:
         ul
