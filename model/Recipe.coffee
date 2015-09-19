@@ -54,7 +54,7 @@ class Recipes.Recipe
       isCompleted: false
       isAutorun: false
       createdAt: now
-    )
+    , Meteor.settings.public.Step)
     modifier.$set ?= {}
     _.defaults(modifier.$set,
       updatedAt: now
