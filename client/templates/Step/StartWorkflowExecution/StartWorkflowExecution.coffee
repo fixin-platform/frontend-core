@@ -3,9 +3,9 @@ Template.StartWorkflowExecution.helpers
     step = Template.currentData()
     commands = Commands.find(_.defaults({stepId: step._id}, selector)).fetch()
     not _.every commands, (command) ->
-      everyProgressBarIsCompleted = _.every command.progressBars, (progressBar) -> progressBar.isCompleted
+      everyProgressBarIsCompletedOrSkipped = _.every command.progressBars, (progressBar) -> progressBar.isCompleted or progressBar.isSkipped
       anyProgressBarIsFailed = _.any command.progressBars, (progressBar) -> progressBar.isFailed
-      everyProgressBarIsCompleted or anyProgressBarIsFailed
+      everyProgressBarIsCompletedOrSkipped or anyProgressBarIsFailed
   isLoadingLiveRunSelector: ->
     isDryRun: false
     isShallow: false
@@ -63,6 +63,7 @@ Template.StartWorkflowExecution.helpers
       key += ".waiting"
     i18n.t(key, _.extend({count: count}, @, step)) # example i18n string where step data is necessary: "Reused <a href='{{spreadsheet.link}}'>{{spreadsheet.name}}</a> (created earlier)"
   progressBarIconClass: (command) ->
+    return "fa-check" if @isSkipped
     return "fa-exclamation-circle" if @isFailed
     return "fa-check" if @isCompleted
     return "fa-refresh fa-spin" if @isStarted
