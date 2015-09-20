@@ -19,7 +19,7 @@ Package.onUse(function(api) {
   api.use(["force-ssl"]);
   api.use([
     "meteorhacks:kadira@2.20.0",
-    //"kadira:zones@1.4.0", // Leads to 100% CPU hanging in extension
+    "meteorhacks:zones@1.6.0", // Leads to 100% CPU hanging in extension
     "meteorhacks:fast-render@2.9.0",
     "meteorhacks:picker@1.0.2",
     "kadira:flow-router@2.1.1",
