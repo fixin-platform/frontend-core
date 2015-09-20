@@ -119,10 +119,8 @@ Steps.after.update (userId, Step, fieldNames, modifier, options) ->
   Recipe = Step.recipe()
   Recipe.stepAfterUpdate.apply(Recipe, arguments)
 
-Steps.after.remove (userId, Step) ->
-  # removing one by one is better, because 1) It works on client 2) It runs hooks
-  Step = Transformations.Step(Step)
-  Step.filters().forEach (filter) ->
-    Filters.remove(filter._id)
-  Rows.remove({stepId: Step._id})
-  Columns.remove({stepId: Step._id})
+if Meteor.isServer
+  Steps.after.remove (userId, Step) ->
+    Step = Transformations.Step(Step)
+    Rows.remove({stepId: Step._id})
+    Columns.remove({stepId: Step._id})

@@ -114,8 +114,6 @@ Recipes.before.update (userId, Recipe, fieldNames, modifier, options) -> Recipes
 
 Recipes.after.update (userId, Recipe, fieldNames, modifier, options) -> Recipes[Recipe.cls]::afterUpdate.apply(@, arguments)
 
-Recipes.after.remove (userId, Recipe) -> Steps.remove({recipeId: Recipe._id})
-
 autoname = (Recipe) ->
   name = Transformations.Recipe(Recipe)._i18n().name
   if Meteor.isServer
@@ -125,3 +123,7 @@ autoname = (Recipe) ->
     count = Recipes.find({ name: { $regex: "^" + name, $options: "i" }, userId: userId }).count()
     return "#{name} (#{count + 1})" if count
   return name
+
+if Meteor.isServer
+  Recipes.after.remove (userId, Recipe) ->
+    Steps.remove({recipeId: Recipe._id})
