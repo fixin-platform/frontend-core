@@ -10,9 +10,9 @@ Meteor.startup ->
   if Meteor.settings.public.isDevLogin
     if (!userId && (location.host == "localhost:3000" || location.host.indexOf("192.168") != -1) && document.cookie.indexOf("autologin=false") == -1)
       if jQuery.browser.mozilla
-        Meteor.loginWithToken("ArunodaSusiripala")
+        Meteor.loginWithToken("KnoxOverstreet")
       else
-        Meteor.loginWithToken("DenisGorbachev")
+        Meteor.loginWithToken("CharlieDalton")
 
 currentUserToken = if Meteor.settings.public.isDebug then "token_J7H9PNSNPQL5jymRx" else store.get("userToken")
 if not currentUserToken

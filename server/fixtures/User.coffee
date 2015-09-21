@@ -1,12 +1,12 @@
 Fixtures.push Meteor.users,
-  DenisGorbachev:
+  CharlieDalton:
     profile:
-      name: "Denis Gorbachev"
+      name: "Charlie Dalton"
       isRealName: true
     isAdmin: true
-  ArunodaSusiripala:
+  KnoxOverstreet:
     profile:
-      name: "Arunoda Susiripala"
+      name: "Knox Overstreet"
       isRealName: true
 
 Fixtures.pre Meteor.users, (users) ->
@@ -18,7 +18,7 @@ Fixtures.pre Meteor.users, (users) ->
       isAliasedByMixpanel: true
       emails: [
         {
-          address: _id.toLowerCase() + "@fixin.io"
+          address: _id.toLowerCase() + "@spirehq.com"
           verified: true
         }
       ]
