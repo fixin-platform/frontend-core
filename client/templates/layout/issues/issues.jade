@@ -1,4 +1,9 @@
 template(name="issues")
-  ul.error-list
-    each issues
-      +issue
+  .issues
+    ul.error-list
+      each issues
+        +issue
+    if condition issues.count ">" 3
+      a.remove-all.splinterlink(href="#")
+        span.splinter.text-danger Clear all errors
+        span.fa.fa-fire-extinguisher.text-muted

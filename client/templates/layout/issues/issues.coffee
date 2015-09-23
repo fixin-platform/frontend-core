@@ -8,4 +8,5 @@ Template.issues.onCreated ->
     @subscribe("IssuesByStepId", currentData._id)
 
 Template.issues.events
-#  "click .selector": (event, template) ->
+  "click .remove-all": grab encapsulate (event, template) ->
+    @issues().forEach (issue) -> Issues.remove(issue._id)

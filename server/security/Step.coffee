@@ -4,8 +4,8 @@ Steps.allow
     check step, Match.ObjectIncluding
       _id: Match.StringId
       cls: String
-#      refreshInterval: Match.Integer
-#      refreshedAt: Match.OneOf(Date, null)
+      refreshInterval: Match.Optional(Match.Integer)
+      refreshPlannedAt: Match.Optional(Date)
       position: Match.Integer
       recipeId: Match.ObjectId(Recipes)
       isAutorun: Boolean
