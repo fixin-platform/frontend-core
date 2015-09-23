@@ -35,8 +35,9 @@ Commands.before.insert (userId, command) ->
       step.userId
     ]
     input: JSON.stringify(input)
-  data = startWorkflowExecutionSync(params)
-  command.runId = data.runId
+  unless command.isDryRunWorkflow
+    data = startWorkflowExecutionSync(params)
+    command.runId = data.runId
   true
 
 Commands.before.remove (userId, command) ->

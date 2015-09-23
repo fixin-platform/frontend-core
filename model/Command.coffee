@@ -21,6 +21,7 @@ Commands.match = ->
   isFailed: Boolean
   isDryRun: Boolean
   isShallow: Boolean
+  isDryRunWorkflow: Boolean
   sampleId: Match.Optional(Match.StringId) # Match.Optional(Match.ObjectId(Samples))
   stepId: Match.ObjectId(Steps)
   userId: Match.ObjectId(Users)
@@ -41,6 +42,7 @@ Commands.before.insert (userId, Command) ->
     isFailed: false
     isDryRun: true # POST/PUT/DELETE and also "GET/HEAD with side-effects" are disallowed
     isShallow: false # with task hierarchy
+    isDryRunWorkflow: false
     userId: userId
     updatedAt: now
     createdAt: now

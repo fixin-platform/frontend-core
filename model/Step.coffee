@@ -30,10 +30,10 @@ class Steps.Step
   domain: ->
     Meteor.settings.swf.domain
   workflowType: ->
-    name: @cls
+    name: @recipe().cls
     version: @version or "1.0.0"
   taskList: ->
-    name: @cls
+    name: @recipe().cls
 #  columns: -> throw "Implement me!"
   insertCommand: (data) ->
     Commands.insert _.extend {}, data, @insertCommandData()
