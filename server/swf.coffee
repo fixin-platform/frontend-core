@@ -16,7 +16,7 @@ requestCancelWorkflowExecutionSync = Meteor.wrapAsync(swf.requestCancelWorkflowE
 
 # Using "before" hook to ensure that SWF receives our request
 Commands.before.insert (userId, command) ->
-  return true unless Meteor.settings.public.isSWFEnabled
+  return true if command.isDryRunWorkflowExecution
   step = Steps.findOne(command.stepId, {transform: Transformations.Step})
   _.extend command, step.insertCommandData() # an old version of client-side code might insert a Command in old format, so we need to override the Command data in server-side code
   input = step.input(command)
@@ -35,13 +35,12 @@ Commands.before.insert (userId, command) ->
       step.userId
     ]
     input: JSON.stringify(input)
-  unless command.isDryRunWorkflow
-    data = startWorkflowExecutionSync(params)
-    command.runId = data.runId
+  data = startWorkflowExecutionSync(params)
+  command.runId = data.runId
   true
 
 Commands.before.remove (userId, command) ->
-  return true unless Meteor.settings.public.isSWFEnabled
+  return true if command.isDryRunWorkflowExecution
   step = Steps.findOne(command.stepId, {transform: Transformations.Step})
   params =
     domain: step.domain()
