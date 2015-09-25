@@ -1,11 +1,11 @@
 template(name="Recipe")
-  .Recipe.panel-body
+  .Recipe.panel-body.is-loaded
     div
       a.back(href="{{listUrl}}") {{_i18n.name}} (your recipes)
       | ›
     h1.h5 {{displayName}}
     ul.text-muted
       li Recipe created {{moment createdAt "[on] LL [at] LTS"}}
-  .Recipe.list-group
+  .Recipe.list-group.is-loaded
     each steps
       +Template.dynamic(template=template data=.)
