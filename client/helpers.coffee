@@ -36,6 +36,9 @@ UI.registerHelper "currentUserField", (field) ->
 UI.registerHelper "currentUserFlags", ->
   UI._globalHelpers.currentUserField.call(@, "flags")
 
+UI.registerHelper "currentUserHasFlag", (flag) ->
+  flag in UI._globalHelpers.currentUserFlags.call(@)
+
 UI.registerHelper "currentUserPlan", ->
   _.findWhere(Spire.plans, {_id: UI._globalHelpers.currentUserField.call(@, "planId")})
 

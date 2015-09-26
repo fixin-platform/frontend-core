@@ -3,7 +3,7 @@ head
   meta(charset='utf-8')
   meta(name='viewport', content='width=device-width, initial-scale=1.0')
   meta(name='description', content='BackupHamster does backup of your data in web and mobile apps. It is simple, secure — and gets the job done.')
-  link(rel="icon" href="/packages/foundation/public/images/favicon.ico")
+  link(rel="icon" href="/packages/foundation/public/images/favicon.ico?letter=B")
   script(src="https://apis.google.com/js/platform.js" async defer)
 
 body
@@ -18,3 +18,4 @@ template(name="layout")
           +Template.dynamic(template=headerTemplate data=headerData)
           +Template.dynamic(template=contentTemplate data=contentData)
           //+Template.dynamic(template=footerTemplate data=footerData)
+  +Template.dynamic(template=subfooterTemplate data=subfooterData)

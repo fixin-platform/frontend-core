@@ -52,10 +52,19 @@ AccountsTemplates.configure
     signUpLink_link: "Sign up"
     signInLink_link: "Sign in"
     socialSignUp: "Sign up"
+    title:
+      signIn: "Please sign in"
+      signUp: "Please sign up"
     button:
       signUp: "Sign up"
     errors:
       loginForbidden: "Please enter email and password"
+      mustBeLoggedIn: ""
   onSubmitHook: (error, state) ->
     return if error
     $(Spire.document.body).find("#loginPopup").modal("hide") if state in ["signIn", "signUp"]
+
+Meteor.startup ->
+  AccountsTemplates.state.form.set = _.wrap AccountsTemplates.state.form.set, (parent, keyOrObject, value) ->
+    return if keyOrObject is "error" and _.isArray(value) and _.compact(value).length is 0
+    parent.call(@, keyOrObject, value)
