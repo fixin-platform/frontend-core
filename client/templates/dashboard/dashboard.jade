@@ -1,9 +1,9 @@
 template(name="dashboard")
   if subscriptionsReady
     .dashboard.panel-body
-      h5 Active recipes
+      h3 Your recipes
       if not recipes.count
-        p No active recipes found.
+        p No recipes found.
     .dashboard.list-group
       each recipes
         +recipeBadge
@@ -11,4 +11,4 @@ template(name="dashboard")
     .dashboard.panel-body
       h5
         .fa.fa-fw.fa-refresh.fa-spin
-        | Loading active recipes...
+        | Loading your recipes...

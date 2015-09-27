@@ -27,6 +27,7 @@ Package.onUse(function(api) {
     "useraccounts:bootstrap@1.12.3",
     "useraccounts:flow-routing@1.12.3",
     "tmeasday:publish-counts@0.3.7",
+    "reywood:publish-composite@1.4.2",
     "kadira:stripe-konnect@3.0.0"
   ], ["client", "server"]);
   api.use([

@@ -37,6 +37,20 @@ Meteor.publish "UsersNotAliasedByMixpanel", ->
 Meteor.publish "Blueprints", ->
   Blueprints.find({})
 
+Meteor.publish "RecipesCount", ->
+  return [] unless @userId
+  Counts.publish(@, "Recipes", Recipes.find({userId: @userId}))
+  []
+
+Meteor.publishComposite "Recipes",
+  find: ->
+    return [] unless @userId
+    Recipes.find({userId: @userId})
+  children: [
+    find: (recipe) ->
+      Pages.find({cls: "Landing", "options.recipe.cls": recipe.cls})
+  ]
+
 Meteor.publish "RecipesOnAutorun", ->
   return [] unless @userId
   Recipes.find({userId: @userId, isAutorun: true})
