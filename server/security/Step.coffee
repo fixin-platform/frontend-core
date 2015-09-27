@@ -1,17 +1,8 @@
 Steps.allow
   insert: introspect (userId, step) ->
     throw new Match.Error("Authentication required") if not userId
-    check step, Match.ObjectIncluding
-      _id: Match.StringId
-      cls: String
-      refreshInterval: Match.Optional(Match.Integer)
-      refreshPlannedAt: Match.Optional(Date)
-      position: Match.Integer
-      recipeId: Match.ObjectId(Recipes)
-      isAutorun: Boolean
-      userId: userId
-      updatedAt: Date
-      createdAt: Date
+    throw new Match.Error("Only owner can do this") if step.userId isnt userId
+    check step, Match.ObjectIncluding(Steps.match())
     recipe = Recipes.findOne(step.recipeId)
     throw new Match.Error("Can't insert a step for another user's recipe") if step.userId isnt recipe.userId
     true

@@ -34,8 +34,9 @@ template(name="StartWorkflowExecution")
         +issues
         h2.h6: strong What's next:
         ul
-          li <a href="#" class="run">Manually run the export</a> to make sure it works as expected (10 trial runs left).
-          li <a href="/pricing">Subscribe to a plan</a> to run this recipe automatically in the background.
+          if condition currentUserPlan._id 'is' 'free'
+            li {{{_i18n.manualRun}}}
+            li <a href="/pricing">Subscribe to a plan</a> to run this recipe automatically in the background.
         if count
           .step-content
             table.table.table-hover

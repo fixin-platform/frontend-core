@@ -57,6 +57,15 @@ class Steps.Step
     options.fields.cls = 1 if options.fields # for Transformations
     options.transform ?= Transformations.Recipe
     Recipes.findOne(@recipeId, options)
+  user: (options = {}) ->
+    Users.findOne(@userId, options)
+  runsLeft: ->
+    user = @user({fields: {planId: 1, executions: 1}})
+    currentPlan = _.findWhere(Spire.plans, {_id: user.planId})
+    if currentPlan.executionsLimit
+      Math.max(0, currentPlan.executionsLimit - (user.executions[@cls] or 0))
+    else
+      Infinity
   recipeField: (field, defaultValue = null) ->
     fields = {}
     fields[field] = 1
@@ -68,17 +77,57 @@ class Steps.Step
   _i18n: ->
     key = @_i18nKey()
     parameters = @_i18nParameters()
-    result = i18n.t(key, _.extend({returnObjectTrees: true}, parameters))
+    result = @_i18nResult(key, parameters)
     result = {} if result is key # i18n not found
     throw new Meteor.Error("_i18n:not-an-object", "", {result: result}) if not _.isObject(result)
-    _.defaults(result, @_i18nDefaults())
+    _.defaults(result, @_i18nResult("Steps.defaults", parameters))
   _i18nKey: -> "Steps.#{@i18nKey}"
-  _i18nParameters: -> {}
-  _i18nDefaults: ->
-    run: "manually run now"
-    running: "running"
-    cancel: "cancel"
-    test: "test"
+  _i18nParameters: ->
+    runsLeft: @runsLeft()
+  _i18nResult: (key, parameters) ->
+    i18n.t(key, _.extend({returnObjectTrees: true}, parameters))
+
+Steps.match = ->
+  _id: Match.StringId
+  cls: String
+  refreshInterval: Match.Optional(Match.Integer)
+  refreshPlannedAt: Match.Optional(Date)
+  position: Match.Integer
+  search: String
+  page: Match.Integer
+  recipeId: Match.ObjectId(Recipes)
+  userId: Match.ObjectId(Users)
+  isCompleted: Boolean
+  isAutorun: Boolean
+  updatedAt: Date
+  createdAt: Date
+
+StepPreSave = (userId, changes) ->
+  now = new Date()
+  changes.updatedAt = changes.updatedAt or now
+
+Steps.before.insert (userId, Step) ->
+  Step._id ||= Random.id()
+  now = new Date()
+  _.defaults(Step, Meteor.settings.public.Step)
+  _.autovalues(Step,
+    search: ""
+    page: 1
+    isCompleted: false
+    isAutorun: false
+    position: (Step) -> Steps.find({recipeId: Step.recipeId}).count() + 1
+    userId: userId
+    updatedAt: now
+    createdAt: now
+  )
+  check Step, Match.ObjectIncluding(Steps.match())
+  StepPreSave.call(@, userId, Step)
+  true
+
+Steps.before.update (userId, Step, fieldNames, modifier, options) ->
+  modifier.$set = modifier.$set or {}
+  StepPreSave.call(@, userId, modifier.$set)
+  true
 
 # Don't forget to return true, otherwise the insert/update will be stopped!
 Steps.Step::beforeInsert = (userId, Step) ->
@@ -89,22 +138,6 @@ Steps.Step::beforeUpdate = (userId, Step, fieldNames, modifier, options) ->
   true
 Steps.Step::afterUpdate = (userId, Step, fieldNames, modifier, options) ->
   true
-
-# Step defaults have been moved to Recipe methods
-#
-#Steps.PreSave = (userId, changes) ->
-#  now = new Date()
-#  changes.updatedAt = changes.updatedAt or now
-#
-#Steps.before.insert (userId, Step) ->
-#  throw new Meteor.Error("Step:userId:empty", "Step::userId is empty", Step) if not Step.userId
-#  Steps.PreSave.call(@, userId, Step)
-#  true
-#
-#Steps.before.update (userId, Step, fieldNames, modifier, options) ->
-#  modifier.$set = modifier.$set or {}
-#  Steps.PreSave.call(@, userId, modifier.$set)
-#  true
 
 Steps.before.insert (userId, Step) -> Transformations.cls(Steps, Steps.Step, Step)::beforeInsert.apply(@, arguments)
 

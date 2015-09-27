@@ -11,6 +11,10 @@ class Recipes.Recipe
   displayName: -> @name
   generateSteps: -> throw "Implement #{@cls}::generateSteps method"
   # Don't forget to return true, otherwise the insert/update will be stopped!
+  insertStep: (step) ->
+    Steps.insert _.extend step,
+      recipeId: @_id
+      userId: @userId
   beforeInsert: (userId, Recipe) ->
     true
   afterInsert: (userId, Recipe) ->
@@ -36,35 +40,6 @@ class Recipes.Recipe
     Steps.findOne({recipeId: @_id, key: key})
   createdAtFormatted: ->
     moment(@createdAt).format("YYYY-MM-DD HH:mm:ss")
-  generateStep: (selector, modifier, callback) ->
-    check selector, Match.ObjectIncluding
-      key: String
-    selector.recipeId = @_id
-    check modifier, Match.ObjectIncluding
-      $set: Match.ObjectIncluding
-        position: Match.Integer
-    now = new Date()
-    selector.userId = @userId
-    modifier.$setOnInsert ?= {}
-    _.defaults(modifier.$setOnInsert,
-      _id: Random.id()
-      search: ""
-      page: 1
-      hiddenColumnKeys: []
-      isCompleted: false
-      isAutorun: false
-      createdAt: now
-    , Meteor.settings.public.Step)
-    modifier.$set ?= {}
-    _.defaults(modifier.$set,
-      updatedAt: now
-    )
-    check(modifier, # Ensure that old code is fully covered by BC
-      $set: Match.Optional(Object)
-      $setOnInsert: Match.Optional(Object)
-    )
-    object = _.extend({}, selector, modifier.$setOnInsert, modifier.$set)
-    Steps.insert(object, callback)
   stepAfterUpdate: (userId, Step, fieldNames, modifier, options) ->
     # Need to add `hasBeenExecuted` to Step model
 #    @steps({isAutorun: true}, {transform: Transformations.Step}).forEach (step) ->
