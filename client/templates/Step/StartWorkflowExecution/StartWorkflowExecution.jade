@@ -12,16 +12,27 @@ template(name="StartWorkflowExecution")
                 // StartWorkflowExecutionSwitchbox must be outside the label for Bootstrap Switch to work
                 +StartWorkflowExecutionSwitchbox
                 label(for="{{_id}}-is-autorun-toggle")
-                  | Automatic export
-                  | -
-                  span.grab.encapsulate
-                    if isLoading isLoadingLiveRunSelector
-                      span
-                        | {{{_i18n.running}}} -
-                        a.cancel-run(href="#") {{{_i18n.cancel}}}
+                  | Export is
+                  if isLoading isLoadingLiveRunSelector
+                    span
+                      | {{{_i18n.running}}} -
+                      a.cancel-run(href="#") {{{_i18n.cancel}}}
+                  else
+                    if isAutorun
+                      | active
                     else
-                      span
-                        a.run(href="#") {{{_i18n.run}}}
+                      | inactive
+                    span.grab.encapsulate &nbsp;-&nbsp;
+                    span
+                      span.splinterlink
+                        if isAutorun
+                          span.splinter deactivate
+                        else
+                          span.splinter activate
+                      span.grab.encapsulate or
+                      a.run(href="#") {{{_i18n.run}}}
+                    if condition isAutorun 'and' refreshPlannedAt
+                      span &nbsp;(next run will happen {{momentTo refreshPlannedAt}})
               //.inner-addon.left-addon.pull-right
               //  .fa.fa-search
               //  +input(family="step" _id=_id property="search" placeholder="Quick search" isNew=false)
@@ -36,7 +47,7 @@ template(name="StartWorkflowExecution")
         ul
           if condition currentUserPlan._id 'is' 'free'
             li {{{_i18n.manualRun}}}
-            li <a href="/pricing">Subscribe to a plan</a> to run this recipe automatically in the background.
+            li <a href="/pricing">Subscribe to a plan</a> to run this recipe automatically daily, or manually anytime.
         if count
           .step-content
             table.table.table-hover

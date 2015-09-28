@@ -88,6 +88,12 @@ UI.registerHelper "arrayify", (object) ->
 UI.registerHelper "momentFromNow", (date) ->
   moment(date).fromNow()
 
+UI.registerHelper "momentTo", (date) ->
+  if Date.now() >= date.getTime()
+    "in a minute"
+  else
+    moment().to(date)
+
 UI.registerHelper "encodeURIComponent", (value) ->
   encodeURIComponent(value)
 

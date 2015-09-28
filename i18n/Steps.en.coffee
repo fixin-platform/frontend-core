@@ -1,11 +1,11 @@
 i18n.addResourceBundle("en", "translation",
   Steps:
     defaults:
-      run: "manually run now"
+      run: "test now"
       running: "running"
       cancel: "cancel"
       test: "test"
-      manualRun: '<a href="#" class="run">Manually run the export</a> to make sure it works as expected ($t(Steps.defaults.runsLeft, {"count": {{runsLeft}}}})).'
+      manualRun: '<a href="#" class="run">Run the export</a> manually to ensure it works as expected ($t(Steps.defaults.runsLeft, {"count": {{runsLeft}}}})).'
       runsLeft: "{{count}} trial run left"
       runsLeft_plural: "{{count}} trial runs left"
 , true)
