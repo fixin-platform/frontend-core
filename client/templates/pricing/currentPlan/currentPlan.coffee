@@ -1,7 +1,7 @@
 Template.currentPlan.helpers
   weRequireMoreVespeneGas: ->
     currentUserPlan = UI._globalHelpers.currentUserPlan.call(@)
-    currentUserPlan._id is "free" or currentUserPlan.limit
+    currentUserPlan._id is "free" or currentUserPlan.activeRecipesLimit
 
 Template.currentPlan.onRendered ->
 

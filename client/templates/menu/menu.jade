@@ -12,7 +12,7 @@ template(name="menu")
             i.fa.fa-fw.fa-dollar
             | Pricing
         li.divider
-      if Settings.public.isDebug
+      if settings.public.isDebug
         li(role='presentation')
           a(href="/listen-to-your-heart", role='menuitem', tabindex='-1')
             i.fa.fa-fw.fa-headphones

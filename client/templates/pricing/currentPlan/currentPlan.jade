@@ -2,7 +2,7 @@ template(name="currentPlan")
   span.current-plan
     | Currently you are on {{currentUserPlan.name}} plan.
     if weRequireMoreVespeneGas
-      nobr If you like {{Settings.public.name}}, please consider upgrading.
+      nobr If you like {{settings.public.name}}, please consider upgrading.
     else
       nobr Thank you!
 

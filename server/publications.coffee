@@ -10,10 +10,11 @@ Meteor.publish "currentUser", ->
       "createdAt": 1
       "isNew": 1
       "planId": 1
-      "actions": 1
+      "executions": 1
       "flags": 1
       "selections": 1
-      "options": 1
+      "options": 1,
+      "stripeCustomerId": 1 # hide it later
   )
 
 # Stats

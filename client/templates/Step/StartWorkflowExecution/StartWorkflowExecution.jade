@@ -43,11 +43,39 @@ template(name="StartWorkflowExecution")
                     i.fa-li.fa(class="{{progressBarIconClass commandLiveRun}}" data-activity-id="{{activityId}}")
                     | {{{progressBarMessage commandLiveRun}}}
         +issues
+        if condition currentUserPlan.executionsLimit 'and' isAutorun
+          if runsLeft
+            p {{{_i18n.activatedTrial}}}
+          else
+            p {{{_i18n.finishedTrial}}}
         h2.h6: strong What's next:
         ul
-          if condition currentUserPlan._id 'is' 'free'
-            li {{{_i18n.manualRun}}}
-            li <a href="/pricing">Subscribe to a plan</a> to run this recipe automatically daily, or manually anytime.
+          if currentUserPlan.executionsLimit
+            li {{{_i18n.manualRunTrial}}}
+            li {{{_i18n.subscribe}}}
+          else
+            li {{{_i18n.manualRunNoTrial}}}
+        if showDebugPanel
+          hr
+          h2.h6: strong Debug:
+          ul
+            li: a.set-execution-counter-to-executions-limit(href="#") Set execution counter to executionsLimit
+            li
+              | Set step owner plan:
+              if condition currentUserPlan._id 'is' 'free'
+                | Free
+              else
+                a.set-plan-id(planId="free" href="#") Free
+              | /
+              if condition currentUserPlan._id 'is' 'basic5'
+                | Basic monthly
+              else
+                a.set-plan-id(planId="basic5" href="#") Basic monthly
+              | /
+              if condition currentUserPlan._id 'is' 'unlimited20'
+                | Unlimited monthly
+              else
+                a.set-plan-id(planId="unlimited20" href="#") Unlimited monthly
         if count
           .step-content
             table.table.table-hover
@@ -82,4 +110,3 @@ template(name="StartWorkflowExecution")
                           | All good!
             .text-center
               +StartWorkflowExecutionSamplePagination
-

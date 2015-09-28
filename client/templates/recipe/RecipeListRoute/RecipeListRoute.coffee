@@ -3,7 +3,6 @@ Template.RecipeListRoute.helpers
     Pages.findOne({url: Spire.getParam("url")})
 
 Template.RecipeListRoute.onCreated ->
-  console.log
   @autorun => # @autorun is necessary, because template data may change without re-render => without calling onCreated next time
     currentData = Template.currentData()
     @subscribe "Page", currentData.url

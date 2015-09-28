@@ -26,7 +26,7 @@ Template.greed.helpers
   higherPlan: ->
     currentUserPlan = UI._globalHelpers.currentUserPlan.call(@)
     for plan in Spire.plans
-      if not plan.limit or plan.limit > currentUserPlan.limit
+      if not plan.activeRecipesLimit or plan.activeRecipesLimit > currentUserPlan.activeRecipesLimit
         break
     return plan
 

@@ -23,9 +23,9 @@ Commands.before.insert (userId, command) ->
   $inc["executions.#{step.cls}"] = 1
   Users.update(userId, {$inc: $inc})
   try
-    user = Users.findOne(userId)
-    currentPlan = _.findWhere(Spire.plans, {_id: user.planId})
-    if currentPlan.executionsLimit and user.executions[step.cls] > currentPlan.executionsLimit
+    user = Users.findOne(userId, {transform: Transformations.User})
+    plan = user.plan()
+    if plan.executionsLimit and user.executions[step.cls] > plan.executionsLimit
       throw new Meteor.Error(402, "Payment Required", EJSON.stringify({}))
     input = step.input(command)
     _.defaults input,

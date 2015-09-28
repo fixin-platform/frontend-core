@@ -37,7 +37,7 @@ connect = (api, scopes, callback) ->
   check(callback, Match.Optional(Function))
   if api is "Trello"
     sourceUrl = location.protocol + "//" + location.hostname + (if location.port then ':' + location.port else '') + Iron.Location.get().path
-    Meteor.call("getToken", sourceUrl, Spire.handleError (error, token) ->
+    Meteor.call("getToken", sourceUrl, Spire.createErrback (error, token) ->
       callback?(error, token)
       location.href = "https://trello.com/1/OAuthAuthorizeToken?name=Spire:+bulk+actions+for+Trello&scope=#{scopes.join(",")}&oauth_token=" + token
     )

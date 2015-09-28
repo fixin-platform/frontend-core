@@ -24,6 +24,8 @@ Template.StartWorkflowExecution.helpers
     Commands.findOne({isDryRun: false, isShallow: true, sampleId: {$exists: false}}, {sort: {createdAt: -1}})
   commandForSingleSample: ->
     Commands.findOne({isDryRun: false, isShallow: true, sampleId: @_id}, {sort: {createdAt: -1}})
+  showDebugPanel: ->
+    Meteor.settings.public.isDebug or Spire.currentUserField("isAdmin")
   shownColumns: ->
     step = Template.instance().data
     _.filter(step.columns(), (column) => column.key not in step.hiddenColumnKeys)
@@ -79,24 +81,46 @@ Template.StartWorkflowExecution.onCreated ->
 
 Template.StartWorkflowExecution.events
   "switchChange.bootstrapSwitch .is-autorun-toggle": grab encapsulate (event, template, isChecked) ->
-    Steps.update(@_id, {$set: {isAutorun: isChecked}})
+    $toggle = $(event.currentTarget)
+    state = $toggle.bootstrapSwitch("state")
+    Steps.update(@_id, {$set: {isAutorun: isChecked}}, Spire.createErrback(
+      ->
+    ,
+      (error) -> $toggle.bootstrapSwitch("state", not state) if error
+    ))
   "click .run": grab encapsulate (event, template) ->
     @insertCommand
       isDryRun: false
       isShallow: false
+    , Spire.createErrback()
   "click .test": grab encapsulate (event, template) ->
     @insertCommand
       isDryRun: true
       isShallow: false
+    , Spire.createErrback()
   "click .run-for-all-samples": grab encapsulate (event, template) ->
     $(event.currentTarget).blur()
     @insertCommand
       isDryRun: false
       isShallow: true
+    , Spire.createErrback()
   "click .run-for-single-sample": grab encapsulate (event, template) ->
     @insertCommand
       isDryRun: false
       isShallow: true
       sampleId: @_id
+    , Spire.createErrback()
   "click .cancel-run": grab encapsulate (event, template) ->
     Commands.find({stepId: @_id}).forEach (command) -> Commands.remove(command._id)
+
+  # Debug events
+
+  "click .set-execution-counter-to-executions-limit": grab encapsulate (event, template) ->
+    user = Spire.currentUser()
+    $set = {}
+    $set["executions.#{@cls}"] = user.plan().executionsLimit or 0
+    Users.update(Meteor.userId(), {$set: $set})
+  "click .set-plan-id": grab encapsulate (event, template) ->
+    planId = $(event.currentTarget).attr("planId")
+    Meteor.call("setPlanId", @userId, planId)
+

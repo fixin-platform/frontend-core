@@ -1,10 +1,16 @@
 class User
   constructor: (doc) ->
     _.extend(@, doc)
-    @email = @emails?[0]?.address
-    @name = @profile.name.replace(/\d/g, "")
-    @firstName = @name.split(' ').slice(0, 1).join(' ')
-    @lastName = @name.split(' ').slice(1).join(' ')
+  email: ->
+    @emails?[0]?.address
+  name: ->
+    @profile.name.replace(/\d/g, "")
+  firstName: ->
+    @name().split(' ').slice(0, 1).join(' ')
+  lastName: ->
+    @name().split(' ').slice(1).join(' ')
+  plan: ->
+    _.findWhere(Spire.plans, {_id: @planId})
 
 Models.User = User
 Transformations.User = _.partial(Transformations.static, User)

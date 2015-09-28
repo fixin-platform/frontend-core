@@ -94,3 +94,6 @@ Meteor.methods
       subject: subject,
       text: text
     )
+  setPlanId: secure (userId, planId) ->
+    throw new Meteor.Error("Debug only") unless Meteor.settings.public.isDebug
+    Users.update(userId, {$set: {planId: planId}})

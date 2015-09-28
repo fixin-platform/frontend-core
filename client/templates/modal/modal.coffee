@@ -13,6 +13,9 @@ Template.modal.onRendered ->
     Blaze.remove(view)
   )
 
+Template.modal.onDestroyed ->
+  Spire.afterPaymentReset()
+
 Template.modal.events
 # layout doesn't have access to modals in body
   "click .add-payment-method": Spire.updatePlanEventHandler

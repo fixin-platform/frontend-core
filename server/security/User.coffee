@@ -6,7 +6,7 @@ Users.allow
       return true
     if user._id isnt userId
       return false
-    updatedImmutableFields = _.intersection(fieldNames, ["stripeCustomerId", "createdAt"])
+    updatedImmutableFields = _.intersection(fieldNames, ["stripeCustomerId", "planId", "createdAt"])
     throw new Match.Error("Can't update immutable fields: #{JSON.stringify(updatedImmutableFields)}") if updatedImmutableFields.length
     return true
   remove: introspect (userId, user) ->

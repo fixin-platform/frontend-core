@@ -11,18 +11,24 @@ Spire.getParam = (key, context = Template.currentData() or {}) ->
   context[key] or FlowRouter.getParam(key)
 
 Spire.showError = (error) ->
-  message = "Oh snap!\n\n"
   if error instanceof Meteor.Error
-    message += error.message
+    if error.error is 402 # Payment required
+      Blaze.renderWithData(Template.modal,
+        template: "greed"
+        data: if error.details then EJSON.parse(error.details) else {} # error.details are action parameters
+      , document.body)
+      return
+    message = error.message
   else
-    message += error
+    message = error
+  message = "Oh snap!\n\n#{message}"
   alert(message)
   if error instanceof Error
     throw error
   else
     throw new Error(error)
 
-Spire.handleError = (callback = null, callbackfinal = null) ->
+Spire.createErrback = (callback = null, callbackfinal = null) ->
   (error) ->
     if error
       Spire.showError(error)

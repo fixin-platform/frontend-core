@@ -19,7 +19,7 @@ Template.ChooseAvatar.events
       when "form"
         Steps.update(@_id, {$set: {isAddTemplateMode: true}})
       when "connect"
-        connect(@api, @scopes, Spire.handleError => @callback.apply(@, arguments))
+        connect(@api, @scopes, Spire.createErrback => @callback.apply(@, arguments))
       else
         throw "Unknown type \"#{@type}\""
   "click .cancel-add": grab encapsulate (event, template) ->

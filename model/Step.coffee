@@ -35,8 +35,8 @@ class Steps.Step
   taskList: ->
     name: @cls
 #  columns: -> throw "Implement me!"
-  insertCommand: (data) ->
-    Commands.insert _.extend {}, data, @insertCommandData()
+  insertCommand: (data, callback) ->
+    Commands.insert _.extend({}, data, @insertCommandData()), callback
   insertCommandData: ->
     stepId: @_id
     progressBars: @progressBars()
@@ -58,12 +58,13 @@ class Steps.Step
     options.transform ?= Transformations.Recipe
     Recipes.findOne(@recipeId, options)
   user: (options = {}) ->
+    options.transform ?= Transformations.User
     Users.findOne(@userId, options)
   runsLeft: ->
     user = @user({fields: {planId: 1, executions: 1}})
-    currentPlan = _.findWhere(Spire.plans, {_id: user.planId})
-    if currentPlan.executionsLimit
-      Math.max(0, currentPlan.executionsLimit - (user.executions[@cls] or 0))
+    plan = user.plan()
+    if plan.executionsLimit
+      Math.max(0, plan.executionsLimit - (user.executions[@cls] or 0))
     else
       Infinity
   recipeField: (field, defaultValue = null) ->

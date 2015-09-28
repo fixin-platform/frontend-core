@@ -42,7 +42,12 @@ Spire.updateInterval = 5 * Spire.minute
 Spire.pageLimit = 20
 
 Spire.currentUser = (fields, userId = Meteor.userId()) ->
-  Users.findOne(userId, {fields: fields})
+  Users.findOne(userId, {fields: fields, transform: Transformations.User})
+
+Spire.currentUserField = (field, userId = Meteor.userId()) ->
+  fields = {}
+  fields[field] = 1
+  Spire.currentUser(fields)[field]
 
 Spire.currentUserReady = ->
   user = Spire.currentUser({createdAt: 1})

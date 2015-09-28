@@ -2,16 +2,16 @@ template(name="greed")
   .greed-modal-content.modal-content
     .modal-header
       h4.modal-title
-        button.visible-xs.close(type='button', data-dismiss='modal', aria-label='Close')
+        button.close.text-muted(type='button', data-dismiss='modal', aria-label='Close')
           span(aria-hidden='true') &times;
         if condition currentUserPlan._id 'is' 'free'
-          | Choose plan
+          | Please upgrade
         else
-          | Upgrade to {{higherPlan.name}} plan
+          | Please upgrade to {{higherPlan.name}} plan
         if action
           | to {{_shorthand}} {{_appendixAllSelected}} at once
         else
-          | to perform an action
+          | to continue
     .modal-body
       if condition currentUserPlan._id 'isnt' 'free'
         p.text-center

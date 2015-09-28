@@ -83,6 +83,6 @@ Template.stats.events
     isRealName = Users.findOne(@_id).profile.isRealName
     Users.update(@_id, {$set: {"profile.isRealName": not isRealName}})
   "click .sync-user-with-mixpanel": grab encapsulate (event, template) ->
-    Meteor.call("syncWithMixpanel", @_id, Spire.handleError (error, emails) ->
+    Meteor.call("syncWithMixpanel", @_id, Spire.createErrback (error, emails) ->
       alert("Added #{emails.join(", ")}")
     )

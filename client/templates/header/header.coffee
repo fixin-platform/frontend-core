@@ -11,7 +11,7 @@ Template.header.helpers
   isRealName: ->
     Spire.currentUser({"profile": 1}).profile.isRealName
   firstName: ->
-    Transformations.User(Spire.currentUser({"profile": 1})).firstName
+    Spire.currentUser({"profile": 1}).firstName()
 
 Template.header.onRendered ->
 

@@ -1,11 +1,11 @@
 UI.registerHelper "subscriptionsReady", ->
   Template.instance().subscriptionsReady()
 
+UI.registerHelper "settings", ->
+  Meteor.settings
+
 UI.registerHelper "Spire", ->
   Spire
-
-UI.registerHelper "Settings", ->
-  Meteor.settings
 
 UI.registerHelper "Router", ->
   Router
@@ -26,12 +26,10 @@ UI.registerHelper "currentUserReady", ->
   Spire.currentUserReady()
 
 UI.registerHelper "currentUserIsEditor", ->
-  Meteor.user() and (UI._globalHelpers.currentUserField.call(@, "isEditor") or UI._globalHelpers.currentUserField.call(@, "isAdmin"))
+  Meteor.userId() and (UI._globalHelpers.currentUserField.call(@, "isEditor") or UI._globalHelpers.currentUserField.call(@, "isAdmin"))
 
 UI.registerHelper "currentUserField", (field) ->
-  fields = {}
-  fields[field] = 1
-  Spire.currentUser(fields)[field]
+  Spire.currentUserField(field)
 
 UI.registerHelper "currentUserFlags", ->
   UI._globalHelpers.currentUserField.call(@, "flags")
@@ -41,10 +39,6 @@ UI.registerHelper "currentUserHasFlag", (flag) ->
 
 UI.registerHelper "currentUserPlan", ->
   _.findWhere(Spire.plans, {_id: UI._globalHelpers.currentUserField.call(@, "planId")})
-
-UI.registerHelper "currentUserPlanActionsLeft", ->
-  currentUserPlan = UI._globalHelpers.currentUserPlan.call(@)
-  Math.max(0, Spire.currentUser({"actions": 1}).actions + currentUserPlan.limit)
 
 UI.registerHelper "condition", (v1, operator, v2, options) ->
   switch operator

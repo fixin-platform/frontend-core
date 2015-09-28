@@ -21,10 +21,10 @@ mixpanel.track_user = (user) ->
   user = Transformations.User(user)
   mixpanel.people.set(user._id,
     _id: user._id
-    $name: user.profile.name
-    $first_name: user.firstName
-    $last_name: user.lastName
-    $email: user.emails[0].address
+    $name: user.name()
+    $first_name: user.firstName()
+    $last_name: user.lastName()
+    $email: user.email()
     $created: user.createdAt
     isRealName: user.profile.isRealName
     Flags: user.flags
@@ -50,32 +50,3 @@ mixpanel.call = (method, url, params) ->
   if data.status isnt "ok"
     throw "[#{data.status}] Mixpanel content error"
   data
-
-#Meteor.startup ->
-#  session_id = null
-#  page = 0
-#  hasMore = true
-#  while hasMore
-#    data = mixpanel.call("GET", "http://mixpanel.com/api/2.0/engage/",
-#      page: page
-#      session_id: session_id
-#    )
-#    session_id = data.session_id
-#    for mixpanelUser in data.results
-#      if mixpanelUser["$properties"]["$email"] isnt "kgolubiewski@gmail.com"
-#        continue
-#      cl mixpanelUser["$distinct_id"], mixpanelUser["$properties"]["$email"], mixpanelUser["$properties"]["$last_seen"]
-#      cl mixpanelUser["$properties"]
-#    hasMore = !!data.results.length
-#    page++
-
-#  cl Users.find().count()
-#  cl Users.find({_id: {$nin: presentUserIds}}).count()
-#  Users.find({_id: {$nin: presentUserIds}}, {transform: Transformations.User}).forEach (user) ->
-#    cl
-#      _id: user._id
-#      $name: user.profile.name
-#      $first_name: user.firstName
-#      $last_name: user.lastName
-#      $email: user.emails[0].address
-#      $created: user.createdAt
