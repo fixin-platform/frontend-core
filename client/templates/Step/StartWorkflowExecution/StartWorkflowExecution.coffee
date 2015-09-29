@@ -117,10 +117,8 @@ Template.StartWorkflowExecution.events
 
   "click .set-execution-counter-to-executions-limit": grab encapsulate (event, template) ->
     user = Spire.currentUser()
-    $set = {}
-    $set["executions.#{@cls}"] = user.plan().executionsLimit or 0
-    Users.update(Meteor.userId(), {$set: $set})
+    Users.update(Meteor.userId(), {$set: {executions: user.plan().executionsLimit or 0}})
   "click .set-plan-id": grab encapsulate (event, template) ->
-    planId = $(event.currentTarget).attr("planId")
+    planId = $(event.currentTarget).attr("data-plan-id")
     Meteor.call("setPlanId", @userId, planId)
 

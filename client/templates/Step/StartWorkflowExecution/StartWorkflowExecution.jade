@@ -50,7 +50,7 @@ template(name="StartWorkflowExecution")
             p {{{_i18n.finishedTrial}}}
         h2.h6: strong What's next:
         ul
-          if currentUserPlan.executionsLimit
+          if condition currentUserPlan._id 'is' 'free'
             li {{{_i18n.manualRunTrial}}}
             li {{{_i18n.subscribe}}}
           else
@@ -65,17 +65,17 @@ template(name="StartWorkflowExecution")
               if condition currentUserPlan._id 'is' 'free'
                 | Free
               else
-                a.set-plan-id(planId="free" href="#") Free
+                a.set-plan-id(data-plan-id="free" href="#") Free
               | /
               if condition currentUserPlan._id 'is' 'basic5'
                 | Basic monthly
               else
-                a.set-plan-id(planId="basic5" href="#") Basic monthly
+                a.set-plan-id(data-plan-id="basic5" href="#") Basic monthly
               | /
-              if condition currentUserPlan._id 'is' 'unlimited20'
-                | Unlimited monthly
+              if condition currentUserPlan._id 'is' 'ultimate20'
+                | Ultimate monthly
               else
-                a.set-plan-id(planId="unlimited20" href="#") Unlimited monthly
+                a.set-plan-id(data-plan-id="ultimate20" href="#") Ultimate monthly
         if count
           .step-content
             table.table.table-hover

@@ -1,31 +1,31 @@
 template(name="pricing")
-  .pricing.panel-body
-    .row
-      .col-xs-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
-        +plans
-    if currentUserReady
-      .row
-        .col-xs-12.text-muted.text-center
-          +currentPlan
-    .row.text-center
-      .col-xs-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
-        .row
-          .col-xs-12.col-md-6
-            h5 What is "recipe"?
-            p
-              | Recipe is an integration between apps, e.g.
-              br
-              | "Export Bitly links to Google Spreadsheet"
-          .col-xs-12.col-md-6
-            h5 What is "active recipe"?
-            p Active recipe runs automatically each day.<br/>Also, active recipe can be run manually anytime.
-      .col-xs-12.col-md-10.col-md-offset-1.col-lg-8.col-lg-offset-2
-        .row
-          .col-xs-12.col-md-6
-            h5 Can I cancel anytime?
-            p Sure.
-          .col-xs-12.col-md-6
-            h5 Can I upgrade anytime?
-            p You bet.
-    h5.text-center Any questions? <a class="textual underlined" href="mailto:denis.d.gorbachev@gmail.com?subject={{settings.public.name}}+app+pricing" target="_blank">Ask Denis</a>.
-    h6.text-center.text-muted Go on, upgrade and make my day ;)
+  .row
+    .col-xs-12
+      +plans
+  if currentUserReady
+    .row.text-center.text-muted
+      .col-xs-12
+        +currentPlan
+  .row.text-center
+    .col-xs-12.col-md-6
+      h5 What is a "run"?
+      p
+        | A run is a single execution of a recipe.
+        br
+        | (it doesn't matter how much data you have)
+    .col-xs-12.col-md-6
+      h5 What is a "recipe"?
+      p
+        | Recipe is an integration between apps, e.g.
+        br
+        | "Export Bitly links to Google Spreadsheet"
+  .row.text-center
+    .col-xs-12.col-md-6
+      h5 Can I cancel anytime?
+      p Sure.
+    .col-xs-12.col-md-6
+      h5 Can I upgrade anytime?
+      p You bet.
+  h5.text-center Any questions? <a class="textual underlined" href="mailto:denis.d.gorbachev@gmail.com?subject={{settings.public.name}}+app+pricing" target="_blank">Ask Denis</a>.
+  if currentUserReady
+    h6.text-center.text-muted Go on, <a href="#" class="update-plan textual underlined" data-plan-id="{{higherPlan._id}}">upgrade</a> and make my day ;)

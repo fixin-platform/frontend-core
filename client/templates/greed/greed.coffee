@@ -23,12 +23,6 @@ Template.greed.helpers
         unit = "hour"
     time = Math.round(time)
     i18n.t("billing.time." + unit, {count: time})
-  higherPlan: ->
-    currentUserPlan = UI._globalHelpers.currentUserPlan.call(@)
-    for plan in Spire.plans
-      if not plan.activeRecipesLimit or plan.activeRecipesLimit > currentUserPlan.activeRecipesLimit
-        break
-    return plan
 
 Template.greed.onRendered ->
   mixpanel.track("UpgradePopupShown", {userId: Meteor.userId()})

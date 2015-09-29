@@ -1,7 +1,11 @@
 Template.currentPlan.helpers
-  weRequireMoreVespeneGas: ->
-    currentUserPlan = UI._globalHelpers.currentUserPlan.call(@)
-    currentUserPlan._id is "free" or currentUserPlan.activeRecipesLimit
+  currentUserCanUpgrade: ->
+    plan = Spire.currentUser({planId: 1, executions: 1}).plan()
+    plan._id is "free" or plan.executionsLimit
+  currentUserExecutionsLeft: ->
+    user = Spire.currentUser({planId: 1, executions: 1})
+    plan = user.plan()
+    Math.max(0, plan.executionsLimit - user.executions)
 
 Template.currentPlan.onRendered ->
 

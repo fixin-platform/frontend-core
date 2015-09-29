@@ -29,7 +29,7 @@ Users.before.insert (userId, user) ->
   _.autovalues(user,
     isNew: true
     planId: "free" # basic5, business20, basic5_yearly, business20_yearly
-    executions: {}
+    executions: 0
     options: {}
     flags: []
   )

@@ -40,6 +40,12 @@ UI.registerHelper "currentUserHasFlag", (flag) ->
 UI.registerHelper "currentUserPlan", ->
   _.findWhere(Spire.plans, {_id: UI._globalHelpers.currentUserField.call(@, "planId")})
 
+UI.registerHelper "higherPlan", ->
+  currentUserPlan = UI._globalHelpers.currentUserPlan.call(@)
+  for plan in Spire.plans when plan.price # exclude free and gratis
+    if not plan.executionsLimit or plan.executionsLimit > currentUserPlan.executionsLimit
+      return plan
+
 UI.registerHelper "condition", (v1, operator, v2, options) ->
   switch operator
     when "==", "eq", "is"

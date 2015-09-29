@@ -64,7 +64,7 @@ class Steps.Step
     user = @user({fields: {planId: 1, executions: 1}})
     plan = user.plan()
     if plan.executionsLimit
-      Math.max(0, plan.executionsLimit - (user.executions[@cls] or 0))
+      Math.max(0, plan.executionsLimit - (user.executions or 0))
     else
       Infinity
   recipeField: (field, defaultValue = null) ->

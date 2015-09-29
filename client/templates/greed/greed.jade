@@ -12,8 +12,8 @@ template(name="greed")
           | to {{_shorthand}} {{_appendixAllSelected}} at once
         else
           | to continue
-    .modal-body
-      if condition currentUserPlan._id 'isnt' 'free'
-        p.text-center
+    .pricing.modal-body
+      .row
+        .col-xs-12
           +currentPlan
-      +plans
+      +pricing
