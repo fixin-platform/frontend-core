@@ -18,9 +18,9 @@ requestCancelWorkflowExecutionSync = Meteor.wrapAsync(swf.requestCancelWorkflowE
 Commands.before.insert (userId, command) ->
   step = Steps.findOne(command.stepId, {transform: Transformations.Step})
   _.extend command, step.insertCommandData() # an old version of client-side code might insert a Command in old format, so we need to override the Command data in server-side code
-  Users.update(userId, {$inc: {executions: 1}})
+  Users.update(step.userId, {$inc: {executions: 1}})
   try
-    user = Users.findOne(userId, {transform: Transformations.User})
+    user = Users.findOne(step.userId, {transform: Transformations.User})
     plan = user.plan()
     if plan.executionsLimit and user.executions > plan.executionsLimit
       throw new Meteor.Error(402, "Payment Required", EJSON.stringify({}))
@@ -44,14 +44,14 @@ Commands.before.insert (userId, command) ->
       data = startWorkflowExecutionSync(params)
       command.runId = data.runId
   catch error
-    Users.update(userId, {$inc: {executions: -1}}) # revert the update; this is better than fetch-and-check, because it prevents race conditions
+    Users.update(step.userId, {$inc: {executions: -1}}) # revert the update; this is better than fetch-and-check, because it prevents race conditions
     throw error
   true
 
 Commands.before.remove (userId, command) ->
-  if not command.isCompleted and not command.isFailed # cancelled by user; reimburse trial if command is cancelled by user
-    Users.update(userId, {$inc: {executions: -1}})
   step = Steps.findOne(command.stepId, {transform: Transformations.Step})
+  if not command.isCompleted and not command.isFailed # cancelled by user; reimburse trial if command is cancelled by user
+    Users.update(step.userId, {$inc: {executions: -1}})
   params =
     domain: step.domain()
     workflowId: command._id
