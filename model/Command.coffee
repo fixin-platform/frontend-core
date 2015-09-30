@@ -22,6 +22,7 @@ Commands.before.insert (userId, Command) ->
     isFailed: false
     isDryRun: true # POST/PUT/DELETE and also "GET/HEAD with side-effects" are disallowed
     isShallow: false # with task hierarchy
+    isDryRunWorkflowExecution: Meteor.settings.public.isDryRunWorkflowExecution
     stepId: ""
     userId: userId
     updatedAt: now

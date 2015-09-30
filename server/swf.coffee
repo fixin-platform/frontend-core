@@ -34,8 +34,9 @@ Commands.before.insert (userId, command) ->
       step.userId
     ]
     input: JSON.stringify(input)
-  data = startWorkflowExecutionSync(params)
-  command.runId = data.runId
+  if not command.isDryRunWorkflowExecution
+    data = startWorkflowExecutionSync(params)
+    command.runId = data.runId
   true
 
 Commands.before.remove (userId, command) ->
@@ -44,7 +45,8 @@ Commands.before.remove (userId, command) ->
     domain: step.domain()
     workflowId: command._id
   try
-    requestCancelWorkflowExecutionSync(params)
+    if not command.isDryRunWorkflowExecution
+      requestCancelWorkflowExecutionSync(params)
   catch error
     throw error if error.code isnt "UnknownResourceFault" # Workflow execution may have already been terminated
   true

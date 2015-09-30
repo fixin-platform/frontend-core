@@ -20,6 +20,7 @@ Commands.allow
       isFailed: Boolean
       isDryRun: Boolean
       isShallow: Boolean
+      isDryRunWorkflowExecution: Boolean
       rowId: Match.Optional(Match.ObjectId(Rows))
       stepId: Match.ObjectId(Steps)
       userId: userId
