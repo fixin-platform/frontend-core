@@ -39,12 +39,21 @@ Picker.route "/webhook/:_id", (params, req, res, next) ->
   res.writeHead(200)
   res.end()
 
-Picker.route "/step/input/:_id/:token", (params, req, res, next) ->
+Picker.route "/step/run/:_id/:token/:isDryRunWorkflowExecution", (params, req, res, next) ->
   check params,
     _id: Match.ObjectId(Steps)
     token: Meteor.settings.cron.token
+    isDryRunWorkflowExecution: Match.InArray(["true", "false"])
     query: Object
 
-  step = Steps.findOne(params._id, {transform: Transformations.Step})
+  step = Steps.findOne(params._id)
+  Commands.insert(
+    isDryRunWorkflowExecution: params.isDryRunWorkflowExecution is "true"
+    isDryRun: false
+    isShallow: false
+    stepId: step._id
+    userId: step.userId
+  )
+
   res.writeHead(200)
-  res.end(JSON.stringify(step.input()))
+  res.end()
