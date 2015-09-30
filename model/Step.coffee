@@ -75,6 +75,8 @@ class Steps.Step
     recipe[field] or defaultValue
   issues: (selector, options) ->
     Issues.find(_.extend({stepId: @_id}, selector), options)
+  refreshPlannedAtPlusCronTimeout: ->
+    new Date(@refreshPlannedAt.getTime() + 60000)
   _i18n: ->
     key = @_i18nKey()
     parameters = @_i18nParameters()

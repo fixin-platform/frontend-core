@@ -94,6 +94,10 @@ UI.registerHelper "momentTo", (date) ->
   else
     moment().to(date)
 
+UI.registerHelper "momentCalendar", (date) ->
+  calendar = moment(date).calendar()
+  calendar.charAt(0).toLowerCase() + calendar.substr(1)
+
 UI.registerHelper "encodeURIComponent", (value) ->
   encodeURIComponent(value)
 

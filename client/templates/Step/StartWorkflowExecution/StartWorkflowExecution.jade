@@ -32,7 +32,7 @@ template(name="StartWorkflowExecution")
                       span.grab.encapsulate or
                       a.run(href="#") {{{_i18n.run}}}
                     if condition isAutorun 'and' refreshPlannedAt
-                      span &nbsp;(next run will happen {{momentTo refreshPlannedAt}})
+                      span &nbsp;(next run will happen {{momentCalendar refreshPlannedAtPlusCronTimeout}})
               //.inner-addon.left-addon.pull-right
               //  .fa.fa-search
               //  +input(family="step" _id=_id property="search" placeholder="Quick search" isNew=false)
