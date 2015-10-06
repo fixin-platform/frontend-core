@@ -75,7 +75,7 @@ Template.StartWorkflowExecution.helpers
 Template.StartWorkflowExecution.onCreated ->
   @autorun =>
     step = Template.currentData()
-    @subscribe("CommandsByStepId", step._id)
+    @subscribe("LatestCommandsByStepId", step._id)
     @subscribe("SamplesByStepId", step._id, step.page, 0, step.search)
     @subscribe("SamplesCountByStepId", step._id, step.search)
 
