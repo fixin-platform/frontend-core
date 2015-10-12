@@ -22,8 +22,9 @@ Commands.before.insert (userId, command) ->
   try
     user = Users.findOne(step.userId, {transform: Transformations.User})
     plan = user.plan()
-    if plan.executionsLimit and user.executions > plan.executionsLimit
-      throw new Meteor.Error(402, "Payment Required", EJSON.stringify({}))
+#    TODO: comment out when we implement the "Choose your plan" step
+#    if plan.executionsLimit and user.executions > plan.executionsLimit
+#      throw new Meteor.Error(402, "Payment Required", EJSON.stringify({}))
     input = step.input(command)
     _.defaults input,
       commandId: command._id
