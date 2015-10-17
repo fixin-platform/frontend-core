@@ -48,6 +48,7 @@ Template.StartWorkflowExecution.helpers
     else
       suffix = "simple" # e.g. "Downloaded 4 Twitter followers"
       count = @total or @current
+
     if @isSkipped
       key += ".skipped"
     else if @isFailed
@@ -56,6 +57,7 @@ Template.StartWorkflowExecution.helpers
       key += ".loaded_#{suffix}"
     else if @isStarted
       if count
+        suffix += "_message" if @message
         key += ".loading_#{suffix}"
       else
         key += ".connecting"
@@ -63,7 +65,7 @@ Template.StartWorkflowExecution.helpers
       key += ".cancelled"
     else
       key += ".waiting"
-    i18n.t(key, _.extend({count: count}, @, step)) # example i18n string where step data is necessary: "Reused <a href='{{spreadsheet.link}}'>{{spreadsheet.name}}</a> (created earlier)"
+    i18n.t(key, _.extend({count: count, message: @message}, @, step)) # example i18n string where step data is necessary: "Reused <a href='{{spreadsheet.link}}'>{{spreadsheet.name}}</a> (created earlier)"
   progressBarIconClass: (command) ->
     return "fa-check" if @isSkipped
     return "fa-exclamation-circle" if @isFailed
